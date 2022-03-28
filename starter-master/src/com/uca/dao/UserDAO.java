@@ -6,6 +6,11 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class UserDAO extends _Generic<UserEntity> {
+// CRUD Create Read (Update) Delete
+
+// TODO ? Read one? Read some?
+
+// Read all
 
     public ArrayList<UserEntity> getAllUsers() {
         ArrayList<UserEntity> entities = new ArrayList<>();
@@ -27,11 +32,29 @@ public class UserDAO extends _Generic<UserEntity> {
         return entities;
     }
 
+    // TODO test this 
+    /**
+     * creates a user entity in database
+     * 
+     * @param obj instance of the basic UserEntity class
+     */
     @Override
     public UserEntity create(UserEntity obj) {
-        //TODO !
-        return null;
+        int id = obj.getId();
+        String fName = obj.getFirstName();
+        String lName = obj.getLastName();
+        
+        String query = String.format("INSERT INTO users (id, lastname, firstname) (%d, %s, %s);", id, fName, lName);
+
+        try {
+            PreparedStatement preparedStatement = this.connect.prepareStatement(query);
+            preparedStatement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return obj;
     }
+
 
     @Override
     public void delete(UserEntity obj) {

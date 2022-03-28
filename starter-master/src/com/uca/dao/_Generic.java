@@ -4,6 +4,8 @@ import java.sql.Connection;
 
 public abstract class _Generic<T> {
 
+// TODO expand CRUD?
+
     public Connection connect = _Connector.getInstance();
 
     /**
