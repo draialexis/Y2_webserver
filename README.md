@@ -1,5 +1,11 @@
 # TP Web-Serveur
 
-Vous pouvez démarrer avec la commande `./gradlew run`.
+The back-end of a colored sticker dot app. Enjoy.
 
-+ d'infos sur https://unicorn.artheriom.fr/
+## Running the app
+
+`./gradlew run`
+
+## Project instructions
+
+Right [here](https://unicorn.artheriom.fr/#/techno-ws-l2)
