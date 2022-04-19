@@ -3,6 +3,7 @@
 The back-end of a colored sticker dot app. Enjoy.
 
 ## Running the app
+`cd starter-master`
 
 `./gradlew run`
 

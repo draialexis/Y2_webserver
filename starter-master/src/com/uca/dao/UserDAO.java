@@ -15,11 +15,11 @@ public class UserDAO extends _Generic<UserEntity> {
     public ArrayList<UserEntity> getAllUsers() {
         ArrayList<UserEntity> entities = new ArrayList<>();
         try {
-            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT * FROM users ORDER BY id ASC;");
+            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT * FROM Teacher ORDER BY id_teacher ASC;");
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 UserEntity entity = new UserEntity();
-                entity.setId(resultSet.getInt("id"));
+                entity.setId(resultSet.getInt("id_teacher"));
                 entity.setFirstName(resultSet.getString("firstname"));
                 entity.setLastName(resultSet.getString("lastname"));
 
@@ -32,7 +32,8 @@ public class UserDAO extends _Generic<UserEntity> {
         return entities;
     }
 
-    // TODO test this 
+    // TODO test this
+    // TODO decide whether to keep ID in the code or leave it in the database
     /**
      * creates a user entity in database
      * 
@@ -44,7 +45,7 @@ public class UserDAO extends _Generic<UserEntity> {
         String fName = obj.getFirstName();
         String lName = obj.getLastName();
         
-        String query = String.format("INSERT INTO users (id, lastname, firstname) (%d, %s, %s);", id, fName, lName);
+        String query = String.format("INSERT INTO users (id_teacher, lastname, firstname) (%d, %s, %s);", id, fName, lName);
 
         try {
             PreparedStatement preparedStatement = this.connect.prepareStatement(query);
