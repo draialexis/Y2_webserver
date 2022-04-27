@@ -21,7 +21,7 @@ public class UserGUI {
         input.put("users", UserCore.getAllUsers());
 
         Writer output = new StringWriter();
-        Template template = configuration.getTemplate("users/users.ftl");
+        Template template = configuration.getTemplate("users/users.ftl"); // TODO figure out what's happening
         template.setOutputEncoding("UTF-8");
         template.process(input, output);
 

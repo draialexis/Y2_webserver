@@ -5,6 +5,12 @@ import com.uca.gui.*;
 
 import static spark.Spark.*;
 
+/* URIs
+ *
+ *
+ *
+ */
+
 public class StartServer {
 
     public static void main(String[] args) {

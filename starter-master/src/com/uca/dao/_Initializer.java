@@ -59,13 +59,13 @@ public class _Initializer
 
             //Todo Remove me ! + Research Java.sql
 
-                        statement = connection.prepareStatement("INSERT INTO Teacher(id_teacher, firstname, lastname, username, userpwd) VALUES(?, ?, ?, ?, ?);");
-                        statement.setInt(1, 1);
-                        statement.setString(2, "Theodore");
-                        statement.setString(3, "Muillerez");
-                        statement.setString(4, "theodazerfefore_muillerez");
-                        statement.setString(5, "tyjSERTJDRUJQEjzujequ6aqe8uque6ueU");//TODO do real password stuff?
-                        statement.executeUpdate();
+//                        statement = connection.prepareStatement("INSERT INTO Teacher(id_teacher, firstname, lastname, username, userpwd) VALUES(?, ?, ?, ?, ?);");
+//                        statement.setInt(1, 1);
+//                        statement.setString(2, "Theodore");
+//                        statement.setString(3, "Muillerez");
+//                        statement.setString(4, "theodazerfefore_muillerez");
+//                        statement.setString(5, "tyjSERTJDRUJQEjzujequ6aqe8uque6ueU");//TODO do real password stuff?
+//                        statement.executeUpdate();
 
         } catch (Exception e)
         {
