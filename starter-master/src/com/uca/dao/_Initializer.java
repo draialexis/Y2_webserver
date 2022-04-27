@@ -43,26 +43,33 @@ public class _Initializer
                     "   attribution_date DATE NOT NULL," +
                     "   motive TEXT NOT NULL," +
                     "   CONSTRAINT PK_Award PRIMARY KEY(id_teacher, id_sticker, id_pupil)," +
-                    "   CONSTRAINT FK_Award_Teacher FOREIGN KEY(id_teacher) REFERENCES Teacher(id_teacher) ON DELETE CASCADE ON UPDATE CASCADE," +
-                    "   CONSTRAINT FK_Award_Sticker FOREIGN KEY(id_sticker) REFERENCES Sticker(id_sticker) ON DELETE CASCADE ON UPDATE CASCADE," +
-                    "   CONSTRAINT FK_Award_Pupil FOREIGN KEY(id_pupil) REFERENCES Pupil(id_pupil)" +
+                    "   CONSTRAINT FK_Award_Teacher FOREIGN KEY(id_teacher) REFERENCES Teacher(id_teacher) ON UPDATE CASCADE," +
+                    "   CONSTRAINT FK_Award_Sticker FOREIGN KEY(id_sticker) REFERENCES Sticker(id_sticker) ON UPDATE CASCADE," +
+                    "   CONSTRAINT FK_Award_Pupil FOREIGN KEY(id_pupil) REFERENCES Pupil(id_pupil) ON UPDATE CASCADE" +
                     ");"
             );
+
+            // TODO
+            // instead of ON DELETE CASCADE, establish 'empty' values (or use NULL values?)
+            // N/A...
+            // gone...
+            // no longer here...
+
             statement.executeUpdate();
 
-            //Todo Remove me !
+            //Todo Remove me ! + Research Java.sql
 
-            //            statement = connection.prepareStatement("INSERT INTO Teacher(id_teacher, firstname, lastname, username, userpwd) VALUES(?, ?, ?, ?, ?);");
-            //            statement.setString(1, "18674");
-            //            statement.setString(2, "Theodore");
-            //            statement.setString(3, "Muillerez");
-            //            statement.setString(4, "theodore_muillerez");
-            //            statement.setString(5, "tyjSERTJDRUJQEjzujeq(u6aqe8uque6ueU");//TODO do real password stuff?
-            //            statement.executeUpdate();
+                        statement = connection.prepareStatement("INSERT INTO Teacher(id_teacher, firstname, lastname, username, userpwd) VALUES(?, ?, ?, ?, ?);");
+                        statement.setInt(1, 1);
+                        statement.setString(2, "Theodore");
+                        statement.setString(3, "Muillerez");
+                        statement.setString(4, "theodazerfefore_muillerez");
+                        statement.setString(5, "tyjSERTJDRUJQEjzujequ6aqe8uque6ueU");//TODO do real password stuff?
+                        statement.executeUpdate();
 
         } catch (Exception e)
         {
-            System.out.println(e.toString());
+            System.out.println("EXCEPTION: " + e.toString());
             throw new RuntimeException("could not create database !");
         }
     }
