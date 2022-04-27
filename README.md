@@ -2,6 +2,8 @@
 
 The back-end of a colored sticker dot app. Enjoy.
 
+We're using Java 11 here, for compatibility reasons
+
 ## Running the app
 `cd starter-master`
 
