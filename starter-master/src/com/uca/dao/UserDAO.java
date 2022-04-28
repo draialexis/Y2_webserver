@@ -51,23 +51,20 @@ public class UserDAO extends _Generic<UserEntity>
     @Override
     public UserEntity create(UserEntity obj)
     {
-        int    id_teacher = obj.getId_teacher();
-        String fName      = obj.getFirstName();
-        String lName      = obj.getLastName();
-        String uName      = obj.getUserName();
-        String uPwd       = obj.getUserPwd();
-        String query = String.format(
-                "INSERT INTO users (id_teacher, lastname, firstname, username, userpwd) (%d, %s, %s, %s, %s);",
-                id_teacher,
-                fName,
-                lName,
-                uName,
-                uPwd);
+        String fName = obj.getFirstName();
+        String lName = obj.getLastName();
+        String uName = obj.getUserName();
+        String uPwd  = obj.getUserPwd();
 
         try
         {
-            PreparedStatement preparedStatement = this.connect.prepareStatement(query);
-            preparedStatement.executeQuery();
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "INSERT INTO Teacher(firstname, lastname, username, userpwd) VALUES(?, ?, ?, ?);");
+            statement.setString(1, fName);
+            statement.setString(2, lName);
+            statement.setString(3, uName);
+            statement.setString(4, uPwd);
+            statement.executeUpdate();
         } catch (SQLException e)
         {
             e.printStackTrace();

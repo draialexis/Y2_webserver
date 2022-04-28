@@ -15,21 +15,21 @@ public class _Initializer
             statement = connection.prepareStatement(
                     "DROP TABLE IF EXISTS Pupil CASCADE;" + // temporary
                     "CREATE TABLE IF NOT EXISTS Pupil(" +
-                    "   id_pupil INT AUTO_INCREMENT," +
+                    "   id_pupil BIGINT AUTO_INCREMENT," +
                     "   lastname VARCHAR(50) NOT NULL," +
                     "   firstname VARCHAR(50) NOT NULL," +
                     "   CONSTRAINT PK_Pupil PRIMARY KEY(id_pupil)" +
                     ");" +
                     "DROP TABLE IF EXISTS Sticker CASCADE;" + // temporary
                     "CREATE TABLE IF NOT EXISTS Sticker(" +
-                    "   id_sticker INT AUTO_INCREMENT," +
+                    "   id_sticker BIGINT AUTO_INCREMENT," +
                     "   color VARCHAR(20) NOT NULL, /* Only within {GREEN, WHITE, RED}*/" +
                     "   description VARCHAR(20) NOT NULL, /* Only within {STAR, TRIANGLE, CIRCLE, SQUARE} (???)*/" +
                     "   CONSTRAINT PK_Sticker PRIMARY KEY(id_sticker)" +
                     ");" +
                     "DROP TABLE IF EXISTS Teacher CASCADE;" + // temporary
                     "CREATE TABLE IF NOT EXISTS Teacher(" +
-                    "   id_teacher INT AUTO_INCREMENT," +
+                    "   id_teacher BIGINT AUTO_INCREMENT," +
                     "   lastname VARCHAR(50) NOT NULL," +
                     "   firstname VARCHAR(50) NOT NULL," +
                     "   username VARCHAR(50) NOT NULL," +
@@ -39,9 +39,9 @@ public class _Initializer
                     ");" +
                     "DROP TABLE IF EXISTS Award;" + // temporary
                     "CREATE TABLE IF NOT EXISTS Award(" +
-                    "   id_teacher INT," +
-                    "   id_sticker INT," +
-                    "   id_pupil INT," +
+                    "   id_teacher BIGINT," +
+                    "   id_sticker BIGINT," +
+                    "   id_pupil BIGINT," +
                     "   attribution_date DATE NOT NULL," +
                     "   motive TEXT NOT NULL," +
                     "   CONSTRAINT PK_Award PRIMARY KEY(id_teacher, id_sticker, id_pupil)," +
@@ -65,78 +65,69 @@ public class _Initializer
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
-                    "INSERT INTO Teacher(id_teacher, firstname, lastname, username, userpwd) VALUES(?, ?, ?, ?, ?);");
-            statement.setInt(1, 1);
-            statement.setString(2, "Theodore");
-            statement.setString(3, "Muillerez");
-            statement.setString(4, "theodore_muillerez");
-            statement.setString(5, "tyjSERTJDRUJQEjzujequ6aqe8uque6ueU");//TODO do real password stuff?
+                    "INSERT INTO Teacher(firstname, lastname, username, userpwd) VALUES(?, ?, ?, ?);");
+            statement.setString(1, "Theodore");
+            statement.setString(2, "Muillerez");
+            statement.setString(3, "theodore_muillerez");
+            statement.setString(4, "tyjSERTJDRUJQEjzujequ6aqe8uque6ueU");//TODO do real password stuff?
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
-                    "INSERT INTO Teacher(id_teacher, firstname, lastname, username, userpwd) VALUES(?, ?, ?, ?, ?);");
-            statement.setInt(1, 2);
-            statement.setString(2, "Herman");
-            statement.setString(3, "Mellville");
-            statement.setString(4, "herman_melville");
-            statement.setString(5, "izguebzeg7g5zezegseflmzZfaU");
+                    "INSERT INTO Teacher(firstname, lastname, username, userpwd) VALUES(?, ?, ?, ?);");
+            statement.setString(1, "Herman");
+            statement.setString(2, "Mellville");
+            statement.setString(3, "herman_melville");
+            statement.setString(4, "izguebzeg7g5zezegseflmzZfaU");
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
-                    "INSERT INTO Teacher(id_teacher, firstname, lastname, username, userpwd) VALUES(?, ?, ?, ?, ?);");
-            statement.setInt(1, 3);
-            statement.setString(2, "George");
-            statement.setString(3, "Schefflera");
-            statement.setString(4, "george_schefflera");
-            statement.setString(5, "rhbJNYTrtyrty564tyrj6yj!yt");
+                    "INSERT INTO Teacher(firstname, lastname, username, userpwd) VALUES(?, ?, ?, ?);");
+            statement.setString(1, "George");
+            statement.setString(2, "Schefflera");
+            statement.setString(3, "george_schefflera");
+            statement.setString(4, "rhbJNYTrtyrty564tyrj6yj!yt");
             statement.executeUpdate();
 
             statement = connection.prepareStatement("DELETE FROM Sticker;"); // temporary, for testing
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
-                    "INSERT INTO Sticker(id_sticker, color, description) VALUES(?, ?, ?);");
-            statement.setInt(1, 1);
-            statement.setString(2, "GREEN");
-            statement.setString(3, "TRIANGLE");
+                    "INSERT INTO Sticker(color, description) VALUES(?, ?);");
+            statement.setString(1, "GREEN");
+            statement.setString(2, "TRIANGLE");
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
-                    "INSERT INTO Sticker(id_sticker, color, description) VALUES(?, ?, ?);");
-            statement.setInt(1, 2);
-            statement.setString(2, "RED");
-            statement.setString(3, "CIRCLE");
+                    "INSERT INTO Sticker(color, description) VALUES(?, ?);");
+            statement.setString(1, "RED");
+            statement.setString(2, "CIRCLE");
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
-                    "INSERT INTO Sticker(id_sticker, color, description) VALUES(?, ?, ?);");
-            statement.setInt(1, 3);
-            statement.setString(2, "WHITE");
-            statement.setString(3, "STAR");
+                    "INSERT INTO Sticker(color, description) VALUES(?, ?);");
+            statement.setString(1, "WHITE");
+            statement.setString(2, "STAR");
             statement.executeUpdate();
 
             statement = connection.prepareStatement("DELETE FROM Pupil;"); // temporary, for testing
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
-                    "INSERT INTO Pupil(id_pupil, lastname, firstname) VALUES(?, ?, ?);");
-            statement.setInt(1, 1);
-            statement.setString(2, "Eyosias");
-            statement.setString(3, "Woldemichael");
+                    "INSERT INTO Pupil(lastname, firstname) VALUES(?, ?);");
+            statement.setString(1, "Eyosias");
+            statement.setString(2, "Woldemichael");
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
-                    "INSERT INTO Pupil(id_pupil, lastname, firstname) VALUES(?, ?, ?);");
-            statement.setInt(1, 2);
-            statement.setString(2, "Yacine");
-            statement.setString(3, "Ayachi");
+                    "INSERT INTO Pupil(lastname, firstname) VALUES(?, ?);");
+            statement.setString(1, "Yacine");
+            statement.setString(2, "Ayachi");
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
-                    "INSERT INTO Pupil(id_pupil, lastname, firstname) VALUES(?, ?, ?);");
-            statement.setInt(1, 3);
-            statement.setString(2, "Alexis");
-            statement.setString(3, "Drai");
+                    "INSERT INTO Pupil(lastname, firstname) VALUES(?, ?);");
+            statement.setString(1, "Alexis");
+            statement.setString(2, "Drai");
             statement.executeUpdate();
 
             statement = connection.prepareStatement("DELETE FROM Award;"); // temporary, for testing
