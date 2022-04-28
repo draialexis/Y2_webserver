@@ -2,7 +2,7 @@ package com.uca.entity;
 
 public class TeacherEntity
 {
-    private long    id_teacher;
+    private long   id_teacher;
     private String lastName;
     private String firstName;
     private String userName;

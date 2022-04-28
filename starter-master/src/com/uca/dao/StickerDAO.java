@@ -2,7 +2,6 @@ package com.uca.dao;
 
 import com.uca.entity.Color;
 import com.uca.entity.StickerEntity;
-import com.uca.entity.TeacherEntity;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

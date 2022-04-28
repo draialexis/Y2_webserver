@@ -11,13 +11,14 @@ import static spark.Spark.*;
  *
  */
 
-public class StartServer {
+public class StartServer
+{
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         //Configure Spark
         staticFiles.location("/static/");
         port(8081);
-
 
         _Initializer.Init();
 

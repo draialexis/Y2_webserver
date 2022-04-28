@@ -2,7 +2,7 @@ package com.uca.entity;
 
 public class StickerEntity
 {
-    private long    id_sticker;
+    private long   id_sticker;
     private Color  color;
     private String description;
 
