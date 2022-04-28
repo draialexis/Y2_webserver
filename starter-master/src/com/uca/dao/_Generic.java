@@ -11,13 +11,13 @@ public abstract class _Generic<T> {
     /**
      * Permet de créer une entrée dans la base de données
      * par rapport à un objet
-     * @param obj
+     * @param obj l'objet en question
      */
     public abstract T create(T obj);
 
     /**
      * Permet la suppression d'une entrée de la base
-     * @param obj
+     * @param obj l'objet en question
      */
     public abstract void delete(T obj);
 

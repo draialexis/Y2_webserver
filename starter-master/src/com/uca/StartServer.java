@@ -24,12 +24,8 @@ public class StartServer
 
         //Defining our routes
 
-        get("/teachers", (req, res) -> {
-            return TeacherGUI.getAllTeachers();
-        });
+        get("/teachers", (req, res) -> TeacherGUI.getAllTeachers());
 
-        get("/stickers", (req, res) -> {
-            return StickerGUI.getAllStickers();
-        });
+        get("/stickers", (req, res) -> StickerGUI.getAllStickers());
     }
 }

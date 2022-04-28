@@ -1,7 +1,6 @@
 package com.uca.gui;
 
 import com.uca.core.StickerCore;
-import com.uca.core.TeacherCore;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
