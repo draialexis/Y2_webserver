@@ -19,15 +19,17 @@ public class UserDAO extends _Generic<UserEntity>
         try
         {
             PreparedStatement preparedStatement = this.connect.prepareStatement(
-                    "SELECT * FROM Teacher ORDER BY id_teacher ASC;");
+                    "SELECT * FROM Teacher ORDER BY lastname;");
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next())
             {
                 UserEntity entity = new UserEntity();
-                entity.setId(resultSet.getInt("id_teacher"));
+                entity.setId_teacher(resultSet.getInt("id_teacher"));
                 entity.setFirstName(resultSet.getString("firstname"));
                 entity.setLastName(resultSet.getString("lastname"));
+                entity.setUserName(resultSet.getString("username"));
+                entity.setUserPwd(resultSet.getString("userpwd"));
 
                 entities.add(entity);
             }
@@ -35,7 +37,6 @@ public class UserDAO extends _Generic<UserEntity>
         {
             e.printStackTrace();
         }
-
         return entities;
     }
 
@@ -50,14 +51,18 @@ public class UserDAO extends _Generic<UserEntity>
     @Override
     public UserEntity create(UserEntity obj)
     {
-        int    id    = obj.getId();
-        String fName = obj.getFirstName();
-        String lName = obj.getLastName();
-
-        String query = String.format("INSERT INTO users (id_teacher, lastname, firstname) (%d, %s, %s);",
-                                     id,
-                                     fName,
-                                     lName);
+        int    id_teacher = obj.getId_teacher();
+        String fName      = obj.getFirstName();
+        String lName      = obj.getLastName();
+        String uName      = obj.getUserName();
+        String uPwd       = obj.getUserPwd();
+        String query = String.format(
+                "INSERT INTO users (id_teacher, lastname, firstname, username, userpwd) (%d, %s, %s, %s, %s);",
+                id_teacher,
+                fName,
+                lName,
+                uName,
+                uPwd);
 
         try
         {

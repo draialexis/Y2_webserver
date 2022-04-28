@@ -1,37 +1,65 @@
 package com.uca.entity;
 
-import java.sql.Timestamp;
-
-public class UserEntity {
-    private String firstName;
+public class UserEntity
+{
+    private int    id_teacher;
     private String lastName;
-    private int id;
+    private String firstName;
+    private String userName;
+    private String userPwd;
 
-    public UserEntity() {
+    public UserEntity()
+    {
         //Ignored !
     }
 
-    public int getId() {
-        return id;
+    public int getId_teacher()
+    {
+        return id_teacher;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId_teacher(int id_teacher)
+    {
+        this.id_teacher = id_teacher;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
+    public String getLastName()
+    {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public void setLastName(String lastName)
+    {
         this.lastName = lastName;
+    }
+
+    public String getFirstName()
+    {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName)
+    {
+        this.firstName = firstName;
+    }
+
+    public String getUserName()
+    {
+        return userName;
+    }
+
+    public void setUserName(String userName)
+    {
+        this.userName = userName;
+    }
+
+    public String getUserPwd()
+    {
+        return userPwd;
+    }
+
+    public void setUserPwd(String userPwd)
+    {
+        this.userPwd = userPwd;
     }
 }
