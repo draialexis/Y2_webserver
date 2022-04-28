@@ -16,10 +16,10 @@ public class StickerDAO extends _Generic<StickerEntity>
         ArrayList<StickerEntity> entities = new ArrayList<>();
         try
         {
-            PreparedStatement preparedStatement = this.connect.prepareStatement(
+            PreparedStatement statement = this.connect.prepareStatement(
                     "SELECT * FROM Sticker ORDER BY id_sticker;");
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next())
             {
                 StickerEntity entity = new StickerEntity();
@@ -38,8 +38,22 @@ public class StickerDAO extends _Generic<StickerEntity>
 
     public StickerEntity getById(long id)
     {
-        //TODO
-        return null;
+        try
+        {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "SELECT * FROM Sticker WHERE id_sticker = ?;");
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            StickerEntity entity = new StickerEntity();
+            entity.setId_sticker(id);
+            entity.setColor(Color.valueOf(resultSet.getString("color")));
+            entity.setDescription(resultSet.getString("description"));
+            return entity;
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return null; //TODO decide if we can let this return null... probably not
     }
 
     @Override

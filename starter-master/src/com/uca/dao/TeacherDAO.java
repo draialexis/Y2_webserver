@@ -18,10 +18,10 @@ public class TeacherDAO extends _Generic<TeacherEntity>
         ArrayList<TeacherEntity> entities = new ArrayList<>();
         try
         {
-            PreparedStatement preparedStatement = this.connect.prepareStatement(
+            PreparedStatement statement = this.connect.prepareStatement(
                     "SELECT * FROM Teacher ORDER BY lastname;");
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next())
             {
                 TeacherEntity entity = new TeacherEntity();
