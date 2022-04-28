@@ -23,7 +23,7 @@ public class StartServer {
 
         //Defining our routes
         get("/users", (req, res) -> {
-            return UserGUI.getAllUsers();
+            return TeacherGUI.getAllTeachers();
         });
     }
 }

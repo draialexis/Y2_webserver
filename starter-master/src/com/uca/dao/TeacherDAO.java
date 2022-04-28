@@ -1,11 +1,11 @@
 package com.uca.dao;
 
-import com.uca.entity.UserEntity;
+import com.uca.entity.TeacherEntity;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class UserDAO extends _Generic<UserEntity>
+public class TeacherDAO extends _Generic<TeacherEntity>
 {
     // CRUD Create Read (Update) Delete
 
@@ -13,9 +13,9 @@ public class UserDAO extends _Generic<UserEntity>
 
     // Read all
 
-    public ArrayList<UserEntity> getAllUsers()
+    public ArrayList<TeacherEntity> getAllTeachers()
     {
-        ArrayList<UserEntity> entities = new ArrayList<>();
+        ArrayList<TeacherEntity> entities = new ArrayList<>();
         try
         {
             PreparedStatement preparedStatement = this.connect.prepareStatement(
@@ -24,7 +24,7 @@ public class UserDAO extends _Generic<UserEntity>
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next())
             {
-                UserEntity entity = new UserEntity();
+                TeacherEntity entity = new TeacherEntity();
                 entity.setId_teacher(resultSet.getInt("id_teacher"));
                 entity.setFirstName(resultSet.getString("firstname"));
                 entity.setLastName(resultSet.getString("lastname"));
@@ -49,7 +49,7 @@ public class UserDAO extends _Generic<UserEntity>
      * @param obj instance of the basic UserEntity class
      */
     @Override
-    public UserEntity create(UserEntity obj)
+    public TeacherEntity create(TeacherEntity obj)
     {
         String fName = obj.getFirstName();
         String lName = obj.getLastName();
@@ -73,7 +73,7 @@ public class UserDAO extends _Generic<UserEntity>
     }
 
     @Override
-    public void delete(UserEntity obj)
+    public void delete(TeacherEntity obj)
     {
         //TODO !
     }

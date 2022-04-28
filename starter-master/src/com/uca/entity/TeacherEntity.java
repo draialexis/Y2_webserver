@@ -1,6 +1,6 @@
 package com.uca.entity;
 
-public class UserEntity
+public class TeacherEntity
 {
     private int    id_teacher;
     private String lastName;
@@ -8,7 +8,7 @@ public class UserEntity
     private String userName;
     private String userPwd;
 
-    public UserEntity()
+    public TeacherEntity()
     {
         //Ignored !
     }
