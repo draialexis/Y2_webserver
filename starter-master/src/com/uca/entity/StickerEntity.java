@@ -2,7 +2,7 @@ package com.uca.entity;
 
 public class StickerEntity
 {
-    private int    id_sticker;
+    private long    id_sticker;
     private Color  color;
     private String description;
 
@@ -11,32 +11,32 @@ public class StickerEntity
         // never used
     }
 
-    int getId_sticker()
+    public long getId_sticker()
     {
         return id_sticker;
     }
 
-    void setId_sticker(int id_sticker)
+    public void setId_sticker(long id_sticker)
     {
         this.id_sticker = id_sticker;
     }
 
-    Color getColor()
+    public Color getColor()
     {
         return color;
     }
 
-    void setColor(Color color)
+    public void setColor(Color color)
     {
         this.color = color;
     }
 
-    String getDescription()
+    public String getDescription()
     {
         return description;
     }
 
-    void setDescription(String description)
+    public void setDescription(String description)
     {
         this.description = description;
     }

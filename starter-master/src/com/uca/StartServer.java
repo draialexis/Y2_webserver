@@ -22,8 +22,13 @@ public class StartServer {
         _Initializer.Init();
 
         //Defining our routes
+
         get("/teachers", (req, res) -> {
             return TeacherGUI.getAllTeachers();
+        });
+
+        get("/stickers", (req, res) -> {
+            return StickerGUI.getAllStickers();
         });
     }
 }

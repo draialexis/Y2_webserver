@@ -7,9 +7,7 @@ import java.util.ArrayList;
 
 public class TeacherCore
 {
-
     public static ArrayList<TeacherEntity> getAllTeachers() {
         return new TeacherDAO().getAllTeachers();
     }
-
 }
