@@ -59,9 +59,11 @@ public class _Initializer
 
             //Todo Remove me ! + Research Java.sql
 
-            statement = connection.prepareStatement("DELETE FROM Teacher;");
+            statement = connection.prepareStatement("DELETE FROM Teacher;"); // temporary, for testing
             statement.executeUpdate();
-            statement = connection.prepareStatement("INSERT INTO Teacher(id_teacher, firstname, lastname, username, userpwd) VALUES(?, ?, ?, ?, ?);");
+
+            statement = connection.prepareStatement(
+                    "INSERT INTO Teacher(id_teacher, firstname, lastname, username, userpwd) VALUES(?, ?, ?, ?, ?);");
             statement.setInt(1, 1);
             statement.setString(2, "Theodore");
             statement.setString(3, "Muillerez");
@@ -69,9 +71,108 @@ public class _Initializer
             statement.setString(5, "tyjSERTJDRUJQEjzujequ6aqe8uque6ueU");//TODO do real password stuff?
             statement.executeUpdate();
 
+            statement = connection.prepareStatement(
+                    "INSERT INTO Teacher(id_teacher, firstname, lastname, username, userpwd) VALUES(?, ?, ?, ?, ?);");
+            statement.setInt(1, 2);
+            statement.setString(2, "Herman");
+            statement.setString(3, "Mellville");
+            statement.setString(4, "herman_melville");
+            statement.setString(5, "izguebzeg7g5zezegseflmzZfaU");
+            statement.executeUpdate();
+
+            statement = connection.prepareStatement(
+                    "INSERT INTO Teacher(id_teacher, firstname, lastname, username, userpwd) VALUES(?, ?, ?, ?, ?);");
+            statement.setInt(1, 3);
+            statement.setString(2, "George");
+            statement.setString(3, "Schefflera");
+            statement.setString(4, "george_schefflera");
+            statement.setString(5, "rhbJNYTrtyrty564tyrj6yj!yt");
+            statement.executeUpdate();
+
+            statement = connection.prepareStatement("DELETE FROM Sticker;"); // temporary, for testing
+            statement.executeUpdate();
+
+            statement = connection.prepareStatement(
+                    "INSERT INTO Sticker(id_sticker, color, description) VALUES(?, ?, ?);");
+            statement.setInt(1, 1);
+            statement.setString(2, "GREEN");
+            statement.setString(3, "TRIANGLE");
+            statement.executeUpdate();
+
+            statement = connection.prepareStatement(
+                    "INSERT INTO Sticker(id_sticker, color, description) VALUES(?, ?, ?);");
+            statement.setInt(1, 2);
+            statement.setString(2, "RED");
+            statement.setString(3, "CIRCLE");
+            statement.executeUpdate();
+
+            statement = connection.prepareStatement(
+                    "INSERT INTO Sticker(id_sticker, color, description) VALUES(?, ?, ?);");
+            statement.setInt(1, 3);
+            statement.setString(2, "WHITE");
+            statement.setString(3, "STAR");
+            statement.executeUpdate();
+
+            statement = connection.prepareStatement("DELETE FROM Pupil;"); // temporary, for testing
+            statement.executeUpdate();
+
+            statement = connection.prepareStatement(
+                    "INSERT INTO Pupil(id_pupil, lastname, firstname) VALUES(?, ?, ?);");
+            statement.setInt(1, 1);
+            statement.setString(2, "Eyosias");
+            statement.setString(3, "Woldemichael");
+            statement.executeUpdate();
+
+            statement = connection.prepareStatement(
+                    "INSERT INTO Pupil(id_pupil, lastname, firstname) VALUES(?, ?, ?);");
+            statement.setInt(1, 2);
+            statement.setString(2, "Yacine");
+            statement.setString(3, "Ayachi");
+            statement.executeUpdate();
+
+            statement = connection.prepareStatement(
+                    "INSERT INTO Pupil(id_pupil, lastname, firstname) VALUES(?, ?, ?);");
+            statement.setInt(1, 3);
+            statement.setString(2, "Alexis");
+            statement.setString(3, "Drai");
+            statement.executeUpdate();
+
+            statement = connection.prepareStatement("DELETE FROM Award;"); // temporary, for testing
+            statement.executeUpdate();
+
+            statement = connection.prepareStatement(
+                    "INSERT INTO Award(id_teacher, id_sticker, id_pupil, attribution_date, motive) VALUES(?, ?, ?, ?, ?);");
+            statement.setInt(1, 1);
+            statement.setInt(2, 2);
+            statement.setInt(3, 3);
+            statement.setDate(4, new Date(new java.util.Date().getTime()));
+            // gets the number of ms since 01/01/1970 and feeds it to the javasql date object
+            statement.setString(5, "some random motive");
+            statement.executeUpdate();
+
+            statement = connection.prepareStatement(
+                    "INSERT INTO Award(id_teacher, id_sticker, id_pupil, attribution_date, motive) VALUES(?, ?, ?, ?, ?);");
+            statement.setInt(1, 2);
+            statement.setInt(2, 3);
+            statement.setInt(3, 1);
+            statement.setDate(4, new Date(new java.util.Date().getTime()));
+            // gets the number of ms since 01/01/1970 and feeds it to the javasql date object
+            statement.setString(5, "some other random motive");
+            statement.executeUpdate();
+
+            statement = connection.prepareStatement(
+                    "INSERT INTO Award(id_teacher, id_sticker, id_pupil, attribution_date, motive) VALUES(?, ?, ?, ?, ?);");
+            statement.setInt(1, 3);
+            statement.setInt(2, 1);
+            statement.setInt(3, 2);
+            statement.setDate(4, new Date(new java.util.Date().getTime()));
+            // gets the number of ms since 01/01/1970 and feeds it to the javasql date object
+            statement.setString(5, "some other other random motive");
+            statement.executeUpdate();
+
         } catch (Exception e)
         {
-            System.out.println("EXCEPTION: " + e.toString());
+            System.out.println(e.toString());
             throw new RuntimeException("could not create database !");
         }
     }
