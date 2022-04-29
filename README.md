@@ -14,3 +14,6 @@ then enter `https://localhost:8081/` in a browser
 ## Project instructions
 
 Right [here](https://unicorn.artheriom.fr/#/techno-ws-l2) or [here in pdf](https://github.com/draialexis/Y2_webserver/files/8473212/TP_Version_Imprimable_au_07_03_22.pdf)
+
+## URIs
+[uris_1_0.pdf](https://github.com/draialexis/Y2_webserver/files/8592398/Website_backend.pdf)
