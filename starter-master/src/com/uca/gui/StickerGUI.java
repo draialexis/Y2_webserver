@@ -13,13 +13,13 @@ import java.util.Map;
 
 public class StickerGUI
 {
-    public static String getAllStickers() throws IOException, TemplateException
+    public static String readAll() throws IOException, TemplateException
     {
         Configuration configuration = _FreeMarkerInitializer.getContext();
 
         Map<String, Object> input = new HashMap<>();
 
-        input.put("stickers", StickerCore.getAllStickers());
+        input.put("stickers", StickerCore.readAll());
 
         Writer   output   = new StringWriter();
         Template template = configuration.getTemplate("stickers/stickers.ftl");

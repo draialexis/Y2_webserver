@@ -10,7 +10,7 @@ public class TeacherEntity
 
     public TeacherEntity()
     {
-        //Ignored !
+        // never used
     }
 
     public long getId_teacher()

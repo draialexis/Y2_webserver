@@ -14,12 +14,12 @@ import java.util.Map;
 public class TeacherGUI
 {
 
-    public static String getAllTeachers() throws IOException, TemplateException {
+    public static String readAll() throws IOException, TemplateException {
         Configuration configuration = _FreeMarkerInitializer.getContext();
 
         Map<String, Object> input = new HashMap<>();
 
-        input.put("teachers", TeacherCore.getAllTeachers());
+        input.put("teachers", TeacherCore.readAll());
 
         Writer output = new StringWriter();
         Template template = configuration.getTemplate("teachers/teachers.ftl");

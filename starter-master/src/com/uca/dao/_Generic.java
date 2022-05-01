@@ -1,24 +1,23 @@
 package com.uca.dao;
 
+import javax.naming.OperationNotSupportedException;
 import java.sql.Connection;
+import java.util.List;
 
-public abstract class _Generic<T> {
-
-// TODO expand CRUD?
-
+public abstract class _Generic<T>
+{
     public Connection connect = _Connector.getInstance();
 
-    /**
-     * Permet de créer une entrée dans la base de données
-     * par rapport à un objet
-     * @param obj l'objet en question
-     */
     public abstract T create(T obj);
 
-    /**
-     * Permet la suppression d'une entrée de la base
-     * @param obj l'objet en question
-     */
-    public abstract void delete(T obj);
+    public abstract List<T> readAll();
+
+    public abstract T readById(long id);
+
+    public abstract T update(T obj, long id) throws OperationNotSupportedException;
+
+    public abstract void delete(T obj) throws OperationNotSupportedException;
+
+    public abstract void deleteById(long id) throws OperationNotSupportedException;
 
 }

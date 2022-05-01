@@ -10,7 +10,29 @@ import java.util.ArrayList;
 
 public class StickerDAO extends _Generic<StickerEntity>
 {
-    public ArrayList<StickerEntity> getAllStickers()
+
+    @Override
+    public StickerEntity create(StickerEntity obj)
+    {
+        String color       = obj.getColor().toString();
+        String description = obj.getDescription();
+
+        try
+        {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "INSERT INTO Sticker(color, description) VALUES(?, ?);");
+            statement.setString(1, color);
+            statement.setString(2, description);
+            statement.executeUpdate();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return obj;
+    }
+
+    @Override
+    public ArrayList<StickerEntity> readAll()
     {
         ArrayList<StickerEntity> entities = new ArrayList<>();
         try
@@ -35,7 +57,8 @@ public class StickerDAO extends _Generic<StickerEntity>
         return entities;
     }
 
-    public StickerEntity getById(long id)
+    @Override
+    public StickerEntity readById(long id)
     {
         try
         {
@@ -56,25 +79,6 @@ public class StickerDAO extends _Generic<StickerEntity>
     }
 
     @Override
-    public StickerEntity create(StickerEntity obj)
-    {
-        String color       = obj.getColor().toString();
-        String description = obj.getDescription();
-
-        try
-        {
-            PreparedStatement statement = this.connect.prepareStatement(
-                    "INSERT INTO Sticker(color, description) VALUES(?, ?);");
-            statement.setString(1, color);
-            statement.setString(2, description);
-            statement.executeUpdate();
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-        return obj;
-    }
-
     public StickerEntity update(StickerEntity obj, long id)
     {
         String color       = obj.getColor().toString();
@@ -103,28 +107,16 @@ public class StickerDAO extends _Generic<StickerEntity>
     @Override
     public void delete(StickerEntity obj)
     {
-        String color       = obj.getColor().toString();
-        String description = obj.getDescription();
-
-        try
-        {
-            PreparedStatement statement = this.connect.prepareStatement(
-                    "DELETE FROM Sticker WHERE color = ? AND description = ?;");
-            statement.setString(1, color);
-            statement.setString(2, description);
-            statement.executeUpdate();
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
+        this.deleteById(obj.getId_sticker());
     }
 
+    @Override
     public void deleteById(long id)
     {
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
-                    "DELETE FROM Sticker WHERE id_sticker = ?;");
+                    "DELETE FROM Sticker WHERE id_sticker = ? ;");
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e)

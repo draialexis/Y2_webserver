@@ -5,12 +5,6 @@ import com.uca.gui.*;
 
 import static spark.Spark.*;
 
-/* URIs
- *
- *
- *
- */
-
 public class StartServer
 {
 
@@ -22,10 +16,10 @@ public class StartServer
 
         _Initializer.Init();
 
-        //Defining our routes
+        //Define routes
 
-        get("/teachers", (req, res) -> TeacherGUI.getAllTeachers());
+        get("/teachers", (req, res) -> TeacherGUI.readAll());
 
-        get("/stickers", (req, res) -> StickerGUI.getAllStickers());
+        get("/stickers", (req, res) -> StickerGUI.readAll());
     }
 }
