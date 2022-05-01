@@ -44,5 +44,4 @@ public class StickerGUI
 
         return output.toString();
     }
-
 }

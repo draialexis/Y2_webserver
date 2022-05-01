@@ -2,7 +2,7 @@ package com.uca.dao;
 
 import javax.naming.OperationNotSupportedException;
 import java.sql.Connection;
-import java.util.List;
+import java.util.Collection;
 
 public abstract class _Generic<T>
 {
@@ -10,7 +10,7 @@ public abstract class _Generic<T>
 
     public abstract T create(T obj);
 
-    public abstract List<T> readAll();
+    public abstract Collection<T> readAll();
 
     public abstract T readById(long id);
 
