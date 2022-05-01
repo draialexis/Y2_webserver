@@ -19,5 +19,4 @@ public abstract class _Generic<T>
     public abstract void delete(T obj) throws OperationNotSupportedException;
 
     public abstract void deleteById(long id) throws OperationNotSupportedException;
-
 }

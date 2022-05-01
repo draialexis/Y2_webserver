@@ -103,5 +103,4 @@ public class TeacherDAO extends _Generic<TeacherEntity>
     {
         throw new OperationNotSupportedException("effacer un professeur : hors de la portée de ce projet");
     }
-
 }
