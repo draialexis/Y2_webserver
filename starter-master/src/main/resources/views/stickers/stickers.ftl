@@ -6,7 +6,7 @@
 
 <ul>
     <#list stickers as sticker>
-        <li><a href="/stickers/${sticker.id_sticker}">${sticker.id_sticker} - ${sticker.color}: ${sticker.description}</a></li>
+        <li><a href="/stickers/${sticker.id}">${sticker.id} - ${sticker.color}: ${sticker.description}</a></li>
     </#list>
 </ul>
 

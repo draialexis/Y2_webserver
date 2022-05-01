@@ -2,7 +2,7 @@ package com.uca.entity;
 
 public class TeacherEntity
 {
-    private long   id_teacher;
+    private long   id;
     private String lastName;
     private String firstName;
     private String userName;
@@ -13,14 +13,14 @@ public class TeacherEntity
         // never used
     }
 
-    public long getId_teacher()
+    public long getId()
     {
-        return id_teacher;
+        return id;
     }
 
-    public void setId_teacher(long id_teacher)
+    public void setId(long id)
     {
-        this.id_teacher = id_teacher;
+        this.id = id;
     }
 
     public String getLastName()

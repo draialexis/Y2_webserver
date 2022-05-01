@@ -48,7 +48,7 @@ public class TeacherDAO extends _Generic<TeacherEntity>
             while (resultSet.next())
             {
                 TeacherEntity entity = new TeacherEntity();
-                entity.setId_teacher(resultSet.getLong("id_teacher"));
+                entity.setId(resultSet.getLong("id_teacher"));
                 entity.setFirstName(resultSet.getString("firstname"));
                 entity.setLastName(resultSet.getString("lastname"));
                 entity.setUserName(resultSet.getString("username"));
@@ -73,7 +73,7 @@ public class TeacherDAO extends _Generic<TeacherEntity>
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
             TeacherEntity entity = new TeacherEntity();
-            entity.setId_teacher(id);
+            entity.setId(id);
             entity.setFirstName(resultSet.getString("firstname"));
             entity.setLastName(resultSet.getString("lastname"));
             entity.setUserName(resultSet.getString("username"));
@@ -95,7 +95,7 @@ public class TeacherDAO extends _Generic<TeacherEntity>
     @Override
     public void delete(TeacherEntity obj) throws OperationNotSupportedException
     {
-        this.deleteById(obj.getId_teacher());
+        this.deleteById(obj.getId());
     }
 
     @Override

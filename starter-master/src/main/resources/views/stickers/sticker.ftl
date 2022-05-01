@@ -5,7 +5,7 @@
 <a href="/stickers">&larr; Gommettes</a>
 
 <p>
-    Gommette num&eacute;ro : ${sticker.id_sticker} <br>
+    Gommette num&eacute;ro : ${sticker.id} <br>
     ${sticker.color} ; ${sticker.description}
 </p>
 

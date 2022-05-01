@@ -44,7 +44,7 @@ public class StickerDAO extends _Generic<StickerEntity>
             while (resultSet.next())
             {
                 StickerEntity entity = new StickerEntity();
-                entity.setId_sticker(resultSet.getLong("id_sticker"));
+                entity.setId(resultSet.getLong("id_sticker"));
                 entity.setColor(Color.valueOf(resultSet.getString("color")));
                 entity.setDescription(resultSet.getString("description"));
 
@@ -68,7 +68,7 @@ public class StickerDAO extends _Generic<StickerEntity>
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
             StickerEntity entity = new StickerEntity();
-            entity.setId_sticker(id);
+            entity.setId(id);
             entity.setColor(Color.valueOf(resultSet.getString("color")));
             entity.setDescription(resultSet.getString("description"));
             return entity;
@@ -94,9 +94,9 @@ public class StickerDAO extends _Generic<StickerEntity>
             statement.setLong(3, id);
             statement.executeUpdate();
 
-            if (obj.getId_sticker() != id) // unnecessary?
+            if (obj.getId() != id) // unnecessary?
             {
-                obj.setId_sticker(id);
+                obj.setId(id);
             }
         } catch (SQLException e)
         {
@@ -108,7 +108,7 @@ public class StickerDAO extends _Generic<StickerEntity>
     @Override
     public void delete(StickerEntity obj)
     {
-        this.deleteById(obj.getId_sticker());
+        this.deleteById(obj.getId());
     }
 
     @Override

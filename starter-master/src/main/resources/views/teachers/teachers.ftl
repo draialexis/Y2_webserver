@@ -6,7 +6,7 @@
 
 <ul>
     <#list teachers as teacher>
-        <li>${teacher.id_teacher} - ${teacher.firstName} ${teacher.lastName}</li>
+        <li>${teacher.id} - ${teacher.firstName} ${teacher.lastName}</li>
     </#list>
 </ul>
 

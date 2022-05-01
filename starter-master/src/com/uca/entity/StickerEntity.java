@@ -2,8 +2,8 @@ package com.uca.entity;
 
 public class StickerEntity
 {
-    private long   id_sticker;
-    private Color  color;
+    private long  id;
+    private Color color;
     private String description;
 
     public StickerEntity()
@@ -11,14 +11,14 @@ public class StickerEntity
         // never used
     }
 
-    public long getId_sticker()
+    public long getId()
     {
-        return id_sticker;
+        return id;
     }
 
-    public void setId_sticker(long id_sticker)
+    public void setId(long id)
     {
-        this.id_sticker = id_sticker;
+        this.id = id;
     }
 
     public Color getColor()
