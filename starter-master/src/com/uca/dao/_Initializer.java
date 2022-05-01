@@ -66,26 +66,18 @@ public class _Initializer
 
             statement = connection.prepareStatement(
                     "INSERT INTO Teacher(firstname, lastname, username, userpwd) VALUES(?, ?, ?, ?);");
-            statement.setString(1, "Theodore");
-            statement.setString(2, "Muillerez");
-            statement.setString(3, "theodore_muillerez");
+            statement.setString(1, "Robert");
+            statement.setString(2, "Framboisier");
+            statement.setString(3, "robert_framboisier");
             statement.setString(4, "tyjSERTJDRUJQEjzujequ6aqe8uque6ueU");//TODO do real password stuff?
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
                     "INSERT INTO Teacher(firstname, lastname, username, userpwd) VALUES(?, ?, ?, ?);");
-            statement.setString(1, "Herman");
-            statement.setString(2, "Mellville");
-            statement.setString(3, "herman_melville");
+            statement.setString(1, "Charlotte");
+            statement.setString(2, "Myrtille");
+            statement.setString(3, "charlotte_myrtille");
             statement.setString(4, "izguebzeg7g5zezegseflmzZfaU");
-            statement.executeUpdate();
-
-            statement = connection.prepareStatement(
-                    "INSERT INTO Teacher(firstname, lastname, username, userpwd) VALUES(?, ?, ?, ?);");
-            statement.setString(1, "George");
-            statement.setString(2, "Schefflera");
-            statement.setString(3, "george_schefflera");
-            statement.setString(4, "rhbJNYTrtyrty564tyrj6yj!yt");
             statement.executeUpdate();
 
             statement = connection.prepareStatement("DELETE FROM Sticker;"); // temporary, for testing
@@ -155,7 +147,7 @@ public class _Initializer
 
             statement = connection.prepareStatement(
                     "INSERT INTO Award(id_teacher, id_sticker, id_pupil, attribution_date, motive) VALUES(?, ?, ?, ?, ?);");
-            statement.setInt(1, 3);
+            statement.setInt(1, 1);
             statement.setInt(2, 1);
             statement.setInt(3, 2);
             statement.setDate(4, new Date(new java.util.Date().getTime()));
