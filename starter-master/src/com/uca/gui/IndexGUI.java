@@ -11,20 +11,18 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TeacherGUI
+// https://binarycoders.dev/2015/03/22/spark-freemarker-basic-example/
+
+public class IndexGUI
 {
-    public static String readAll() throws IOException, TemplateException
+    public static String display() throws IOException, TemplateException
     {
         Configuration configuration = _FreeMarkerInitializer.getContext();
 
-        Map<String, Object> input = new HashMap<>();
-
-        input.put("teachers", TeacherCore.readAll());
-
         Writer   output   = new StringWriter();
-        Template template = configuration.getTemplate("teachers/teachers.ftl");
+        Template template = configuration.getTemplate("index.ftl");
         template.setOutputEncoding("UTF-8");
-        template.process(input, output);
+        template.process(null, output);
 
         return output.toString();
     }

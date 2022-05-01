@@ -7,15 +7,18 @@ import static spark.Spark.*;
 
 public class StartServer
 {
+    public static final int PORT = 8081;
+
     public static void main(String[] args)
     {
         //Configure Spark
         staticFiles.location("/static/");
-        port(8081);
+        port(PORT);
 
         _Initializer.Init();
 
         //Define routes
+        get("/", (req, res) -> IndexGUI.display());
 
         get("/teachers", (req, res) -> TeacherGUI.readAll());
 

@@ -2,8 +2,10 @@
 
 <body xmlns="http://www.w3.org/1999/html">
 
+<a href="/stickers">&larr; Gommettes</a>
+
 <p>
-    Gommette numéro : ${sticker.id_sticker} <br>
+    Gommette num&eacute;ro : ${sticker.id_sticker} <br>
     ${sticker.color} ; ${sticker.description}
 </p>
 

@@ -154,7 +154,6 @@ public class _Initializer
             // gets the number of ms since 01/01/1970 and feeds it to the javasql date object
             statement.setString(5, "some other other random motive");
             statement.executeUpdate();
-
         } catch (Exception e)
         {
             System.out.println(e.toString());
