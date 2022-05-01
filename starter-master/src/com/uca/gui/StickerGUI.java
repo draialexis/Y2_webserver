@@ -28,4 +28,21 @@ public class StickerGUI
 
         return output.toString();
     }
+
+    public static String readById(Long id) throws IOException, TemplateException
+    {
+        Configuration configuration = _FreeMarkerInitializer.getContext();
+
+        Map<String, Object> input = new HashMap<>();
+
+        input.put("sticker", StickerCore.readById(id));
+
+        Writer   output   = new StringWriter();
+        Template template = configuration.getTemplate("stickers/sticker.ftl");
+        template.setOutputEncoding("UTF-8");
+        template.process(input, output);
+
+        return output.toString();
+    }
+
 }

@@ -7,7 +7,13 @@ import java.util.ArrayList;
 
 public class StickerCore
 {
-    public static ArrayList<StickerEntity> readAll() {
+    public static ArrayList<StickerEntity> readAll()
+    {
         return new StickerDAO().readAll();
+    }
+
+    public static StickerEntity readById(Long id)
+    {
+        return new StickerDAO().readById(id);
     }
 }

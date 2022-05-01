@@ -20,5 +20,10 @@ public class StartServer
         get("/teachers", (req, res) -> TeacherGUI.readAll());
 
         get("/stickers", (req, res) -> StickerGUI.readAll());
+
+        get("/stickers/:id", (req, res) -> {
+            System.out.println(req.params(":id"));
+            return StickerGUI.readById(Long.parseLong(req.params(":id")));
+        });
     }
 }
