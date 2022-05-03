@@ -29,7 +29,7 @@ public class StickerGUI
         return output.toString();
     }
 
-    public static String readById(Long id) throws IOException, TemplateException
+    public static String readById(long id) throws IOException, TemplateException
     {
         Configuration configuration = _FreeMarkerInitializer.getContext();
 

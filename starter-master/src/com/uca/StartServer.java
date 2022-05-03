@@ -26,6 +26,6 @@ public class StartServer
 
         get("/stickers", (req, res) -> StickerGUI.readAll());
 
-        get("/stickers/:id", (req, res) -> StickerGUI.readById(Long.parseLong(req.params(":id"))));
+        get("/stickers/:id_sticker", (req, res) -> StickerGUI.readById(Long.parseLong(req.params(":id_sticker"))));
     }
 }
