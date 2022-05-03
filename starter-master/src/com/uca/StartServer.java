@@ -22,6 +22,8 @@ public class StartServer
 
         get("/teachers", (req, res) -> TeacherGUI.readAll());
 
+        get("/teachers/:username", (req, res) -> TeacherGUI.readByUserName(req.params(":username")));
+
         get("/stickers", (req, res) -> StickerGUI.readAll());
 
         get("/stickers/:id", (req, res) -> StickerGUI.readById(Long.parseLong(req.params(":id"))));

@@ -70,6 +70,7 @@ public class TeacherDAO extends _Generic<TeacherEntity>
         {
             PreparedStatement statement = this.connect.prepareStatement(
                     "SELECT * FROM Teacher WHERE id_teacher = ?;");
+            statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
             TeacherEntity entity = new TeacherEntity();
@@ -77,6 +78,29 @@ public class TeacherDAO extends _Generic<TeacherEntity>
             entity.setFirstName(resultSet.getString("firstname"));
             entity.setLastName(resultSet.getString("lastname"));
             entity.setUserName(resultSet.getString("username"));
+            entity.setUserPwd(resultSet.getString("userpwd"));
+            return entity;
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public TeacherEntity readByUserName(String userName)
+    {
+        try
+        {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "SELECT * FROM Teacher WHERE username = ?;");
+            statement.setString(1, userName); // username is UNIQUE, no risk of amibuguity
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            TeacherEntity entity = new TeacherEntity();
+            entity.setId(resultSet.getLong("id_teacher"));
+            entity.setFirstName(resultSet.getString("firstname"));
+            entity.setLastName(resultSet.getString("lastname"));
+            entity.setUserName(userName);
             entity.setUserPwd(resultSet.getString("userpwd"));
             return entity;
         } catch (SQLException e)
@@ -103,4 +127,5 @@ public class TeacherDAO extends _Generic<TeacherEntity>
     {
         throw new OperationNotSupportedException("effacer un professeur : hors de la portée de ce projet");
     }
+
 }

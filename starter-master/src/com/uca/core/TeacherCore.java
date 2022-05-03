@@ -7,7 +7,13 @@ import java.util.ArrayList;
 
 public class TeacherCore
 {
-    public static ArrayList<TeacherEntity> readAll() {
+    public static ArrayList<TeacherEntity> readAll()
+    {
         return new TeacherDAO().readAll();
+    }
+
+    public static TeacherEntity readByUserName(String userName)
+    {
+        return new TeacherDAO().readByUserName(userName);
     }
 }
