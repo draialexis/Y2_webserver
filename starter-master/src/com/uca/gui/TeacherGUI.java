@@ -21,6 +21,15 @@ public class TeacherGUI extends _GenericGUI
         return inAndOut(template, input, output);
     }
 
+    public static String readById(long id) throws IOException, TemplateException
+    {
+        Map<String, Object> input  = new HashMap<>();
+        Writer              output = new StringWriter();
+        input.put("teacher", TeacherCore.readById(id));
+        Template template = configuration.getTemplate("teachers/teacher.ftl");
+        return inAndOut(template, input, output);
+    }
+
     public static String readByUserName(String userName) throws IOException, TemplateException
     {
         Map<String, Object> input  = new HashMap<>();

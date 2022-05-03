@@ -16,4 +16,9 @@ public class TeacherCore
     {
         return new TeacherDAO().readByUserName(userName);
     }
+
+    public static TeacherEntity readById(long id)
+    {
+        return new TeacherDAO().readById(id);
+    }
 }
