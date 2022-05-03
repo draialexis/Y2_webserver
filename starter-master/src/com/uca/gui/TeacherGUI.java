@@ -1,8 +1,6 @@
 package com.uca.gui;
 
-import com.uca.core.StickerCore;
 import com.uca.core.TeacherCore;
-import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -12,37 +10,23 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TeacherGUI
+public class TeacherGUI extends _GenericGUI
 {
     public static String readAll() throws IOException, TemplateException
     {
-        Configuration configuration = _FreeMarkerInitializer.getContext();
-
-        Map<String, Object> input = new HashMap<>();
-
+        Map<String, Object> input  = new HashMap<>();
+        Writer              output = new StringWriter();
         input.put("teachers", TeacherCore.readAll());
-
-        Writer   output   = new StringWriter();
         Template template = configuration.getTemplate("teachers/teachers.ftl");
-        template.setOutputEncoding("UTF-8");
-        template.process(input, output);
-
-        return output.toString();
+        return inAndOut(template, input, output);
     }
 
     public static String readByUserName(String userName) throws IOException, TemplateException
     {
-        Configuration configuration = _FreeMarkerInitializer.getContext();
-
-        Map<String, Object> input = new HashMap<>();
-
+        Map<String, Object> input  = new HashMap<>();
+        Writer              output = new StringWriter();
         input.put("teacher", TeacherCore.readByUserName(userName));
-
-        Writer   output   = new StringWriter();
         Template template = configuration.getTemplate("teachers/teacher.ftl");
-        template.setOutputEncoding("UTF-8");
-        template.process(input, output);
-
-        return output.toString();
+        return inAndOut(template, input, output);
     }
 }

@@ -1,7 +1,6 @@
 package com.uca.gui;
 
 import com.uca.core.StickerCore;
-import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -11,37 +10,23 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StickerGUI
+public class StickerGUI extends _GenericGUI
 {
     public static String readAll() throws IOException, TemplateException
     {
-        Configuration configuration = _FreeMarkerInitializer.getContext();
-
-        Map<String, Object> input = new HashMap<>();
-
+        Map<String, Object> input  = new HashMap<>();
+        Writer              output = new StringWriter();
         input.put("stickers", StickerCore.readAll());
-
-        Writer   output   = new StringWriter();
         Template template = configuration.getTemplate("stickers/stickers.ftl");
-        template.setOutputEncoding("UTF-8");
-        template.process(input, output);
-
-        return output.toString();
+        return inAndOut(template, input, output);
     }
 
     public static String readById(long id) throws IOException, TemplateException
     {
-        Configuration configuration = _FreeMarkerInitializer.getContext();
-
-        Map<String, Object> input = new HashMap<>();
-
+        Map<String, Object> input  = new HashMap<>();
+        Writer              output = new StringWriter();
         input.put("sticker", StickerCore.readById(id));
-
-        Writer   output   = new StringWriter();
         Template template = configuration.getTemplate("stickers/sticker.ftl");
-        template.setOutputEncoding("UTF-8");
-        template.process(input, output);
-
-        return output.toString();
+        return inAndOut(template, input, output);
     }
 }
