@@ -6,13 +6,11 @@ import freemarker.template.TemplateException;
 import java.io.IOException;
 import java.io.StringWriter;
 
-// https://binarycoders.dev/2015/03/22/spark-freemarker-basic-example/
-
-public class IndexGUI extends _GenericGUI
+public class IndexGUI
 {
     public static String display() throws IOException, TemplateException
     {
-        Template template = configuration.getTemplate("index.ftl");
-        return inAndOut(template, null, new StringWriter());
+        Template template = _FreeMarkerInitializer.getContext().getTemplate("index.ftl");
+        return _UtilGUI.inAndOut(template, null, new StringWriter());
     }
 }

@@ -12,28 +12,22 @@ public class TeacherDAO extends _Generic<TeacherEntity>
     // TODO decide whether to keep ID in the code or leave it in the database
 
     @Override
-    public TeacherEntity create(TeacherEntity obj)
+    public TeacherEntity create(TeacherEntity obj) throws SQLException
     {
         String fName = obj.getFirstName();
         String lName = obj.getLastName();
         String uName = obj.getUserName();
-        String uHPwd  = obj.getUserHPwd();
-        String uSPwd  = obj.getUserSPwd();
+        String uPwd  = obj.getUserPwd();
+        String salt  = obj.getUserSalt();
 
-        try
-        {
-            PreparedStatement statement = this.connect.prepareStatement(
-                    "INSERT INTO Teacher(firstname, lastname, username, userHpwd, userSpwd) VALUES(?, ?, ?, ?, ?);");
-            statement.setString(1, fName);
-            statement.setString(2, lName);
-            statement.setString(3, uName);
-            statement.setString(4, uHPwd);
-            statement.setString(5, uSPwd);
-            statement.executeUpdate();
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
+        PreparedStatement statement = this.connect.prepareStatement(
+                "INSERT INTO Teacher(firstname, lastname, username, userpwd, usersalt) VALUES(?, ?, ?, ?, ?);");
+        statement.setString(1, fName);
+        statement.setString(2, lName);
+        statement.setString(3, uName);
+        statement.setString(4, uPwd);
+        statement.setString(5, salt);
+        statement.executeUpdate();
         return obj;
     }
 
@@ -54,8 +48,8 @@ public class TeacherDAO extends _Generic<TeacherEntity>
                 entity.setFirstName(resultSet.getString("firstname"));
                 entity.setLastName(resultSet.getString("lastname"));
                 entity.setUserName(resultSet.getString("username"));
-                entity.setUserHPwd(resultSet.getString("userHpwd"));
-                entity.setUserSPwd(resultSet.getString("userSpwd"));
+                entity.setUserPwd(resultSet.getString("userpwd"));
+                entity.setUserSalt(resultSet.getString("usersalt"));
 
                 entities.add(entity);
             }
@@ -81,8 +75,8 @@ public class TeacherDAO extends _Generic<TeacherEntity>
             entity.setFirstName(resultSet.getString("firstname"));
             entity.setLastName(resultSet.getString("lastname"));
             entity.setUserName(resultSet.getString("username"));
-            entity.setUserHPwd(resultSet.getString("userHpwd"));
-            entity.setUserSPwd(resultSet.getString("userSpwd"));
+            entity.setUserPwd(resultSet.getString("userpwd"));
+            entity.setUserSalt(resultSet.getString("usersalt"));
             return entity;
         } catch (SQLException e)
         {
@@ -105,8 +99,8 @@ public class TeacherDAO extends _Generic<TeacherEntity>
             entity.setFirstName(resultSet.getString("firstname"));
             entity.setLastName(resultSet.getString("lastname"));
             entity.setUserName(userName);
-            entity.setUserHPwd(resultSet.getString("userHpwd"));
-            entity.setUserSPwd(resultSet.getString("userSpwd"));
+            entity.setUserPwd(resultSet.getString("userpwd"));
+            entity.setUserSalt(resultSet.getString("usersalt"));
             return entity;
         } catch (SQLException e)
         {

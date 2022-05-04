@@ -1,12 +1,12 @@
 package com.uca;
 
-import com.uca.Login.LoginController;
-import com.uca.ServepageController.ServeTeacherController;
-
+import com.uca.login.LoginController;
 import com.uca.dao._Initializer;
 import com.uca.gui.*;
 
+import java.util.HashMap;
 
+import static com.uca.util.Request.*;
 import static spark.Spark.*;
 
 public class StartServer
@@ -15,44 +15,61 @@ public class StartServer
 
     public static void main(String[] args)
     {
-        /* This is an Example for you @Alexis for your login page to show how it works.
-
-        String password = "myNewPass123";
-        PassWordBasedEncryption PassBasedEnc = null;
-        String saltvalue = "n7d9MPQFXxDqzT6onmong3hQt8Nyko";
-        String encryptedpassword = "sA0jNGQTrAfMUiqrB++bMKTU55ThdFCl16ZZTIXwD2M=";
-        System.out.println("Plain text password = " + password);
-        System.out.println("Secure password = " + encryptedpassword);
-        System.out.println("Salt value = " + saltvalue);
-        Boolean status = PassBasedEnc.verifyUserPassword(password,encryptedpassword,saltvalue);
-        if(status == true)
-            System.out.println("Password Matched!!");
-        else
-            System.out.println("Password Mismatched");
-         */
-
-    //Configure Spark
+        //Configure Spark
         staticFiles.location("/static/");
         port(PORT);
 
-        //TODO Don't allow usernames to start with '+', '-', or a digit
-
         _Initializer.Init();
 
-        //Define routes
         get("/", (req, res) -> IndexGUI.display());
 
         get("/teachers", (req, res) -> TeacherGUI.readAll());
 
-        get("/login", (req, res) -> LoginGui.LoginPageGUI());
+        get("/login", (req, res) -> LoginGUI.display("merci de vous identifier"));
 
-        post("/login", (req, res) -> LoginController.handleLoginPost(req, res));
+        post("/login", LoginController::handleLoginPost);
 
-        //Functions well
-        get("/teachers/id/:id_teacher", (req, res) -> ServeTeacherController.getATeacherById(req, res));
+        get("/teachers/id/:id_teacher", (req, res) ->
+        {
+            LoginController.ensureUserIsLoggedIn(req, res);
+            if (clientAcceptsHtml(req))
+            {
+                return TeacherGUI.readById(Long.parseLong(req.params(":id_teacher")));
+            }
+            return null;
+        });
 
-        //Functions well
-        get("/teachers/user/:username", (req, res) -> ServeTeacherController.getATeacherByUser_name(req, res));
+        get("/teachers/user/:username", (req, res) -> {
+            LoginController.ensureUserIsLoggedIn(req, res);
+            if (clientAcceptsHtml(req))
+            {
+                return TeacherGUI.readByUserName(req.params(":username"));
+            }
+            return null;
+        });
+
+        get("/signup", (req, res) -> {
+            LoginController.ensureUserIsLoggedIn(req, res);
+            if (clientAcceptsHtml(req))
+            {
+                return SignUpGUI.display();
+            }
+            return null;
+        });
+
+        post("/signup",
+             (req, res) -> {
+                 LoginController.ensureUserIsLoggedIn(req, res);
+                 if (clientAcceptsHtml(req))
+                 {
+                     HashMap<String, String> params = getParamFromReqBody(req.body());
+                     return SignUpGUI.signUp(getParamUTF8(params, "firstname"),
+                                             getParamUTF8(params, "lastname"),
+                                             getParamUTF8(params, "username"),
+                                             getParamUTF8(params, "userpwd"));
+                 }
+                 return null;
+             });
 
         get("/stickers", (req, res) -> StickerGUI.readAll());
 

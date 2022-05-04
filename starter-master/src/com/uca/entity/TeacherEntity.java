@@ -6,12 +6,8 @@ public class TeacherEntity
     private String lastName;
     private String firstName;
     private String userName;
-
-    private String password;
-    //hash password
-    private String userHPwd;
-    //salt password
-    private String userSPwd;
+    private String userPwd;
+    private String userSalt;
 
     public TeacherEntity()
     {
@@ -58,20 +54,20 @@ public class TeacherEntity
         this.userName = userName;
     }
 
-    public String getUserHPwd() { return userHPwd; }
+    public String getUserPwd() {return userPwd;}
 
-    public void setUserHPwd(String userHPWD)
+    public void setUserPwd(String userPwd)
     {
-        this.userHPwd = userHPWD;
+        this.userPwd = userPwd;
     }
 
-    public String getUserSPwd()
+    public String getUserSalt()
     {
-        return userSPwd;
+        return userSalt;
     }
 
-    public void setUserSPwd(String userSPWD)
+    public void setUserSalt(String userSPWD)
     {
-        this.userSPwd = userSPWD;
+        this.userSalt = userSPWD;
     }
 }

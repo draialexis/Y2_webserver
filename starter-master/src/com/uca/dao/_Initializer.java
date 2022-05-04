@@ -33,8 +33,8 @@ public class _Initializer
                     "   lastname VARCHAR(50) NOT NULL," +
                     "   firstname VARCHAR(50) NOT NULL," +
                     "   username VARCHAR(50) NOT NULL," +
-                    "   userHpwd VARCHAR(50) NOT NULL," +
-                    "   userSpwd VARCHAR(50) NOT NULL," +
+                    "   userpwd VARCHAR(50) NOT NULL," +
+                    "   usersalt VARCHAR(50) NOT NULL," +
                     "   CONSTRAINT PK_Teacher PRIMARY KEY(id_teacher)," +
                     "   CONSTRAINT AK_Teacher UNIQUE(username)" +
                     ");" +
@@ -66,21 +66,21 @@ public class _Initializer
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
-                    "INSERT INTO Teacher(firstname, lastname, username, userHpwd, userSpwd) VALUES(?, ?, ?, ?, ?);");
+                    "INSERT INTO Teacher(firstname, lastname, username, userpwd, usersalt) VALUES(?, ?, ?, ?, ?);");
             statement.setString(1, "Robert");
-            statement.setString(2, "Framb");
-            statement.setString(3, "robert_framb");
-            statement.setString(4, "sA0jNGQTrAfMUiqrB++bMKTU55ThdFCl16ZZTIXwD2M=");
-            statement.setString(5, "n7d9MPQFXxDqzT6onmong3hQt8Nyko");
+            statement.setString(2, "Framboisier");
+            statement.setString(3, "rob_fra");
+            statement.setString(4, "jOfL5U6hBj/lhxrm8/XlOs+K0DbG1M7tC/ehW1Kzz4w=");
+            statement.setString(5, "WNxq1r6Q2ZyA8AKQSYXJlg5XANMu9Kdp");
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
-                    "INSERT INTO Teacher(firstname, lastname, username, userHpwd, userSpwd) VALUES(?, ?, ?, ?, ?);");
+                    "INSERT INTO Teacher(firstname, lastname, username, userpwd, usersalt) VALUES(?, ?, ?, ?, ?);");
             statement.setString(1, "Charlotte");
             statement.setString(2, "Myrtille");
-            statement.setString(3, "charlotte_myrtille");
-            statement.setString(4, "izguebzeg7g5zezegseflmzZfaU");
-            statement.setString(5, "n7d9MPQFXxDqzT6onmong3hQt8Nyko");
+            statement.setString(3, "cha_myr");
+            statement.setString(4, "R8ld7acSBTxT23oR7IHB+hR/blrP6SD7/8Ja6gh7aEg=");
+            statement.setString(5, "tBtlrrVWRfFpGntfYuWcX3KwxrtRuq6h");
             statement.executeUpdate();
 
             statement = connection.prepareStatement("DELETE FROM Sticker;"); // temporary, for testing
@@ -115,8 +115,8 @@ public class _Initializer
 
             statement = connection.prepareStatement(
                     "INSERT INTO Pupil(lastname, firstname) VALUES(?, ?);");
-            statement.setString(1, "Yacine");
-            statement.setString(2, "Ayachi");
+            statement.setString(1, "John");
+            statement.setString(2, "Doe");
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
