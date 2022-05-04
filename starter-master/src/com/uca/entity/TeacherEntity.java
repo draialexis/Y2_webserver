@@ -7,6 +7,7 @@ public class TeacherEntity
     private String firstName;
     private String userName;
     private String userPwd;
+    private String userSalt;
 
     public TeacherEntity()
     {
@@ -63,6 +64,16 @@ public class TeacherEntity
         this.userPwd = userPwd;
     }
 
+    public String getUserSalt()
+    {
+        return userSalt;
+    }
+
+    public void setUserSalt(String userSPWD)
+    {
+        this.userSalt = userSPWD;
+    }
+
     @Override
     public String toString()
     {
@@ -72,6 +83,7 @@ public class TeacherEntity
                ", firstName='" + firstName + '\'' +
                ", userName='" + userName + '\'' +
                ", userPwd='" + userPwd + '\'' +
+               ", userSalt='" + userSalt + '\'' +
                '}';
     }
 }

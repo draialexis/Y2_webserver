@@ -1,6 +1,9 @@
 <#ftl encoding="utf-8">
 
+<html lang="fr">
+
 <body xmlns="http://www.w3.org/1999/html">
+
 <nav>
     <ul>
         <li><a href="/awards">Gommettes attribu&eacute;es</a></li>
@@ -9,8 +12,9 @@
         <li><a href="/teachers">Enseignants</a></li>
     </ul>
     <ul>
-<#--        visible to logged in users only          -->
         <li><a href="/login">S'identifier</a></li>
+
+        <#-- TODO make visible to logged in users only          -->
         <li><a href="/signup">Enregistrer un utilisateur</a></li>
     </ul>
 </nav>

@@ -9,7 +9,6 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class StickerGUI
 {
     public static String readAll() throws IOException, TemplateException

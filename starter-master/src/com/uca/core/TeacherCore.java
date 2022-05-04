@@ -23,6 +23,16 @@ public class TeacherCore
         return new TeacherDAO().readById(id);
     }
 
+    public static String getSalt(TeacherEntity user)
+    {
+        return user.getUserSalt();
+    }
+
+    public static String getHashedPassword(TeacherEntity user)
+    {
+        return user.getUserPwd();
+    }
+
     public static TeacherEntity create(TeacherEntity obj) throws SQLException
     {
         return new TeacherDAO().create(obj);
