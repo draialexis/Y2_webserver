@@ -17,16 +17,18 @@ public class TeacherDAO extends _Generic<TeacherEntity>
         String fName = obj.getFirstName();
         String lName = obj.getLastName();
         String uName = obj.getUserName();
-        String uPwd  = obj.getUserPwd();
+        String uHPwd  = obj.getUserHPwd();
+        String uSPwd  = obj.getUserSPwd();
 
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
-                    "INSERT INTO Teacher(firstname, lastname, username, userpwd) VALUES(?, ?, ?, ?);");
+                    "INSERT INTO Teacher(firstname, lastname, username, userHpwd, userSpwd) VALUES(?, ?, ?, ?, ?);");
             statement.setString(1, fName);
             statement.setString(2, lName);
             statement.setString(3, uName);
-            statement.setString(4, uPwd);
+            statement.setString(4, uHPwd);
+            statement.setString(5, uSPwd);
             statement.executeUpdate();
         } catch (SQLException e)
         {
@@ -52,7 +54,8 @@ public class TeacherDAO extends _Generic<TeacherEntity>
                 entity.setFirstName(resultSet.getString("firstname"));
                 entity.setLastName(resultSet.getString("lastname"));
                 entity.setUserName(resultSet.getString("username"));
-                entity.setUserPwd(resultSet.getString("userpwd"));
+                entity.setUserHPwd(resultSet.getString("userHpwd"));
+                entity.setUserSPwd(resultSet.getString("userSpwd"));
 
                 entities.add(entity);
             }
@@ -78,7 +81,8 @@ public class TeacherDAO extends _Generic<TeacherEntity>
             entity.setFirstName(resultSet.getString("firstname"));
             entity.setLastName(resultSet.getString("lastname"));
             entity.setUserName(resultSet.getString("username"));
-            entity.setUserPwd(resultSet.getString("userpwd"));
+            entity.setUserHPwd(resultSet.getString("userHpwd"));
+            entity.setUserSPwd(resultSet.getString("userSpwd"));
             return entity;
         } catch (SQLException e)
         {
@@ -101,7 +105,8 @@ public class TeacherDAO extends _Generic<TeacherEntity>
             entity.setFirstName(resultSet.getString("firstname"));
             entity.setLastName(resultSet.getString("lastname"));
             entity.setUserName(userName);
-            entity.setUserPwd(resultSet.getString("userpwd"));
+            entity.setUserHPwd(resultSet.getString("userHpwd"));
+            entity.setUserSPwd(resultSet.getString("userSpwd"));
             return entity;
         } catch (SQLException e)
         {
