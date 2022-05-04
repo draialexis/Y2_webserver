@@ -3,6 +3,7 @@ package com.uca.core;
 import com.uca.dao.TeacherDAO;
 import com.uca.entity.TeacherEntity;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TeacherCore
@@ -20,5 +21,10 @@ public class TeacherCore
     public static TeacherEntity readById(long id)
     {
         return new TeacherDAO().readById(id);
+    }
+
+    public static TeacherEntity create(TeacherEntity obj) throws SQLException
+    {
+        return new TeacherDAO().create(obj);
     }
 }

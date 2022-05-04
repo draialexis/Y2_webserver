@@ -10,28 +10,24 @@ public class TeacherDAO extends _Generic<TeacherEntity>
 {
     // TODO redo with CM slides and security in mind?
     // TODO decide whether to keep ID in the code or leave it in the database
+    // TODO actually do something with some of those exceptions
 
     @Override
-    public TeacherEntity create(TeacherEntity obj)
+    public TeacherEntity create(TeacherEntity obj) throws SQLException
     {
         String fName = obj.getFirstName();
         String lName = obj.getLastName();
         String uName = obj.getUserName();
         String uPwd  = obj.getUserPwd();
 
-        try
-        {
-            PreparedStatement statement = this.connect.prepareStatement(
-                    "INSERT INTO Teacher(firstname, lastname, username, userpwd) VALUES(?, ?, ?, ?);");
-            statement.setString(1, fName);
-            statement.setString(2, lName);
-            statement.setString(3, uName);
-            statement.setString(4, uPwd);
-            statement.executeUpdate();
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
+        PreparedStatement statement = this.connect.prepareStatement(
+                "INSERT INTO Teacher(firstname, lastname, username, userpwd) VALUES(?, ?, ?, ?);");
+        statement.setString(1, fName);
+        statement.setString(2, lName);
+        statement.setString(3, uName);
+        statement.setString(4, uPwd);
+        statement.executeUpdate();
+
         return obj;
     }
 

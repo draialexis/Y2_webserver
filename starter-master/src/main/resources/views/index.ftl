@@ -8,6 +8,11 @@
         <li><a href="/pupils">El&egrave;ves</a></li>
         <li><a href="/teachers">Enseignants</a></li>
     </ul>
+    <ul>
+<#--        visible to logged in users only          -->
+        <li><a href="/login">S'identifier</a></li>
+        <li><a href="/signup">Enregistrer un utilisateur</a></li>
+    </ul>
 </nav>
 
 </body>
