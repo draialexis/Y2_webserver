@@ -5,8 +5,8 @@
 
     <body>
         <form name="user" action="" method="post">
-            Firstname: <label><input type="text" name="firstname" /> </label> <br/>
-            Lastname: <label> <input type="text" name="lastname" /> </label> <br/>
+            firstname: <label><input type="text" name="username" /> </label> <br/>
+            password: <label> <input type="text" name="password" /> </label> <br/>
             <input type="submit" value="Save" />
         </form>
     </body>
