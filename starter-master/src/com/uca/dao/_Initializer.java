@@ -33,7 +33,8 @@ public class _Initializer
                     "   lastname VARCHAR(50) NOT NULL," +
                     "   firstname VARCHAR(50) NOT NULL," +
                     "   username VARCHAR(50) NOT NULL," +
-                    "   userpwd VARCHAR(50) NOT NULL," +
+                    "   userHpwd VARCHAR(50) NOT NULL," +
+                    "   userSpwd VARCHAR(50) NOT NULL," +
                     "   CONSTRAINT PK_Teacher PRIMARY KEY(id_teacher)," +
                     "   CONSTRAINT AK_Teacher UNIQUE(username)" +
                     ");" +
@@ -65,19 +66,21 @@ public class _Initializer
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
-                    "INSERT INTO Teacher(firstname, lastname, username, userpwd) VALUES(?, ?, ?, ?);");
+                    "INSERT INTO Teacher(firstname, lastname, username, userHpwd, userSpwd) VALUES(?, ?, ?, ?, ?);");
             statement.setString(1, "Robert");
-            statement.setString(2, "Framboisier");
-            statement.setString(3, "robert_framboisier");
-            statement.setString(4, "tyjSERTJDRUJQEjzujequ6aqe8uque6ueU");//TODO do real password stuff?
+            statement.setString(2, "Framb");
+            statement.setString(3, "robert_framb");
+            statement.setString(4, "sA0jNGQTrAfMUiqrB++bMKTU55ThdFCl16ZZTIXwD2M=");
+            statement.setString(5, "n7d9MPQFXxDqzT6onmong3hQt8Nyko");
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
-                    "INSERT INTO Teacher(firstname, lastname, username, userpwd) VALUES(?, ?, ?, ?);");
+                    "INSERT INTO Teacher(firstname, lastname, username, userHpwd, userSpwd) VALUES(?, ?, ?, ?, ?);");
             statement.setString(1, "Charlotte");
             statement.setString(2, "Myrtille");
             statement.setString(3, "charlotte_myrtille");
             statement.setString(4, "izguebzeg7g5zezegseflmzZfaU");
+            statement.setString(5, "n7d9MPQFXxDqzT6onmong3hQt8Nyko");
             statement.executeUpdate();
 
             statement = connection.prepareStatement("DELETE FROM Sticker;"); // temporary, for testing
