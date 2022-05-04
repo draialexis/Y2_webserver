@@ -23,8 +23,8 @@ public class _Initializer
                     "DROP TABLE IF EXISTS Sticker CASCADE;" + // temporary
                     "CREATE TABLE IF NOT EXISTS Sticker(" +
                     "   id_sticker BIGINT AUTO_INCREMENT," +
-                    "   color VARCHAR(20) NOT NULL, /* Only within {GREEN, WHITE, RED}*/" +
-                    "   description VARCHAR(20) NOT NULL, /* Only within {STAR, TRIANGLE, CIRCLE, SQUARE} (???)*/" +
+                    "   color VARCHAR(50) NOT NULL," +
+                    "   description VARCHAR(50) NOT NULL," +
                     "   CONSTRAINT PK_Sticker PRIMARY KEY(id_sticker)" +
                     ");" +
                     "DROP TABLE IF EXISTS Teacher CASCADE;" + // temporary
@@ -89,19 +89,19 @@ public class _Initializer
             statement = connection.prepareStatement(
                     "INSERT INTO Sticker(color, description) VALUES(?, ?);");
             statement.setString(1, "GREEN");
-            statement.setString(2, "TRIANGLE");
+            statement.setString(2, "INDIVIDUAL_SERVICE");
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
                     "INSERT INTO Sticker(color, description) VALUES(?, ?);");
             statement.setString(1, "RED");
-            statement.setString(2, "CIRCLE");
+            statement.setString(2, "OTHER_BAD_CONDUCT");
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
                     "INSERT INTO Sticker(color, description) VALUES(?, ?);");
             statement.setString(1, "WHITE");
-            statement.setString(2, "STAR");
+            statement.setString(2, "COMMUNITY_SERVICE");
             statement.executeUpdate();
 
             statement = connection.prepareStatement("DELETE FROM Pupil;"); // temporary, for testing
