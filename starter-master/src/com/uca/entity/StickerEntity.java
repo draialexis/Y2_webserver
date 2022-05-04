@@ -40,4 +40,14 @@ public class StickerEntity
     {
         this.description = description;
     }
+
+    @Override
+    public String toString()
+    {
+        return "StickerEntity{" +
+               "id=" + id +
+               ", color=" + color +
+               ", description='" + description + '\'' +
+               '}';
+    }
 }
