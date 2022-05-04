@@ -1,39 +1,33 @@
 package com.uca.Login;
 
 
+import com.uca.gui.LoginGui;
+import freemarker.template.TemplateException;
 import spark.Request;
 import spark.Response;
-import spark.Route;
+import java.io.IOException;
 
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.uca.dao.TeacherController.authenticate;
 import static com.uca.util.Request.*;
 
 public class LoginController {
 
-    public static Route serveLoginPage = (Request request, Response response) -> {
-        return "/login";
-    };
-    public static Route handleLoginPost = (Request request, Response response) -> {
-        Map<String, Object> model = new HashMap<>();
-        if (!authenticate(getQueryUsername(request), getQueryPassword(request))) {
-            model.put("authenticationFailed", true);
-            response.redirect("/login");
+    public static String pathSaved;
+    public static String handleLoginPost(Request req, Response res) throws TemplateException, IOException {
+        if (!authenticate(getQueryUsername(req), getQueryPassword(req))) {
+            return LoginGui.LoginFailedGUI();
         }
-        model.put("authenticationSucceeded", true);
-        request.session().attribute("currentUser", getQueryUsername(request));
-        if (getQueryLoginRedirect(request) != null) {
-            response.redirect(getQueryLoginRedirect(request));
-        }
-        response.redirect("/login");
+        req.session().attribute("currentUser", getQueryUsername(req));
+        if (pathSaved != null)
+            res.redirect(pathSaved); // if he requested to go somewhere without being logged in once logged he will be redirected where he wished
+        res.redirect("/"); // so that when the user is logged in without a query we redirect him to the root
         return null;
-    };
+    }
 
     public static void ensureUserIsLoggedIn(Request request, Response response) {
         if (request.session().attribute("currentUser") == null) {
-            request.session().attribute("loginRedirect", request.pathInfo());
+            pathSaved = request.pathInfo(); // saves the path to redirect right away after login
             response.redirect("/login");
         }
     }
