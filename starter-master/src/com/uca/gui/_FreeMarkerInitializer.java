@@ -6,10 +6,10 @@ import freemarker.template.TemplateExceptionHandler;
 
 import java.util.Locale;
 
-public class _FreeMarkerInitializer {
-
-    public static Configuration getContext() {
-        //Configure FreeMarker
+public class _FreeMarkerInitializer
+{
+    static Configuration getContext()
+    {
         Configuration configuration = new Configuration(Configuration.VERSION_2_3_30);
         configuration.setClassForTemplateLoading(StartServer.class, "/views");
         configuration.setDefaultEncoding("UTF-8");

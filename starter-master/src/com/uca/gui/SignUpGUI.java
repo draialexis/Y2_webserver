@@ -10,18 +10,18 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SignUpGUI extends _GenericGUI
+public class SignUpGUI
 {
     public static String display() throws IOException, TemplateException
     {
-        Template template = configuration.getTemplate("auth/signup.ftl");
-        return inAndOut(template, null, new StringWriter());
+        Template template = _FreeMarkerInitializer.getContext().getTemplate("auth/signup.ftl");
+        return _UtilGUI.inAndOut(template, null, new StringWriter());
     }
 
     public static String signUp(String firstName, String lastName, String userName, String userPwd)
             throws IOException, TemplateException
     {
-        Template            template = configuration.getTemplate("auth/signup_status.ftl");
+        Template            template = _FreeMarkerInitializer.getContext().getTemplate("auth/signup_status.ftl");
         Map<String, Object> input    = new HashMap<>();
         TeacherEntity       teacher  = new TeacherEntity();
         teacher.setFirstName(firstName);
@@ -37,6 +37,6 @@ public class SignUpGUI extends _GenericGUI
         {
             input.put("status", ": ce nom d'utilisateur est d&eacute;j&agrave; pris !");
         }
-        return inAndOut(template, input, new StringWriter());
+        return _UtilGUI.inAndOut(template, input, new StringWriter());
     }
 }

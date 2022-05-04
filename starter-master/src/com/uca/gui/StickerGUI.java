@@ -9,21 +9,22 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StickerGUI extends _GenericGUI
+
+public class StickerGUI
 {
     public static String readAll() throws IOException, TemplateException
     {
         Map<String, Object> input = new HashMap<>();
         input.put("stickers", StickerCore.readAll());
-        Template template = configuration.getTemplate("stickers/stickers.ftl");
-        return inAndOut(template, input, new StringWriter());
+        Template template = _FreeMarkerInitializer.getContext().getTemplate("stickers/stickers.ftl");
+        return _UtilGUI.inAndOut(template, input, new StringWriter());
     }
 
     public static String readById(long id) throws IOException, TemplateException
     {
         Map<String, Object> input = new HashMap<>();
         input.put("sticker", StickerCore.readById(id));
-        Template template = configuration.getTemplate("stickers/sticker.ftl");
-        return inAndOut(template, input, new StringWriter());
+        Template template = _FreeMarkerInitializer.getContext().getTemplate("stickers/sticker.ftl");
+        return _UtilGUI.inAndOut(template, input, new StringWriter());
     }
 }

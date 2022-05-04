@@ -9,29 +9,30 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TeacherGUI extends _GenericGUI
+
+public class TeacherGUI
 {
     public static String readAll() throws IOException, TemplateException
     {
-        Map<String, Object> input  = new HashMap<>();
+        Map<String, Object> input = new HashMap<>();
         input.put("teachers", TeacherCore.readAll());
-        Template template = configuration.getTemplate("teachers/teachers.ftl");
-        return inAndOut(template, input, new StringWriter());
+        Template template = _FreeMarkerInitializer.getContext().getTemplate("teachers/teachers.ftl");
+        return _UtilGUI.inAndOut(template, input, new StringWriter());
     }
 
     public static String readById(long id) throws IOException, TemplateException
     {
-        Map<String, Object> input  = new HashMap<>();
+        Map<String, Object> input = new HashMap<>();
         input.put("teacher", TeacherCore.readById(id));
-        Template template = configuration.getTemplate("teachers/teacher.ftl");
-        return inAndOut(template, input, new StringWriter());
+        Template template = _FreeMarkerInitializer.getContext().getTemplate("teachers/teacher.ftl");
+        return _UtilGUI.inAndOut(template, input, new StringWriter());
     }
 
     public static String readByUserName(String userName) throws IOException, TemplateException
     {
-        Map<String, Object> input  = new HashMap<>();
+        Map<String, Object> input = new HashMap<>();
         input.put("teacher", TeacherCore.readByUserName(userName));
-        Template template = configuration.getTemplate("teachers/teacher.ftl");
-        return inAndOut(template, input, new StringWriter());
+        Template template = _FreeMarkerInitializer.getContext().getTemplate("teachers/teacher.ftl");
+        return _UtilGUI.inAndOut(template, input, new StringWriter());
     }
 }
