@@ -13,17 +13,19 @@ public class StickerGUI
 {
     public static String readAll() throws IOException, TemplateException
     {
-        Map<String, Object> input = new HashMap<>();
+        Map<String, Object> input    = new HashMap<>();
+        Template            template = _FreeMarkerInitializer.getContext().getTemplate("stickers/stickers.ftl");
+
         input.put("stickers", StickerCore.readAll());
-        Template template = _FreeMarkerInitializer.getContext().getTemplate("stickers/stickers.ftl");
         return _UtilGUI.inAndOut(template, input, new StringWriter());
     }
 
     public static String readById(long id) throws IOException, TemplateException
     {
-        Map<String, Object> input = new HashMap<>();
+        Map<String, Object> input    = new HashMap<>();
+        Template            template = _FreeMarkerInitializer.getContext().getTemplate("stickers/sticker.ftl");
+
         input.put("sticker", StickerCore.readById(id));
-        Template template = _FreeMarkerInitializer.getContext().getTemplate("stickers/sticker.ftl");
         return _UtilGUI.inAndOut(template, input, new StringWriter());
     }
 }

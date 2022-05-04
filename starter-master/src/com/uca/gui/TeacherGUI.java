@@ -17,25 +17,28 @@ public class TeacherGUI
 {
     public static String readAll() throws IOException, TemplateException
     {
-        Map<String, Object> input = new HashMap<>();
+        Map<String, Object> input    = new HashMap<>();
+        Template            template = _FreeMarkerInitializer.getContext().getTemplate("teachers/teachers.ftl");
+
         input.put("teachers", TeacherCore.readAll());
-        Template template = _FreeMarkerInitializer.getContext().getTemplate("teachers/teachers.ftl");
         return _UtilGUI.inAndOut(template, input, new StringWriter());
     }
 
     public static String readById(long id) throws IOException, TemplateException
     {
-        Map<String, Object> input = new HashMap<>();
+        Map<String, Object> input    = new HashMap<>();
+        Template            template = _FreeMarkerInitializer.getContext().getTemplate("teachers/teacher.ftl");
+
         input.put("teacher", TeacherCore.readById(id));
-        Template template = _FreeMarkerInitializer.getContext().getTemplate("teachers/teacher.ftl");
         return _UtilGUI.inAndOut(template, input, new StringWriter());
     }
 
     public static String readByUserName(String userName) throws IOException, TemplateException
     {
-        Map<String, Object> input = new HashMap<>();
+        Map<String, Object> input    = new HashMap<>();
+        Template            template = _FreeMarkerInitializer.getContext().getTemplate("teachers/teacher.ftl");
+
         input.put("teacher", TeacherCore.readByUserName(userName));
-        Template template = _FreeMarkerInitializer.getContext().getTemplate("teachers/teacher.ftl");
         return _UtilGUI.inAndOut(template, input, new StringWriter());
     }
 
@@ -43,8 +46,8 @@ public class TeacherGUI
             throws IOException, TemplateException
     {
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("auth/signup.ftl");
-        Map<String, Object> input   = new HashMap<>();
-        TeacherEntity       teacher = new TeacherEntity();
+        Map<String, Object> input    = new HashMap<>();
+        TeacherEntity       teacher  = new TeacherEntity();
         teacher.setFirstName(firstName);
         teacher.setLastName(lastName);
         teacher.setUserName(userName);

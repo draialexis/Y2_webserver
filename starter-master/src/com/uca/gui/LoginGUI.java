@@ -14,6 +14,7 @@ public class LoginGUI
     {
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("auth/login.ftl");
+
         input.put("status", status);
         return _UtilGUI.inAndOut(template, input, new StringWriter());
     }
