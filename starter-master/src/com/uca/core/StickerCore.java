@@ -12,7 +12,7 @@ public class StickerCore
         return new StickerDAO().readAll();
     }
 
-    public static StickerEntity readById(Long id)
+    public static StickerEntity readById(long id)
     {
         return new StickerDAO().readById(id);
     }

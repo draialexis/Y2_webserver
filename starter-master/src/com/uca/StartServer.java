@@ -15,6 +15,8 @@ public class StartServer
         staticFiles.location("/static/");
         port(PORT);
 
+        //TODO Don't allow usernames to start with '+', '-', or a digit
+
         _Initializer.Init();
 
         //Define routes
@@ -22,10 +24,14 @@ public class StartServer
 
         get("/teachers", (req, res) -> TeacherGUI.readAll());
 
-        get("/teachers/:username", (req, res) -> TeacherGUI.readByUserName(req.params(":username")));
+        //TODO make this exclusive to loggedin
+        get("/teachers/id/:id_teacher", (req, res) -> TeacherGUI.readById(Long.parseLong(req.params(":id_teacher"))));
+
+        //TODO make this exclusive to loggedin
+        get("/teachers/user/:username", (req, res) -> TeacherGUI.readByUserName(req.params(":username")));
 
         get("/stickers", (req, res) -> StickerGUI.readAll());
 
-        get("/stickers/:id", (req, res) -> StickerGUI.readById(Long.parseLong(req.params(":id"))));
+        get("/stickers/:id_sticker", (req, res) -> StickerGUI.readById(Long.parseLong(req.params(":id_sticker"))));
     }
 }
