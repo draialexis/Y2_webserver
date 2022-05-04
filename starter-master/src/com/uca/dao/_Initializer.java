@@ -60,7 +60,7 @@ public class _Initializer
 
             statement.executeUpdate();
 
-            //Todo Remove me ! + Research Java.sql
+            //Todo Remove me ? + Research Java.sql
 
             statement = connection.prepareStatement("DELETE FROM Teacher;"); // temporary, for testing
             statement.executeUpdate();

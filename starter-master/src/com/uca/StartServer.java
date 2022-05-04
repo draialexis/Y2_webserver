@@ -63,7 +63,7 @@ public class StartServer
                  if (clientAcceptsHtml(req))
                  {
                      HashMap<String, String> params = getParamFromReqBody(req.body());
-                     return SignUpGUI.signUp(getParamUTF8(params, "firstname"),
+                     return TeacherGUI.create(getParamUTF8(params, "firstname"),
                                              getParamUTF8(params, "lastname"),
                                              getParamUTF8(params, "username"),
                                              getParamUTF8(params, "userpwd"));

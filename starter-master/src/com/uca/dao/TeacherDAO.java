@@ -49,6 +49,8 @@ public class TeacherDAO extends _Generic<TeacherEntity>
                 entity.setFirstName(resultSet.getString("firstname"));
                 entity.setLastName(resultSet.getString("lastname"));
                 entity.setUserName(resultSet.getString("username"));
+                entity.setUserPwd(resultSet.getString("userpwd"));
+                entity.setUserSalt(resultSet.getString("usersalt"));
                 entities.add(entity);
             }
         } catch (SQLException e)
@@ -73,6 +75,8 @@ public class TeacherDAO extends _Generic<TeacherEntity>
             entity.setFirstName(resultSet.getString("firstname"));
             entity.setLastName(resultSet.getString("lastname"));
             entity.setUserName(resultSet.getString("username"));
+            entity.setUserPwd(resultSet.getString("userpwd"));
+            entity.setUserSalt(resultSet.getString("usersalt"));
             return entity;
         } catch (SQLException e)
         {
@@ -95,6 +99,8 @@ public class TeacherDAO extends _Generic<TeacherEntity>
             entity.setFirstName(resultSet.getString("firstname"));
             entity.setLastName(resultSet.getString("lastname"));
             entity.setUserName(userName);
+            entity.setUserPwd(resultSet.getString("userpwd"));
+            entity.setUserSalt(resultSet.getString("usersalt"));
             return entity;
         } catch (SQLException e)
         {
