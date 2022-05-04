@@ -62,4 +62,16 @@ public class TeacherEntity
     {
         this.userPwd = userPwd;
     }
+
+    @Override
+    public String toString()
+    {
+        return "TeacherEntity{" +
+               "id=" + id +
+               ", lastName='" + lastName + '\'' +
+               ", firstName='" + firstName + '\'' +
+               ", userName='" + userName + '\'' +
+               ", userPwd='" + userPwd + '\'' +
+               '}';
+    }
 }
