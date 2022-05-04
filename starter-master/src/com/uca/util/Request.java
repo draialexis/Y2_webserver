@@ -7,7 +7,9 @@ public class Request {
     public static String getQueryPassword(spark.Request request) {
         return request.queryParams("password");
     }
-    public static String getQueryLoginRedirect(spark.Request request) {
-        return request.queryParams("loginRedirect");
+
+    public static boolean clientAcceptsHtml(spark.Request request) {
+        String accept = request.headers("Accept");
+        return accept != null && accept.contains("text/html");
     }
 }
