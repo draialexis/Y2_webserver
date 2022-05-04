@@ -16,4 +16,9 @@ public class TeacherCore
     {
         return new TeacherDAO().readByUserName(userName);
     }
+
+    public static String getSalt(TeacherEntity user) {return  user.getUserSPwd();}
+
+    public static String getHashedPassword(TeacherEntity user) {return  user.getUserHPwd();}
+
 }
