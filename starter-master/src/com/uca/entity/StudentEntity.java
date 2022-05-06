@@ -1,12 +1,12 @@
 package com.uca.entity;
 
-public class PupilEntity
+public class StudentEntity
 {
     private long   id;
     private String lastName;
     private String firstName;
 
-    public PupilEntity()
+    public StudentEntity()
     {
         // never used
     }
@@ -44,7 +44,7 @@ public class PupilEntity
     @Override
     public String toString()
     {
-        return "PupilEntity{" +
+        return "StudentEntity{" +
                "id=" + id +
                ", lastName='" + lastName + '\'' +
                ", firstName='" + firstName + '\'' +

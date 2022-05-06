@@ -7,8 +7,8 @@
 <a href="/">&larr; Index</a>
 
 <ul>
-    <#list pupils as pupil>
-        <li><a href="/pupils/${pupil.id}">${pupil.id} - ${pupil.firstName} ${pupil.lastName}</a></li>
+    <#list students as student>
+        <li><a href="/students/${student.id}">${student.id} - ${student.firstName} ${student.lastName}</a></li>
     </#list>
 </ul>
 

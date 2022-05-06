@@ -13,12 +13,12 @@ public class _Initializer
         {
             PreparedStatement statement;
             statement = connection.prepareStatement(
-                    "DROP TABLE IF EXISTS Pupil CASCADE;" + // temporary
-                    "CREATE TABLE IF NOT EXISTS Pupil(" +
-                    "   id_pupil BIGINT AUTO_INCREMENT," +
+                    "DROP TABLE IF EXISTS Student CASCADE;" + // temporary
+                    "CREATE TABLE IF NOT EXISTS Student(" +
+                    "   id_student BIGINT AUTO_INCREMENT," +
                     "   lastname VARCHAR(50) NOT NULL," +
                     "   firstname VARCHAR(50) NOT NULL," +
-                    "   CONSTRAINT PK_Pupil PRIMARY KEY(id_pupil)" +
+                    "   CONSTRAINT PK_Student PRIMARY KEY(id_student)" +
                     ");" +
                     "DROP TABLE IF EXISTS Sticker CASCADE;" + // temporary
                     "CREATE TABLE IF NOT EXISTS Sticker(" +
@@ -42,13 +42,13 @@ public class _Initializer
                     "CREATE TABLE IF NOT EXISTS Award(" +
                     "   id_teacher BIGINT," +
                     "   id_sticker BIGINT," +
-                    "   id_pupil BIGINT," +
+                    "   id_student BIGINT," +
                     "   attribution_date DATE NOT NULL," +
                     "   motive TEXT NOT NULL," +
-                    "   CONSTRAINT PK_Award PRIMARY KEY(id_teacher, id_sticker, id_pupil)," +
+                    "   CONSTRAINT PK_Award PRIMARY KEY(id_teacher, id_sticker, id_student)," +
                     "   CONSTRAINT FK_Award_Teacher FOREIGN KEY(id_teacher) REFERENCES Teacher(id_teacher) ON UPDATE CASCADE ON DELETE CASCADE," +
                     "   CONSTRAINT FK_Award_Sticker FOREIGN KEY(id_sticker) REFERENCES Sticker(id_sticker) ON UPDATE CASCADE ON DELETE CASCADE," +
-                    "   CONSTRAINT FK_Award_Pupil FOREIGN KEY(id_pupil) REFERENCES Pupil(id_pupil) ON UPDATE CASCADE ON DELETE CASCADE" +
+                    "   CONSTRAINT FK_Award_Student FOREIGN KEY(id_student) REFERENCES Student(id_student) ON UPDATE CASCADE ON DELETE CASCADE" +
                     ");"
             );
 
@@ -104,23 +104,23 @@ public class _Initializer
             statement.setString(2, "COMMUNITY_SERVICE");
             statement.executeUpdate();
 
-            statement = connection.prepareStatement("DELETE FROM Pupil;"); // temporary, for testing
+            statement = connection.prepareStatement("DELETE FROM Student;"); // temporary, for testing
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
-                    "INSERT INTO Pupil(lastname, firstname) VALUES(?, ?);");
+                    "INSERT INTO Student(lastname, firstname) VALUES(?, ?);");
             statement.setString(1, "Eyosias");
             statement.setString(2, "Woldemichael");
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
-                    "INSERT INTO Pupil(lastname, firstname) VALUES(?, ?);");
+                    "INSERT INTO Student(lastname, firstname) VALUES(?, ?);");
             statement.setString(1, "John");
             statement.setString(2, "Doe");
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
-                    "INSERT INTO Pupil(lastname, firstname) VALUES(?, ?);");
+                    "INSERT INTO Student(lastname, firstname) VALUES(?, ?);");
             statement.setString(1, "Alexis");
             statement.setString(2, "Drai");
             statement.executeUpdate();
@@ -129,7 +129,7 @@ public class _Initializer
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
-                    "INSERT INTO Award(id_teacher, id_sticker, id_pupil, attribution_date, motive) VALUES(?, ?, ?, ?, ?);");
+                    "INSERT INTO Award(id_teacher, id_sticker, id_student, attribution_date, motive) VALUES(?, ?, ?, ?, ?);");
             statement.setInt(1, 1);
             statement.setInt(2, 2);
             statement.setInt(3, 3);
@@ -139,7 +139,7 @@ public class _Initializer
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
-                    "INSERT INTO Award(id_teacher, id_sticker, id_pupil, attribution_date, motive) VALUES(?, ?, ?, ?, ?);");
+                    "INSERT INTO Award(id_teacher, id_sticker, id_student, attribution_date, motive) VALUES(?, ?, ?, ?, ?);");
             statement.setInt(1, 2);
             statement.setInt(2, 3);
             statement.setInt(3, 1);
@@ -149,7 +149,7 @@ public class _Initializer
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
-                    "INSERT INTO Award(id_teacher, id_sticker, id_pupil, attribution_date, motive) VALUES(?, ?, ?, ?, ?);");
+                    "INSERT INTO Award(id_teacher, id_sticker, id_student, attribution_date, motive) VALUES(?, ?, ?, ?, ?);");
             statement.setInt(1, 1);
             statement.setInt(2, 1);
             statement.setInt(3, 2);

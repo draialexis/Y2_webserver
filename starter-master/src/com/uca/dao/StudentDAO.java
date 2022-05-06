@@ -6,7 +6,7 @@ import javax.naming.OperationNotSupportedException;
 import java.sql.SQLException;
 import java.util.Collection;
 
-public class PupilDAO extends _Generic<StickerEntity>
+public class StudentDAO extends _Generic<StickerEntity>
 {
     @Override
     public StickerEntity create(StickerEntity obj) throws SQLException

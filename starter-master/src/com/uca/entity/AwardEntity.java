@@ -7,7 +7,7 @@ public class AwardEntity
 {
     private TeacherEntity teacher;
     private StickerEntity sticker;
-    private PupilEntity   pupil;
+    private StudentEntity student;
     private Date          attributionDate;
     private String        motive;
 
@@ -33,15 +33,15 @@ public class AwardEntity
         this.sticker = sticker;
     }
 
-    PupilEntity getPupil()
+    StudentEntity getStudent()
     {
         // TODO return a copy instead
-        return pupil;
+        return student;
     }
 
-    void setPupil(PupilEntity pupil)
+    void setStudent(StudentEntity student)
     {
-        this.pupil = pupil;
+        this.student = student;
     }
 
     Date getAttributionDate()
@@ -71,7 +71,7 @@ public class AwardEntity
         return "AwardEntity{" +
                "teacher=" + teacher +
                ", sticker=" + sticker +
-               ", pupil=" + pupil +
+               ", student=" + student +
                ", attributionDate=" + attributionDate +
                ", motive='" + motive + '\'' +
                '}';

@@ -1,5 +1,5 @@
 package com.uca.core;
 
-public class PupilCore
+public class StudentCore
 {
 }

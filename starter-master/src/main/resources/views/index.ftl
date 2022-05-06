@@ -8,7 +8,7 @@
     <ul>
         <li><a href="/awards">Gommettes attribu&eacute;es</a></li>
         <li><a href="/stickers">Gommettes</a></li>
-        <li><a href="/pupils">El&egrave;ves</a></li>
+        <li><a href="/students">El&egrave;ves</a></li>
         <li><a href="/teachers">Enseignants</a></li>
     </ul>
     <ul>
