@@ -1,15 +1,46 @@
 package com.uca.entity;
 
-import java.util.Date;
-// TODO use java.sql.Date instead?
+import java.sql.Date;
 
 public class AwardEntity
 {
+    private long          id;
+    private Date          attributionDate;
+    private String        motive;
     private TeacherEntity teacher;
     private StickerEntity sticker;
     private StudentEntity student;
-    private Date          attributionDate;
-    private String        motive;
+
+    public long getId()
+    {
+        return id;
+    }
+
+    public void setId(long id)
+    {
+        this.id = id;
+    }
+
+    public Date getAttributionDate()
+    {
+        // TODO return a copy instead ?
+        return attributionDate;
+    }
+
+    public void setAttributionDate(Date attributionDate)
+    {
+        this.attributionDate = attributionDate;
+    }
+
+    public String getMotive()
+    {
+        return motive;
+    }
+
+    public void setMotive(String motive)
+    {
+        this.motive = motive;
+    }
 
     public TeacherEntity getTeacher()
     {
@@ -22,7 +53,7 @@ public class AwardEntity
         this.teacher = teacher;
     }
 
-    StickerEntity getSticker()
+    public StickerEntity getSticker()
     {
         // TODO return a copy instead
         return sticker;
@@ -33,7 +64,7 @@ public class AwardEntity
         this.sticker = sticker;
     }
 
-    StudentEntity getStudent()
+    public StudentEntity getStudent()
     {
         // TODO return a copy instead
         return student;
@@ -42,27 +73,6 @@ public class AwardEntity
     public void setStudent(StudentEntity student)
     {
         this.student = student;
-    }
-
-    Date getAttributionDate()
-    {
-        // TODO return a copy instead ?
-        return attributionDate;
-    }
-
-    public void setAttributionDate(Date attributionDate)
-    {
-        this.attributionDate = attributionDate;
-    }
-
-    String getMotive()
-    {
-        return motive;
-    }
-
-    public void setMotive(String motive)
-    {
-        this.motive = motive;
     }
 
     @Override
