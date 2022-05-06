@@ -25,6 +25,24 @@ public class StartServer
 
         get("/teachers", (req, res) -> TeacherGUI.readAll());
 
+        get("/students", (req, res) ->{
+            LoginController.ensureUserIsLoggedIn(req, res);
+            if (clientAcceptsHtml(req))
+            {
+                return StudentGUI.readAll();
+            }
+            return null;
+        });
+
+        get("/students/:id_student", (req, res) -> {
+            LoginController.ensureUserIsLoggedIn(req, res);
+            if (clientAcceptsHtml(req))
+            {
+                return StudentGUI.readById(Long.parseLong(req.params(":id_student")));
+            }
+            return null;
+        });
+
         get("/login", (req, res) -> LoginGUI.display("merci de vous identifier"));
 
         post("/login", LoginController::handleLoginPost);
