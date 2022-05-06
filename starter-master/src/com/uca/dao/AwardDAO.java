@@ -47,7 +47,7 @@ public class AwardDAO extends _Generic<AwardEntity>
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
-                    "SELECT * FROM Award ORDER BY id_student, attribution_date;");
+                    "SELECT * FROM Award ORDER BY attribution_date DESC, id_award DESC;");
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next())
@@ -67,7 +67,7 @@ public class AwardDAO extends _Generic<AwardEntity>
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
-                    "SELECT * FROM Award WHERE id_student = ? ORDER BY attribution_date;");
+                    "SELECT * FROM Award WHERE id_student = ? ORDER BY attribution_date DESC;");
             statement.setLong(1, studentId);
 
             ResultSet resultSet = statement.executeQuery();
