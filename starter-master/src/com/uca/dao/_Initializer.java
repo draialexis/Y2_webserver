@@ -128,33 +128,33 @@ public class _Initializer
             statement = connection.prepareStatement("DELETE FROM Award;"); // temporary, for testing
             statement.executeUpdate();
 
+            Date today = new Date(new java.util.Date().getTime());
+            // gets the number of ms since 01/01/1970 and feeds it to the javasql date object
+
             statement = connection.prepareStatement(
                     "INSERT INTO Award(id_teacher, id_sticker, id_student, attribution_date, motive) VALUES(?, ?, ?, ?, ?);");
-            statement.setInt(1, 1);
-            statement.setInt(2, 2);
-            statement.setInt(3, 3);
-            statement.setDate(4, new Date(new java.util.Date().getTime()));
-            // gets the number of ms since 01/01/1970 and feeds it to the javasql date object
+            statement.setLong(1, 1);
+            statement.setLong(2, 2);
+            statement.setLong(3, 3);
+            statement.setDate(4, today);
             statement.setString(5, "some random motive");
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
                     "INSERT INTO Award(id_teacher, id_sticker, id_student, attribution_date, motive) VALUES(?, ?, ?, ?, ?);");
-            statement.setInt(1, 2);
-            statement.setInt(2, 3);
-            statement.setInt(3, 1);
-            statement.setDate(4, new Date(new java.util.Date().getTime()));
-            // gets the number of ms since 01/01/1970 and feeds it to the javasql date object
+            statement.setLong(1, 2);
+            statement.setLong(2, 3);
+            statement.setLong(3, 1);
+            statement.setDate(4, today);
             statement.setString(5, "some other random motive");
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
                     "INSERT INTO Award(id_teacher, id_sticker, id_student, attribution_date, motive) VALUES(?, ?, ?, ?, ?);");
-            statement.setInt(1, 1);
-            statement.setInt(2, 1);
-            statement.setInt(3, 2);
-            statement.setDate(4, new Date(new java.util.Date().getTime()));
-            // gets the number of ms since 01/01/1970 and feeds it to the javasql date object
+            statement.setLong(1, 1);
+            statement.setLong(2, 1);
+            statement.setLong(3, 2);
+            statement.setDate(4, today);
             statement.setString(5, "some other other random motive");
             statement.executeUpdate();
         } catch (Exception e)
