@@ -11,7 +11,8 @@ import java.util.ArrayList;
 
 public class StickerDAO extends _Generic<StickerEntity>
 {
-    private StickerEntity getFullEntity(ResultSet resultSet) throws SQLException
+    @Override
+    protected StickerEntity getFullEntity(ResultSet resultSet) throws SQLException
     {
         StickerEntity entity = new StickerEntity();
         entity.setId(resultSet.getLong("id_sticker"));
@@ -80,22 +81,16 @@ public class StickerDAO extends _Generic<StickerEntity>
     @Override
     public StickerEntity update(StickerEntity obj, long id)
     {
-        String color       = obj.getColor().toString();
-        String description = obj.getDescription().toString();
-
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
                     "UPDATE Sticker SET color = ?, description = ? WHERE id_sticker = ?;");
-            statement.setString(1, color);
-            statement.setString(2, description);
+            statement.setString(1, obj.getColor().toString());
+            statement.setString(2, obj.getDescription().toString());
             statement.setLong(3, id);
             statement.executeUpdate();
 
-            if (obj.getId() != id) // unnecessary?
-            {
-                obj.setId(id);
-            }
+            ensureIdIsSet(obj, id);
         } catch (SQLException e)
         {
             e.printStackTrace();

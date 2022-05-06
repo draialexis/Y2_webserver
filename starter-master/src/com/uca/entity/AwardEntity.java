@@ -2,7 +2,7 @@ package com.uca.entity;
 
 import java.sql.Date;
 
-public class AwardEntity
+public class AwardEntity implements Identifiable
 {
     private long          id;
     private Date          attributionDate;

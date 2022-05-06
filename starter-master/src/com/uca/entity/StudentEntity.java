@@ -1,6 +1,6 @@
 package com.uca.entity;
 
-public class StudentEntity
+public class StudentEntity implements Identifiable
 {
     private long   id;
     private String lastName;

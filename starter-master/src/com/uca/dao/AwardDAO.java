@@ -13,8 +13,8 @@ import java.util.ArrayList;
 
 public class AwardDAO extends _Generic<AwardEntity>
 {
-
-    private AwardEntity getFullEntity(ResultSet resultSet) throws SQLException
+    @Override
+    protected AwardEntity getFullEntity(ResultSet resultSet) throws SQLException
     {
         AwardEntity entity = new AwardEntity();
         entity.setId(resultSet.getLong("id_award"));
@@ -109,17 +109,16 @@ public class AwardDAO extends _Generic<AwardEntity>
                     "UPDATE Award " +
                     "SET attribution_date = ?, motive = ?, id_teacher = ?, id_sticker = ?, id_student = ? " +
                     "WHERE id_award = ?) " +
-                    "VALUES(?, ?, ?, ?, ?);");
+                    "VALUES(?, ?, ?, ?, ?, ?);");
             statement.setDate(1, obj.getAttributionDate());
             statement.setString(2, obj.getMotive());
             statement.setLong(3, obj.getTeacher().getId());
             statement.setLong(4, obj.getSticker().getId());
             statement.setLong(5, obj.getStudent().getId());
             statement.setLong(6, id);
-            if (obj.getId() != id) // unnecessary?
-            {
-                obj.setId(id);
-            }
+            statement.executeUpdate();
+
+            ensureIdIsSet(obj, id);
         } catch (SQLException e)
         {
             e.printStackTrace();

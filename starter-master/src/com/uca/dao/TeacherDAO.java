@@ -8,11 +8,8 @@ import java.util.ArrayList;
 
 public class TeacherDAO extends _Generic<TeacherEntity>
 {
-    // TODO redo with CM slides and security in mind?
-    // TODO decide whether to keep ID in the code or leave it in the database
-    // TODO actually do something with some of those exceptions
-
-    private TeacherEntity getFullEntity(ResultSet resultSet) throws SQLException
+    @Override
+    protected TeacherEntity getFullEntity(ResultSet resultSet) throws SQLException
     {
         TeacherEntity entity = new TeacherEntity();
         entity.setId(resultSet.getLong("id_teacher"));

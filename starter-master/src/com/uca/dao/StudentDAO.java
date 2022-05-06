@@ -9,7 +9,8 @@ import java.util.ArrayList;
 
 public class StudentDAO extends _Generic<StudentEntity>
 {
-    private StudentEntity getFullEntity(ResultSet resultSet) throws SQLException
+    @Override
+    protected StudentEntity getFullEntity(ResultSet resultSet) throws SQLException
     {
         StudentEntity entity = new StudentEntity();
         entity.setId(resultSet.getLong("id_student"));
@@ -79,18 +80,16 @@ public class StudentDAO extends _Generic<StudentEntity>
     @Override
     public StudentEntity update(StudentEntity obj, long id)
     {
-        String fName = obj.getFirstName();
-        String lName = obj.getLastName();
-
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
                     "UPDATE Sticker SET lastname = ?, firstname = ? WHERE id_student = ?;");
-            statement.setString(1, lName);
-            statement.setString(2, fName);
+            statement.setString(1, obj.getFirstName());
+            statement.setString(2, obj.getLastName());
             statement.setLong(3, id);
             statement.executeUpdate();
 
+            ensureIdIsSet(obj, id);
         } catch (SQLException e)
         {
             e.printStackTrace();
