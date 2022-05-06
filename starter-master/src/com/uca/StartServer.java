@@ -25,7 +25,7 @@ public class StartServer
 
         get("/teachers", (req, res) -> TeacherGUI.readAll());
 
-        get("/students", (req, res) ->{
+        get("/students", (req, res) -> {
             LoginController.ensureUserIsLoggedIn(req, res);
             if (clientAcceptsHtml(req))
             {
@@ -47,20 +47,11 @@ public class StartServer
 
         post("/login", LoginController::handleLoginPost);
 
-        get("/teachers/id/:id_teacher", (req, res) -> {
+        get("/teachers/:id_teacher", (req, res) -> {
             LoginController.ensureUserIsLoggedIn(req, res);
             if (clientAcceptsHtml(req))
             {
                 return TeacherGUI.readById(Long.parseLong(req.params(":id_teacher")));
-            }
-            return null;
-        });
-
-        get("/teachers/user/:username", (req, res) -> {
-            LoginController.ensureUserIsLoggedIn(req, res);
-            if (clientAcceptsHtml(req))
-            {
-                return TeacherGUI.readByUserName(req.params(":username"));
             }
             return null;
         });
