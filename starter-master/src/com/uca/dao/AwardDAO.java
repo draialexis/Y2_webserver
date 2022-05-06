@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class AwardDAO extends _Generic<AwardEntity>
 {
@@ -42,7 +41,7 @@ public class AwardDAO extends _Generic<AwardEntity>
     }
 
     @Override
-    public Collection<AwardEntity> readAll()
+    public ArrayList<AwardEntity> readAll()
     {
         ArrayList<AwardEntity> entities = new ArrayList<>();
         try
@@ -62,7 +61,7 @@ public class AwardDAO extends _Generic<AwardEntity>
         return entities;
     }
 
-    public Collection<AwardEntity> readByStudentId(long studentId)
+    public ArrayList<AwardEntity> readByStudentId(long studentId)
     {
         ArrayList<AwardEntity> entities = new ArrayList<>();
         try

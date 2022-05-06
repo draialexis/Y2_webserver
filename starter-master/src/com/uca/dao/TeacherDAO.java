@@ -45,7 +45,7 @@ public class TeacherDAO extends _Generic<TeacherEntity>
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
-                    "SELECT * FROM Teacher ORDER BY lastname;");
+                    "SELECT * FROM Teacher ORDER BY id_teacher;");
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next())
