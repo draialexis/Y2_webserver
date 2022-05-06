@@ -3,6 +3,7 @@ package com.uca.dao;
 import com.uca.entity.Color;
 import com.uca.entity.Description;
 import com.uca.entity.StickerEntity;
+import com.uca.entity.TeacherEntity;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +12,14 @@ import java.util.ArrayList;
 
 public class StickerDAO extends _Generic<StickerEntity>
 {
+    private StickerEntity getFullEntity(ResultSet resultSet) throws SQLException
+    {
+        StickerEntity entity = new StickerEntity();
+        entity.setId(resultSet.getLong("id_sticker"));
+        entity.setColor(Color.valueOf(resultSet.getString("color")));
+        entity.setDescription(Description.valueOf(resultSet.getString("description")));
+        return entity;
+    }
 
     @Override
     public StickerEntity create(StickerEntity obj)
@@ -44,12 +53,7 @@ public class StickerDAO extends _Generic<StickerEntity>
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next())
             {
-                StickerEntity entity = new StickerEntity();
-                entity.setId(resultSet.getLong("id_sticker"));
-                entity.setColor(Color.valueOf(resultSet.getString("color")));
-                entity.setDescription(Description.valueOf(resultSet.getString("description")));
-
-                entities.add(entity);
+                entities.add(getFullEntity(resultSet));
             }
         } catch (SQLException e)
         {
@@ -68,11 +72,8 @@ public class StickerDAO extends _Generic<StickerEntity>
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
-            StickerEntity entity = new StickerEntity();
-            entity.setId(id);
-            entity.setColor(Color.valueOf(resultSet.getString("color")));
-            entity.setDescription(Description.valueOf(resultSet.getString("description")));
-            return entity;
+
+            return getFullEntity(resultSet);
         } catch (SQLException e)
         {
             e.printStackTrace();
