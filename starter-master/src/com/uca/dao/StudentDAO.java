@@ -1,37 +1,36 @@
 package com.uca.dao;
 
-
 import com.uca.entity.StudentEntity;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
 public class StudentDAO extends _Generic<StudentEntity>
 {
-    private StudentEntity getFullEntity(ResultSet resultSet) throws SQLException {
+    private StudentEntity getFullEntity(ResultSet resultSet) throws SQLException
+    {
         StudentEntity entity = new StudentEntity();
         entity.setId(resultSet.getLong("id_student"));
         entity.setFirstName(resultSet.getString("firstname"));
         entity.setLastName(resultSet.getString("lastname"));
-        return  entity;
+        return entity;
     }
+
     @Override
     public StudentEntity create(StudentEntity obj)
     {
-        long S_id = obj.getId();
-        String S_lastN = obj.getLastName();
-        String S_firstN = obj.getFirstName();
-        try {
+        try
+        {
             PreparedStatement statement = this.connect.prepareStatement(
                     "INSERT INTO Student(id, lastName, firstName) VALUES(?, ?, ?);");
-            statement.setLong(1, S_id);
-            statement.setString(2, S_lastN);
-            statement.setString(3, S_firstN);
+            statement.setLong(1, obj.getId());
+            statement.setString(2, obj.getLastName());
+            statement.setString(3, obj.getFirstName());
             statement.executeUpdate();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e)
+        {
             e.printStackTrace();
         }
         return obj;
@@ -47,15 +46,15 @@ public class StudentDAO extends _Generic<StudentEntity>
                     "SELECT * FROM Student ORDER BY id_student;");
 
             ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()){
+            while (resultSet.next())
+            {
                 entities.add(getFullEntity(resultSet));
             }
-        }
-        catch (SQLException e)
+        } catch (SQLException e)
         {
             e.printStackTrace();
         }
-        return  entities;
+        return entities;
     }
 
     @Override
@@ -102,7 +101,9 @@ public class StudentDAO extends _Generic<StudentEntity>
     @Override
     public void delete(StudentEntity obj)
     {
-        this.deleteById(obj.getId()); //Todo if we want to use this then we have to change deleteByID to private ?
+        this.deleteById(obj.getId());
+        //Todo if we want to use this then we have to change deleteByID to private ?
+        // --> no, but maybe we should get rid of this delete() function (if we don't use it later)
     }
 
     @Override

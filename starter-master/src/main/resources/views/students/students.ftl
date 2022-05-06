@@ -7,8 +7,8 @@
 <a href="/students">&larr; El&egrave;ves</a>
 
 <p>
-     El&egrave;ves num&eacute;ro : ${student.id} <br>
-    ${student.lastName} ${student.firstName}
+    El&egrave;ve num&eacute;ro : ${student.id} <br>
+    ${student.firstName} ${student.lastName}
 </p>
 
 </body>
