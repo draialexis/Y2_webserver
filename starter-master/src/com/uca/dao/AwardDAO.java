@@ -103,27 +103,7 @@ public class AwardDAO extends _Generic<AwardEntity>
     @Override
     public AwardEntity update(AwardEntity obj, long id) throws OperationNotSupportedException
     {
-        try
-        {
-            PreparedStatement statement = this.connect.prepareStatement(
-                    "UPDATE Award " +
-                    "SET attribution_date = ?, motive = ?, id_teacher = ?, id_sticker = ?, id_student = ? " +
-                    "WHERE id_award = ?) " +
-                    "VALUES(?, ?, ?, ?, ?, ?);");
-            statement.setDate(1, obj.getAttributionDate());
-            statement.setString(2, obj.getMotive());
-            statement.setLong(3, obj.getTeacher().getId());
-            statement.setLong(4, obj.getSticker().getId());
-            statement.setLong(5, obj.getStudent().getId());
-            statement.setLong(6, id);
-            statement.executeUpdate();
-
-            ensureIdIsSet(obj, id);
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-        return obj;
+        throw new OperationNotSupportedException("modifier une attribution : hors de la portée de ce projet");
     }
 
     @Override
