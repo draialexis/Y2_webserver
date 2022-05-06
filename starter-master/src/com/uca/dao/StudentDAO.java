@@ -25,10 +25,9 @@ public class StudentDAO extends _Generic<StudentEntity>
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
-                    "INSERT INTO Student(id, lastName, firstName) VALUES(?, ?, ?);");
-            statement.setLong(1, obj.getId());
-            statement.setString(2, obj.getLastName());
-            statement.setString(3, obj.getFirstName());
+                    "INSERT INTO Student(lastname, firstname) VALUES(?, ?);");
+            statement.setString(1, obj.getLastName());
+            statement.setString(2, obj.getFirstName());
             statement.executeUpdate();
         } catch (SQLException e)
         {
