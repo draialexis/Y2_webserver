@@ -57,8 +57,10 @@ public class TeacherGUI
         input.put("user", teacher);
         try
         {
-            TeacherCore.create(teacher);
-            input.put("status", "est maintenant inscrit");
+            if (TeacherCore.create(teacher) != null)
+            {
+                input.put("status", "est maintenant inscrit");
+            }
         } catch (SQLException e)
         {
             if (e.getClass() == JdbcSQLIntegrityConstraintViolationException.class)
