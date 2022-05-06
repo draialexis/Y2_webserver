@@ -31,19 +31,13 @@ public class AwardDAO extends _Generic<AwardEntity>
     @Override
     public AwardEntity create(AwardEntity obj) throws SQLException
     {
-        long   teacherId = obj.getTeacher().getId();
-        long   stickerId = obj.getSticker().getId();
-        long   studentId = obj.getStudent().getId();
-        Date   date      = obj.getAttributionDate();
-        String motive    = obj.getMotive();
-
         PreparedStatement statement = this.connect.prepareStatement(
                 "INSERT INTO Award(attribution_date, motive, id_teacher, id_sticker, id_student) VALUES(?, ?, ?, ?, ?);");
-        statement.setDate(1, date);
-        statement.setString(2, motive);
-        statement.setLong(3, teacherId);
-        statement.setLong(4, stickerId);
-        statement.setLong(5, studentId);
+        statement.setDate(1, obj.getAttributionDate());
+        statement.setString(2, obj.getMotive());
+        statement.setLong(3, obj.getTeacher().getId());
+        statement.setLong(4, obj.getSticker().getId());
+        statement.setLong(5, obj.getStudent().getId());
         statement.executeUpdate();
         return obj;
     }
@@ -78,7 +72,7 @@ public class AwardDAO extends _Generic<AwardEntity>
                     "SELECT * FROM Award WHERE id_student = ? ORDER BY attribution_date;");
             statement.setLong(1, studentId);
 
-            ResultSet     resultSet = statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next())
             {
                 entities.add(getFullEntity(resultSet));
@@ -111,7 +105,28 @@ public class AwardDAO extends _Generic<AwardEntity>
     @Override
     public AwardEntity update(AwardEntity obj, long id) throws OperationNotSupportedException
     {
-        return null;
+        try
+        {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "UPDATE Award " +
+                    "SET attribution_date = ?, motive = ?, id_teacher = ?, id_sticker = ?, id_student = ? " +
+                    "WHERE id_award = ?) " +
+                    "VALUES(?, ?, ?, ?, ?);");
+            statement.setDate(1, obj.getAttributionDate());
+            statement.setString(2, obj.getMotive());
+            statement.setLong(3, obj.getTeacher().getId());
+            statement.setLong(4, obj.getSticker().getId());
+            statement.setLong(5, obj.getStudent().getId());
+            statement.setLong(6, id);
+            if (obj.getId() != id) // unnecessary?
+            {
+                obj.setId(id);
+            }
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return obj;
     }
 
     @Override
