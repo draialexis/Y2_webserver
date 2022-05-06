@@ -4,13 +4,12 @@
 
 <body xmlns="http://www.w3.org/1999/html">
 
-<a href="/">&larr; Index</a>
+<a href="/students">&larr; &Eacute;l&egrave;ves</a>
 
-<ul>
-    <#list students as student>
-        <li><a href="/students/${student.id}">${student.id} - ${student.firstName} ${student.lastName}</a></li>
-    </#list>
-</ul>
+<p>
+    El&egrave;ve num&eacute;ro : ${student.getId()} <br>
+    ${student.getFirstName()} ${student.getLastName()}
+</p>
 
 </body>
 

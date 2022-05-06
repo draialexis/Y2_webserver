@@ -8,7 +8,11 @@
 
 <ul>
     <#list stickers as sticker>
-        <li><a href="/stickers/${sticker.id}">${sticker.id} - ${sticker.color} ; ${sticker.description}</a></li>
+        <li>
+                <a href="/stickers/${sticker.getId()}">
+                        ${sticker.getId()} - ${sticker.getColor().toString()} ; ${sticker.getDescription().toString()}
+                </a>
+        </li>
     </#list>
 </ul>
 

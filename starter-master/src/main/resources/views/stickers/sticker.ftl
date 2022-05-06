@@ -7,8 +7,8 @@
 <a href="/stickers">&larr; Gommettes</a>
 
 <p>
-    Gommette num&eacute;ro : ${sticker.id} <br>
-    ${sticker.color} ; ${sticker.description}
+    Gommette num&eacute;ro : ${sticker.getId()} <br>
+    ${sticker.getColor().toString()} ; ${sticker.getDescription().toString()}
 </p>
 
 </body>

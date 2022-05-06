@@ -8,7 +8,7 @@
 
 <ul>
     <#list teachers as teacher>
-        <li><a href="/teachers/id/${teacher.id}">${teacher.firstName} ${teacher.lastName}</a></li>
+        <li><a href="/teachers/id/${teacher.getId()}">${teacher.getFirstName()} ${teacher.getLastName()}</a></li>
     </#list>
 </ul>
 

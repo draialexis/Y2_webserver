@@ -7,8 +7,8 @@
 <a href="/teachers">&larr; Enseignants</a>
 
 <p>
-    Enseignant num&eacute;ro : ${teacher.id} <br>
-    ${teacher.firstName} ${teacher.lastName} (${teacher.userName})
+    Enseignant num&eacute;ro : ${teacher.getId()} <br>
+    ${teacher.getFirstName()} ${teacher.getLastName()} (${teacher.getUserName()})
 </p>
 
 </body>
