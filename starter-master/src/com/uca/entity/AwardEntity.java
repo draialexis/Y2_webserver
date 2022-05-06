@@ -11,13 +11,13 @@ public class AwardEntity
     private Date          attributionDate;
     private String        motive;
 
-    TeacherEntity getTeacher()
+    public TeacherEntity getTeacher()
     {
         // TODO return a copy instead
         return teacher;
     }
 
-    void setTeacher(TeacherEntity teacher)
+    public void setTeacher(TeacherEntity teacher)
     {
         this.teacher = teacher;
     }
@@ -28,7 +28,7 @@ public class AwardEntity
         return sticker;
     }
 
-    void setSticker(StickerEntity sticker)
+    public void setSticker(StickerEntity sticker)
     {
         this.sticker = sticker;
     }
@@ -39,7 +39,7 @@ public class AwardEntity
         return student;
     }
 
-    void setStudent(StudentEntity student)
+    public void setStudent(StudentEntity student)
     {
         this.student = student;
     }
@@ -50,7 +50,7 @@ public class AwardEntity
         return attributionDate;
     }
 
-    void setAttributionDate(Date attributionDate)
+    public void setAttributionDate(Date attributionDate)
     {
         this.attributionDate = attributionDate;
     }
@@ -60,7 +60,7 @@ public class AwardEntity
         return motive;
     }
 
-    void setMotive(String motive)
+    public void setMotive(String motive)
     {
         this.motive = motive;
     }

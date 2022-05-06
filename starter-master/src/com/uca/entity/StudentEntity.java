@@ -11,32 +11,32 @@ public class StudentEntity
         // never used
     }
 
-    long getId()
+    public long getId()
     {
         return id;
     }
 
-    void setId(long id)
+    public void setId(long id)
     {
         this.id = id;
     }
 
-    String getLastName()
+    public String getLastName()
     {
         return lastName;
     }
 
-    void setLastName(String lastName)
+    public void setLastName(String lastName)
     {
         this.lastName = lastName;
     }
 
-    String getFirstName()
+    public String getFirstName()
     {
         return firstName;
     }
 
-    void setFirstName(String firstName)
+    public void setFirstName(String firstName)
     {
         this.firstName = firstName;
     }
