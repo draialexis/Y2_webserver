@@ -1,7 +1,6 @@
 package com.uca.entity;
 
-import java.util.Date;
-// TODO use java.sql.Date instead?
+import java.sql.Date;
 
 public class AwardEntity
 {
@@ -22,7 +21,7 @@ public class AwardEntity
         this.teacher = teacher;
     }
 
-    StickerEntity getSticker()
+    public StickerEntity getSticker()
     {
         // TODO return a copy instead
         return sticker;
@@ -33,7 +32,7 @@ public class AwardEntity
         this.sticker = sticker;
     }
 
-    StudentEntity getStudent()
+    public StudentEntity getStudent()
     {
         // TODO return a copy instead
         return student;
@@ -44,7 +43,7 @@ public class AwardEntity
         this.student = student;
     }
 
-    Date getAttributionDate()
+    public Date getAttributionDate()
     {
         // TODO return a copy instead ?
         return attributionDate;
@@ -55,7 +54,7 @@ public class AwardEntity
         this.attributionDate = attributionDate;
     }
 
-    String getMotive()
+    public String getMotive()
     {
         return motive;
     }
