@@ -4,7 +4,6 @@ import com.uca.core.StickerCore;
 import com.uca.core.StudentCore;
 import com.uca.core.TeacherCore;
 import com.uca.entity.AwardEntity;
-import com.uca.entity.StudentEntity;
 
 import javax.naming.OperationNotSupportedException;
 import java.sql.Date;
@@ -16,6 +15,19 @@ import java.util.Collection;
 
 public class AwardDAO extends _Generic<AwardEntity>
 {
+
+    private AwardEntity getFullEntity(ResultSet resultSet) throws SQLException
+    {
+        AwardEntity entity = new AwardEntity();
+        entity.setId(resultSet.getLong("id_award"));
+        entity.setTeacher(TeacherCore.readById(resultSet.getLong("id_teacher")));
+        entity.setSticker(StickerCore.readById(resultSet.getLong("id_sticker")));
+        entity.setStudent(StudentCore.readById(resultSet.getLong("id_student")));
+        entity.setAttributionDate(resultSet.getDate("attribution_date"));
+        entity.setMotive(resultSet.getString("motive"));
+        return entity;
+    }
+
     @Override
     public AwardEntity create(AwardEntity obj) throws SQLException
     {
@@ -26,12 +38,12 @@ public class AwardDAO extends _Generic<AwardEntity>
         String motive    = obj.getMotive();
 
         PreparedStatement statement = this.connect.prepareStatement(
-                "INSERT INTO Award(id_teacher, id_sticker, id_student, attribution_date, motive) VALUES(?, ?, ?, ?, ?);");
-        statement.setLong(1, teacherId);
-        statement.setLong(2, stickerId);
-        statement.setLong(3, studentId);
-        statement.setDate(4, date);
-        statement.setString(5, motive);
+                "INSERT INTO Award(attribution_date, motive, id_teacher, id_sticker, id_student) VALUES(?, ?, ?, ?, ?);");
+        statement.setDate(1, date);
+        statement.setString(2, motive);
+        statement.setLong(3, teacherId);
+        statement.setLong(4, stickerId);
+        statement.setLong(5, studentId);
         statement.executeUpdate();
         return obj;
     }
@@ -48,13 +60,7 @@ public class AwardDAO extends _Generic<AwardEntity>
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next())
             {
-                AwardEntity entity = new AwardEntity();
-                entity.setTeacher(TeacherCore.readById(resultSet.getLong("id_teacher")));
-                entity.setSticker(StickerCore.readById(resultSet.getLong("id_sticker")));
-                entity.setStudent(StudentCore.readById(resultSet.getLong("id_student")));
-                entity.setAttributionDate(resultSet.getDate("attribution_date"));
-                entity.setMotive(resultSet.getString("motive"));
-                entities.add(entity);
+                entities.add(getFullEntity(resultSet));
             }
         } catch (SQLException e)
         {
@@ -73,16 +79,9 @@ public class AwardDAO extends _Generic<AwardEntity>
             statement.setLong(1, studentId);
 
             ResultSet     resultSet = statement.executeQuery();
-            StudentEntity student   = StudentCore.readById(studentId);
             while (resultSet.next())
             {
-                AwardEntity entity = new AwardEntity();
-                entity.setTeacher(TeacherCore.readById(resultSet.getLong("id_teacher")));
-                entity.setSticker(StickerCore.readById(resultSet.getLong("id_sticker")));
-                entity.setStudent(student);
-                entity.setAttributionDate(resultSet.getDate("attribution_date"));
-                entity.setMotive(resultSet.getString("motive"));
-                entities.add(entity);
+                entities.add(getFullEntity(resultSet));
             }
         } catch (SQLException e)
         {
@@ -94,6 +93,18 @@ public class AwardDAO extends _Generic<AwardEntity>
     @Override
     public AwardEntity readById(long id)
     {
+        try
+        {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "SELECT * FROM Award WHERE id_award = ?;");
+            statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            return getFullEntity(resultSet);
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
         return null;
     }
 
