@@ -40,12 +40,13 @@ public class _Initializer
                     ");" +
                     "DROP TABLE IF EXISTS Award;" + // temporary
                     "CREATE TABLE IF NOT EXISTS Award(" +
+                    "   id_award BIGINT AUTO_INCREMENT," +
                     "   id_teacher BIGINT," +
                     "   id_sticker BIGINT," +
                     "   id_student BIGINT," +
                     "   attribution_date DATE NOT NULL," +
                     "   motive TEXT NOT NULL," +
-                    "   CONSTRAINT PK_Award PRIMARY KEY(id_teacher, id_sticker, id_student)," +
+                    "   CONSTRAINT PK_Award PRIMARY KEY(id_award)," +
                     "   CONSTRAINT FK_Award_Teacher FOREIGN KEY(id_teacher) REFERENCES Teacher(id_teacher) ON UPDATE CASCADE ON DELETE CASCADE," +
                     "   CONSTRAINT FK_Award_Sticker FOREIGN KEY(id_sticker) REFERENCES Sticker(id_sticker) ON UPDATE CASCADE ON DELETE CASCADE," +
                     "   CONSTRAINT FK_Award_Student FOREIGN KEY(id_student) REFERENCES Student(id_student) ON UPDATE CASCADE ON DELETE CASCADE" +
@@ -137,7 +138,7 @@ public class _Initializer
             statement.setLong(2, 2);
             statement.setLong(3, 3);
             statement.setDate(4, today);
-            statement.setString(5, "some random motive");
+            statement.setString(5, "a codé avec ses lunettes de soleil");
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
@@ -146,7 +147,7 @@ public class _Initializer
             statement.setLong(2, 3);
             statement.setLong(3, 1);
             statement.setDate(4, today);
-            statement.setString(5, "some other random motive");
+            statement.setString(5, "a aidé à ranger les chaises");
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
@@ -155,7 +156,7 @@ public class _Initializer
             statement.setLong(2, 1);
             statement.setLong(3, 2);
             statement.setDate(4, today);
-            statement.setString(5, "some other other random motive");
+            statement.setString(5, "a aidé un camarade à faire tourner Gradle sur son poste");
             statement.executeUpdate();
         } catch (Exception e)
         {
