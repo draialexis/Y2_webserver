@@ -110,20 +110,20 @@ public class _Initializer
 
             statement = connection.prepareStatement(
                     "INSERT INTO Student(lastname, firstname) VALUES(?, ?);");
-            statement.setString(1, "Eyosias");
-            statement.setString(2, "Woldemichael");
+            statement.setString(1, "Woldemichael");
+            statement.setString(2, "Eyosias");
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
                     "INSERT INTO Student(lastname, firstname) VALUES(?, ?);");
-            statement.setString(1, "John");
-            statement.setString(2, "Doe");
+            statement.setString(1, "Doe");
+            statement.setString(2, "John");
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
                     "INSERT INTO Student(lastname, firstname) VALUES(?, ?);");
-            statement.setString(1, "Alexis");
-            statement.setString(2, "Drai");
+            statement.setString(1, "Drai");
+            statement.setString(2, "Alexis");
             statement.executeUpdate();
 
             statement = connection.prepareStatement("DELETE FROM Award;"); // temporary, for testing
@@ -138,7 +138,7 @@ public class _Initializer
             statement.setLong(2, 2);
             statement.setLong(3, 3);
             statement.setDate(4, today);
-            statement.setString(5, "a codé avec ses lunettes de soleil");
+            statement.setString(5, "a cod&eacute; avec ses lunettes de soleil");
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
@@ -147,7 +147,7 @@ public class _Initializer
             statement.setLong(2, 3);
             statement.setLong(3, 1);
             statement.setDate(4, today);
-            statement.setString(5, "a aidé à ranger les chaises");
+            statement.setString(5, "a aid&eacute; &agrave; ranger les chaises");
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
@@ -156,7 +156,7 @@ public class _Initializer
             statement.setLong(2, 1);
             statement.setLong(3, 2);
             statement.setDate(4, today);
-            statement.setString(5, "a aidé un camarade à faire tourner Gradle sur son poste");
+            statement.setString(5, "a aid&eacute; un camarade &agrave; faire tourner Gradle sur son poste");
             statement.executeUpdate();
         } catch (Exception e)
         {
