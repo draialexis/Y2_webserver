@@ -45,6 +45,7 @@ public class TeacherGUI
     public static String create(String firstName, String lastName, String userName, String userPwd)
             throws IOException, TemplateException
     {
+        //TODO check not null, check size of userPwd between 4 and 16
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("auth/signup.ftl");
         Map<String, Object> input    = new HashMap<>();
         TeacherEntity       teacher  = new TeacherEntity();

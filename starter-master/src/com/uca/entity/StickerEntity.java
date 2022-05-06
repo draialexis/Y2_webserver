@@ -4,7 +4,7 @@ public class StickerEntity
 {
     private long  id;
     private Color color;
-    private String description;
+    private Description description;
 
     public StickerEntity()
     {
@@ -31,12 +31,12 @@ public class StickerEntity
         this.color = color;
     }
 
-    public String getDescription()
+    public Description getDescription()
     {
         return description;
     }
 
-    public void setDescription(String description)
+    public void setDescription(Description description)
     {
         this.description = description;
     }

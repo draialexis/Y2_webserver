@@ -1,6 +1,7 @@
 package com.uca.dao;
 
 import com.uca.entity.Color;
+import com.uca.entity.Description;
 import com.uca.entity.StickerEntity;
 
 import java.sql.PreparedStatement;
@@ -15,7 +16,7 @@ public class StickerDAO extends _Generic<StickerEntity>
     public StickerEntity create(StickerEntity obj)
     {
         String color       = obj.getColor().toString();
-        String description = obj.getDescription();
+        String description = obj.getDescription().toString();
 
         try
         {
@@ -46,7 +47,7 @@ public class StickerDAO extends _Generic<StickerEntity>
                 StickerEntity entity = new StickerEntity();
                 entity.setId(resultSet.getLong("id_sticker"));
                 entity.setColor(Color.valueOf(resultSet.getString("color")));
-                entity.setDescription(resultSet.getString("description"));
+                entity.setDescription(Description.valueOf(resultSet.getString("description")));
 
                 entities.add(entity);
             }
@@ -70,7 +71,7 @@ public class StickerDAO extends _Generic<StickerEntity>
             StickerEntity entity = new StickerEntity();
             entity.setId(id);
             entity.setColor(Color.valueOf(resultSet.getString("color")));
-            entity.setDescription(resultSet.getString("description"));
+            entity.setDescription(Description.valueOf(resultSet.getString("description")));
             return entity;
         } catch (SQLException e)
         {
@@ -83,7 +84,7 @@ public class StickerDAO extends _Generic<StickerEntity>
     public StickerEntity update(StickerEntity obj, long id)
     {
         String color       = obj.getColor().toString();
-        String description = obj.getDescription();
+        String description = obj.getDescription().toString();
 
         try
         {
