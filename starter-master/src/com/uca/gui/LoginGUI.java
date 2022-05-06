@@ -16,6 +16,6 @@ public class LoginGUI
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("auth/login.ftl");
 
         input.put("status", status);
-        return _UtilGUI.inAndOut(template, input, new StringWriter());
+        return _UtilGUI.render(template, input, new StringWriter());
     }
 }

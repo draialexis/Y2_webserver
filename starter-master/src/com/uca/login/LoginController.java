@@ -14,6 +14,8 @@ public class LoginController
 {
     public static String pathSaved = null;
 
+    //TODO look into stateless authentication?
+
     public static boolean authenticate(String username, String password)
     {
         if (username.isEmpty() || password.isEmpty())

@@ -21,7 +21,7 @@ public class TeacherGUI
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("teachers/teachers.ftl");
 
         input.put("teachers", TeacherCore.readAll());
-        return _UtilGUI.inAndOut(template, input, new StringWriter());
+        return _UtilGUI.render(template, input, new StringWriter());
     }
 
     public static String readById(long id) throws IOException, TemplateException
@@ -30,7 +30,7 @@ public class TeacherGUI
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("teachers/teacher.ftl");
 
         input.put("teacher", TeacherCore.readById(id));
-        return _UtilGUI.inAndOut(template, input, new StringWriter());
+        return _UtilGUI.render(template, input, new StringWriter());
     }
 
     public static String readByUserName(String userName) throws IOException, TemplateException
@@ -39,7 +39,7 @@ public class TeacherGUI
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("teachers/teacher.ftl");
 
         input.put("teacher", TeacherCore.readByUserName(userName));
-        return _UtilGUI.inAndOut(template, input, new StringWriter());
+        return _UtilGUI.render(template, input, new StringWriter());
     }
 
     public static String create(String firstName, String lastName, String userName, String userPwd)
@@ -61,7 +61,7 @@ public class TeacherGUI
         } catch (SQLException e)
         {
             if (e.getClass() == JdbcSQLIntegrityConstraintViolationException.class)
-            {
+            {// the only constraint in this table
                 input.put("status", "ce nom d'utilisateur est d&eacute;j&agrave; pris !");
             }
             else
@@ -71,6 +71,6 @@ public class TeacherGUI
                 e.printStackTrace();
             }
         }
-        return _UtilGUI.inAndOut(template, input, new StringWriter());
+        return _UtilGUI.render(template, input, new StringWriter());
     }
 }

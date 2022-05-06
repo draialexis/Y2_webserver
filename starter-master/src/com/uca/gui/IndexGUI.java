@@ -11,6 +11,6 @@ public class IndexGUI
     public static String display() throws IOException, TemplateException
     {
         Template template = _FreeMarkerInitializer.getContext().getTemplate("index.ftl");
-        return _UtilGUI.inAndOut(template, null, new StringWriter());
+        return _UtilGUI.render(template, null, new StringWriter());
     }
 }

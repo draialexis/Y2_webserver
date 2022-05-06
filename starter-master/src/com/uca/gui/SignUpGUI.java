@@ -12,6 +12,6 @@ public class SignUpGUI
     public static String display() throws IOException, TemplateException
     {
         Template template = _FreeMarkerInitializer.getContext().getTemplate("auth/signup.ftl");
-        return _UtilGUI.inAndOut(template, null, new StringWriter());
+        return _UtilGUI.render(template, null, new StringWriter());
     }
 }

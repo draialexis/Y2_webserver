@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class _UtilGUI
 {
-    static String inAndOut(Template t, Map<String, Object> in, Writer out) throws TemplateException, IOException
+    static String render(Template t, Map<String, Object> in, Writer out) throws TemplateException, IOException
     {
         t.setOutputEncoding("UTF-8");
         t.process(in, out);

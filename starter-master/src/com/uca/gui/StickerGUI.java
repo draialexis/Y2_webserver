@@ -17,7 +17,7 @@ public class StickerGUI
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("stickers/stickers.ftl");
 
         input.put("stickers", StickerCore.readAll());
-        return _UtilGUI.inAndOut(template, input, new StringWriter());
+        return _UtilGUI.render(template, input, new StringWriter());
     }
 
     public static String readById(long id) throws IOException, TemplateException
@@ -26,6 +26,6 @@ public class StickerGUI
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("stickers/sticker.ftl");
 
         input.put("sticker", StickerCore.readById(id));
-        return _UtilGUI.inAndOut(template, input, new StringWriter());
+        return _UtilGUI.render(template, input, new StringWriter());
     }
 }
