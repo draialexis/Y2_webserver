@@ -6,7 +6,6 @@ import com.uca.core.TeacherCore;
 import com.uca.entity.AwardEntity;
 
 import javax.naming.OperationNotSupportedException;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -130,14 +129,23 @@ public class AwardDAO extends _Generic<AwardEntity>
     }
 
     @Override
-    public void delete(AwardEntity obj) throws OperationNotSupportedException
+    public void delete(AwardEntity obj)
     {
-
+        this.deleteById(obj.getId());
     }
 
     @Override
-    public void deleteById(long id) throws OperationNotSupportedException
+    public void deleteById(long id)
     {
-
+        try
+        {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "DELETE FROM Award WHERE id_award = ? ;");
+            statement.setLong(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
 }
