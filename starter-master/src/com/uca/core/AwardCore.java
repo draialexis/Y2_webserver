@@ -18,7 +18,7 @@ public class AwardCore
         return new AwardDAO().readAll();
     }
 
-    public static ArrayList<AwardEntity> readByStudent(long studentId)
+    public static ArrayList<AwardEntity> readByStudentId(long studentId)
     {
         return new AwardDAO().readByStudentId(studentId);
     }

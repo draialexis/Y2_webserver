@@ -1,5 +1,6 @@
 package com.uca;
 
+import com.uca.core.TeacherCore;
 import com.uca.login.LoginController;
 import com.uca.dao._Initializer;
 import com.uca.gui.*;
@@ -78,6 +79,38 @@ public class StartServer
                  }
                  return null;
              });
+
+        get("/awards", (req, res) -> AwardGUI.readAll(LoginController.isLoggedIn(req)));
+
+        get("/awards/student/:id_student",
+            (req, res) -> AwardGUI.readByStudentId(LoginController.isLoggedIn(req),
+                                                   Long.parseLong(req.params(":id_student"))));
+
+        get("/awards/id/:id_award",
+            (req, res) -> AwardGUI.readById(LoginController.isLoggedIn(req), Long.parseLong(req.params(":id_award"))));
+
+        post("/awards", (req, res) -> {
+            LoginController.ensureUserIsLoggedIn(req, res);
+            if (clientAcceptsHtml(req))
+            {
+                HashMap<String, String> params = getParamFromReqBody(req.body());
+                return AwardGUI.create(getParamUTF8(params, "motive"),
+                                       TeacherCore.readByUserName(req.session().attribute("currentUser")).getId(),
+                                       Long.parseLong(getParamUTF8(params, "student-id")),
+                                       Long.parseLong(getParamUTF8(params, "sticker-id")));
+            }
+            return null;
+        });
+
+        delete("/awards/:id_award", (req, res) -> {
+            LoginController.ensureUserIsLoggedIn(req, res);
+            if (clientAcceptsHtml(req))
+            {
+                HashMap<String, String> params = getParamFromReqBody(req.body());
+                return AwardGUI.deleteById(Long.parseLong(req.params(":id_award")));
+            }
+            return null;
+        });
 
         get("/stickers", (req, res) -> StickerGUI.readAll());
 
