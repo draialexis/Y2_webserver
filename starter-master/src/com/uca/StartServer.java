@@ -29,8 +29,7 @@ public class StartServer
 
         post("/login", LoginController::handleLoginPost);
 
-        get("/teachers/id/:id_teacher", (req, res) ->
-        {
+        get("/teachers/id/:id_teacher", (req, res) -> {
             LoginController.ensureUserIsLoggedIn(req, res);
             if (clientAcceptsHtml(req))
             {
@@ -64,9 +63,9 @@ public class StartServer
                  {
                      HashMap<String, String> params = getParamFromReqBody(req.body());
                      return TeacherGUI.create(getParamUTF8(params, "firstname"),
-                                             getParamUTF8(params, "lastname"),
-                                             getParamUTF8(params, "username"),
-                                             getParamUTF8(params, "userpwd"));
+                                              getParamUTF8(params, "lastname"),
+                                              getParamUTF8(params, "username"),
+                                              getParamUTF8(params, "userpwd"));
                  }
                  return null;
              });
