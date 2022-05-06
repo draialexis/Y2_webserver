@@ -49,9 +49,14 @@ public class LoginController
         return null;
     }
 
+    public static boolean isLoggedIn(Request request)
+    {
+        return request.session().attribute("currentUser") != null;
+    }
+
     public static void ensureUserIsLoggedIn(Request request, Response response)
     {
-        if (request.session().attribute("currentUser") == null)
+        if (!isLoggedIn(request))
         {
             pathSaved = request.pathInfo(); // saves the path to redirect right away after login
             response.redirect("/login");
