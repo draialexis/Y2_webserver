@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
+
 
 public class StudentDAO extends _Generic<StudentEntity>
 {
@@ -38,13 +38,13 @@ public class StudentDAO extends _Generic<StudentEntity>
     }
 
     @Override
-    public Collection<StudentEntity> readAll()
+    public ArrayList<StudentEntity> readAll()
     {
         ArrayList<StudentEntity> entities = new ArrayList<>();
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
-                    "SELECT * FROM Student ORDER BY lastName;");
+                    "SELECT * FROM Student ORDER BY id_student;");
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()){
