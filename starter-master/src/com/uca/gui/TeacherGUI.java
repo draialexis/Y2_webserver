@@ -33,15 +33,6 @@ public class TeacherGUI
         return _UtilGUI.render(template, input, new StringWriter());
     }
 
-    public static String readByUserName(String userName) throws IOException, TemplateException
-    {
-        Map<String, Object> input    = new HashMap<>();
-        Template            template = _FreeMarkerInitializer.getContext().getTemplate("teachers/teacher.ftl");
-
-        input.put("teacher", TeacherCore.readByUserName(userName));
-        return _UtilGUI.render(template, input, new StringWriter());
-    }
-
     public static String create(String firstName, String lastName, String userName, String userPwd)
             throws IOException, TemplateException
     {
