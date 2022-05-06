@@ -1,39 +1,39 @@
 package com.uca.dao;
 
-import com.uca.entity.StickerEntity;
+import com.uca.entity.AwardEntity;
 
 import javax.naming.OperationNotSupportedException;
 import java.sql.SQLException;
 import java.util.Collection;
 
-public class AwardDAO extends _Generic<StickerEntity>
+public class AwardDAO extends _Generic<AwardEntity>
 {
     @Override
-    public StickerEntity create(StickerEntity obj) throws SQLException
+    public AwardEntity create(AwardEntity obj) throws SQLException
     {
         return null;
     }
 
     @Override
-    public Collection<StickerEntity> readAll()
+    public Collection<AwardEntity> readAll()
     {
         return null;
     }
 
     @Override
-    public StickerEntity readById(long id)
+    public AwardEntity readById(long id)
     {
         return null;
     }
 
     @Override
-    public StickerEntity update(StickerEntity obj, long id) throws OperationNotSupportedException
+    public AwardEntity update(AwardEntity obj, long id) throws OperationNotSupportedException
     {
         return null;
     }
 
     @Override
-    public void delete(StickerEntity obj) throws OperationNotSupportedException
+    public void delete(AwardEntity obj) throws OperationNotSupportedException
     {
 
     }

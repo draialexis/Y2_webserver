@@ -1,39 +1,39 @@
 package com.uca.dao;
 
-import com.uca.entity.StickerEntity;
+import com.uca.entity.StudentEntity;
 
 import javax.naming.OperationNotSupportedException;
 import java.sql.SQLException;
 import java.util.Collection;
 
-public class StudentDAO extends _Generic<StickerEntity>
+public class StudentDAO extends _Generic<StudentEntity>
 {
     @Override
-    public StickerEntity create(StickerEntity obj) throws SQLException
+    public StudentEntity create(StudentEntity obj) throws SQLException
     {
         return null;
     }
 
     @Override
-    public Collection<StickerEntity> readAll()
+    public Collection<StudentEntity> readAll()
     {
         return null;
     }
 
     @Override
-    public StickerEntity readById(long id)
+    public StudentEntity readById(long id)
     {
         return null;
     }
 
     @Override
-    public StickerEntity update(StickerEntity obj, long id) throws OperationNotSupportedException
+    public StudentEntity update(StudentEntity obj, long id) throws OperationNotSupportedException
     {
         return null;
     }
 
     @Override
-    public void delete(StickerEntity obj) throws OperationNotSupportedException
+    public void delete(StudentEntity obj) throws OperationNotSupportedException
     {
 
     }
