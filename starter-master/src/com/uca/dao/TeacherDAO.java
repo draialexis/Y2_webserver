@@ -12,22 +12,28 @@ public class TeacherDAO extends _Generic<TeacherEntity>
     // TODO decide whether to keep ID in the code or leave it in the database
     // TODO actually do something with some of those exceptions
 
+    private TeacherEntity getFullEntity(ResultSet resultSet) throws SQLException
+    {
+        TeacherEntity entity = new TeacherEntity();
+        entity.setId(resultSet.getLong("id_teacher"));
+        entity.setFirstName(resultSet.getString("firstname"));
+        entity.setLastName(resultSet.getString("lastname"));
+        entity.setUserName(resultSet.getString("username"));
+        entity.setUserPwd(resultSet.getString("userpwd"));
+        entity.setUserSalt(resultSet.getString("usersalt"));
+        return entity;
+    }
+
     @Override
     public TeacherEntity create(TeacherEntity obj) throws SQLException
     {
-        String fName = obj.getFirstName();
-        String lName = obj.getLastName();
-        String uName = obj.getUserName();
-        String uPwd  = obj.getUserPwd();
-        String salt  = obj.getUserSalt();
-
         PreparedStatement statement = this.connect.prepareStatement(
                 "INSERT INTO Teacher(firstname, lastname, username, userpwd, usersalt) VALUES(?, ?, ?, ?, ?);");
-        statement.setString(1, fName);
-        statement.setString(2, lName);
-        statement.setString(3, uName);
-        statement.setString(4, uPwd);
-        statement.setString(5, salt);
+        statement.setString(1, obj.getFirstName());
+        statement.setString(2, obj.getLastName());
+        statement.setString(3, obj.getUserName());
+        statement.setString(4, obj.getUserPwd());
+        statement.setString(5, obj.getUserSalt());
         statement.executeUpdate();
         return obj;
     }
@@ -44,14 +50,7 @@ public class TeacherDAO extends _Generic<TeacherEntity>
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next())
             {
-                TeacherEntity entity = new TeacherEntity();
-                entity.setId(resultSet.getLong("id_teacher"));
-                entity.setFirstName(resultSet.getString("firstname"));
-                entity.setLastName(resultSet.getString("lastname"));
-                entity.setUserName(resultSet.getString("username"));
-                entity.setUserPwd(resultSet.getString("userpwd"));
-                entity.setUserSalt(resultSet.getString("usersalt"));
-                entities.add(entity);
+                entities.add(getFullEntity(resultSet));
             }
         } catch (SQLException e)
         {
@@ -70,14 +69,7 @@ public class TeacherDAO extends _Generic<TeacherEntity>
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
-            TeacherEntity entity = new TeacherEntity();
-            entity.setId(id);
-            entity.setFirstName(resultSet.getString("firstname"));
-            entity.setLastName(resultSet.getString("lastname"));
-            entity.setUserName(resultSet.getString("username"));
-            entity.setUserPwd(resultSet.getString("userpwd"));
-            entity.setUserSalt(resultSet.getString("usersalt"));
-            return entity;
+            return getFullEntity(resultSet);
         } catch (SQLException e)
         {
             e.printStackTrace();
@@ -94,14 +86,7 @@ public class TeacherDAO extends _Generic<TeacherEntity>
             statement.setString(1, userName); // username is UNIQUE, no risk of amibuguity
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
-            TeacherEntity entity = new TeacherEntity();
-            entity.setId(resultSet.getLong("id_teacher"));
-            entity.setFirstName(resultSet.getString("firstname"));
-            entity.setLastName(resultSet.getString("lastname"));
-            entity.setUserName(userName);
-            entity.setUserPwd(resultSet.getString("userpwd"));
-            entity.setUserSalt(resultSet.getString("usersalt"));
-            return entity;
+            return getFullEntity(resultSet);
         } catch (SQLException e)
         {
             e.printStackTrace();

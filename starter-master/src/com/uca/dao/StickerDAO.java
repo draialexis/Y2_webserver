@@ -24,15 +24,12 @@ public class StickerDAO extends _Generic<StickerEntity>
     @Override
     public StickerEntity create(StickerEntity obj)
     {
-        String color       = obj.getColor().toString();
-        String description = obj.getDescription().toString();
-
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
                     "INSERT INTO Sticker(color, description) VALUES(?, ?);");
-            statement.setString(1, color);
-            statement.setString(2, description);
+            statement.setString(1, obj.getColor().toString());
+            statement.setString(2, obj.getDescription().toString());
             statement.executeUpdate();
         } catch (SQLException e)
         {
