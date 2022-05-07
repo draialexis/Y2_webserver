@@ -1,4 +1,4 @@
-package com.uca.login;
+package com.uca.util;
 
 import com.uca.core.TeacherCore;
 import com.uca.dao._Encryptor;
@@ -10,7 +10,7 @@ import spark.Response;
 
 import java.io.IOException;
 
-public class LoginController
+public class LoginUtil
 {
     public static String pathSaved = null;
 

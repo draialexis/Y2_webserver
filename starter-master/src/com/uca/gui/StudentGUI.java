@@ -1,6 +1,7 @@
 package com.uca.gui;
 
 import com.uca.core.StudentCore;
+import com.uca.util.GuiUtil;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -17,7 +18,7 @@ public class StudentGUI
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("students/students.ftl");
 
         input.put("students", StudentCore.readAll());
-        return _UtilGUI.render(template, input, new StringWriter());
+        return GuiUtil.render(template, input, new StringWriter());
     }
 
     public static String readById(long id) throws IOException, TemplateException
@@ -26,6 +27,6 @@ public class StudentGUI
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("students/student.ftl");
 
         input.put("student", StudentCore.readById(id));
-        return _UtilGUI.render(template, input, new StringWriter());
+        return GuiUtil.render(template, input, new StringWriter());
     }
 }

@@ -1,5 +1,6 @@
 package com.uca.gui;
 
+import com.uca.util.GuiUtil;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -16,6 +17,6 @@ public class LoginGUI
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("auth/login.ftl");
 
         input.put("status", status);
-        return _UtilGUI.render(template, input, new StringWriter());
+        return GuiUtil.render(template, input, new StringWriter());
     }
 }

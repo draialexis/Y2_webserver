@@ -3,6 +3,7 @@ package com.uca.gui;
 import com.uca.core.TeacherCore;
 import com.uca.dao._Encryptor;
 import com.uca.entity.TeacherEntity;
+import com.uca.util.GuiUtil;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
@@ -21,7 +22,7 @@ public class TeacherGUI
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("teachers/teachers.ftl");
 
         input.put("teachers", TeacherCore.readAll());
-        return _UtilGUI.render(template, input, new StringWriter());
+        return GuiUtil.render(template, input, new StringWriter());
     }
 
     public static String readById(long id) throws IOException, TemplateException
@@ -30,7 +31,7 @@ public class TeacherGUI
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("teachers/teacher.ftl");
 
         input.put("teacher", TeacherCore.readById(id));
-        return _UtilGUI.render(template, input, new StringWriter());
+        return GuiUtil.render(template, input, new StringWriter());
     }
 
     public static String create(String firstName, String lastName, String userName, String userPwd)
@@ -65,6 +66,6 @@ public class TeacherGUI
                 e.printStackTrace();
             }
         }
-        return _UtilGUI.render(template, input, new StringWriter());
+        return GuiUtil.render(template, input, new StringWriter());
     }
 }

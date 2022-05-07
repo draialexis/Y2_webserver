@@ -5,6 +5,7 @@ import com.uca.core.StickerCore;
 import com.uca.core.StudentCore;
 import com.uca.core.TeacherCore;
 import com.uca.entity.AwardEntity;
+import com.uca.util.GuiUtil;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -43,7 +44,7 @@ public class AwardGUI
 
         input.put("awards", AwardCore.readAll());
         input.put("isAuthorized", isAuthorized);
-        return _UtilGUI.render(template, input, new StringWriter());
+        return GuiUtil.render(template, input, new StringWriter());
     }
 
     public static String readByStudentId(boolean isAuthorized, long studentId) throws IOException, TemplateException
@@ -53,7 +54,7 @@ public class AwardGUI
 
         input.put("awards", AwardCore.readByStudentId(studentId));
         input.put("isAuthorized", isAuthorized);
-        return _UtilGUI.render(template, input, new StringWriter());
+        return GuiUtil.render(template, input, new StringWriter());
     }
 
     public static String readById(boolean isAuthorized, long id) throws IOException, TemplateException
@@ -63,7 +64,7 @@ public class AwardGUI
 
         input.put("award", AwardCore.readById(id));
         input.put("isAuthorized", isAuthorized);
-        return _UtilGUI.render(template, input, new StringWriter());
+        return GuiUtil.render(template, input, new StringWriter());
     }
 
     public static String deleteById(long id) throws IOException, TemplateException

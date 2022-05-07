@@ -5,7 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Request
+public class RequestUtil
 {
     public static HashMap<String, String> getParamFromReqBody(String body)
     {
