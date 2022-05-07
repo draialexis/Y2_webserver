@@ -7,12 +7,6 @@ import java.util.Map;
 
 public class Request
 {
-    public static boolean clientAcceptsHtml(spark.Request request)
-    {
-        String accept = request.headers("Accept");
-        return accept != null && accept.contains("text/html");
-    }
-
     public static HashMap<String, String> getParamFromReqBody(String body)
     {
         HashMap<String, String> params = new HashMap<>();
