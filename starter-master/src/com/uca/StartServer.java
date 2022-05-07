@@ -90,9 +90,8 @@ public class StartServer
         get("/awards/id/:id_award",
             (req, res) -> AwardGUI.readById(LoginController.isLoggedIn(req), Long.parseLong(req.params(":id_award"))));
 
-        delete("/awards/:id_award", (req, res) -> {
+        get("/awards/delete/:id_award", (req, res) -> {
             LoginController.ensureUserIsLoggedIn(req, res);
-            HashMap<String, String> params = getParamFromReqBody(req.body());
             return AwardGUI.deleteById(Long.parseLong(req.params(":id_award")));
         });
     }
