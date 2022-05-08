@@ -25,7 +25,7 @@ public class StartServer
         _Initializer.Init();
 
         //Index
-        get("/", (req, res) -> IndexGUI.display());
+        get("/", (req, res) -> IndexGUI.display(LoginUtil.isLoggedIn(req)));
 
         //Login
         get("/login", (req, res) -> LoginGUI.display("merci de vous identifier"));

@@ -13,9 +13,9 @@
     </ul>
     <ul>
         <li><a href="/login">S'identifier</a></li>
-
-        <#-- TODO make visible to logged in users only          -->
+        <#if isAuthorized>
         <li><a href="/signup">Enregistrer un utilisateur</a></li>
+        </#if>
     </ul>
 </nav>
 
