@@ -1,5 +1,8 @@
 package com.uca.dao;
 
+import com.uca.entity.Color;
+import com.uca.entity.Description;
+
 import java.sql.*;
 
 import static com.uca.util.DateUtil.getSQLDateRelativeToToday;
@@ -62,85 +65,69 @@ public class _Initializer
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
-                    "INSERT INTO Teacher(firstname, lastname, username, userpwd, usersalt) VALUES(?, ?, ?, ?, ?);");
+                    "INSERT INTO Teacher(firstname, lastname, username, userpwd, usersalt)" +
+                    "VALUES(?, ?, ?, ?, ?)," +
+                    "(?, ?, ?, ?, ?);");
             statement.setString(1, "Robert");
             statement.setString(2, "Framboisier");
             statement.setString(3, "rob_fra");
             statement.setString(4, "jOfL5U6hBj/lhxrm8/XlOs+K0DbG1M7tC/ehW1Kzz4w=");
             statement.setString(5, "WNxq1r6Q2ZyA8AKQSYXJlg5XANMu9Kdp");
+            statement.setString(6, "Charlotte");
+            statement.setString(7, "Myrtille");
+            statement.setString(8, "cha_myr");
+            statement.setString(9, "R8ld7acSBTxT23oR7IHB+hR/blrP6SD7/8Ja6gh7aEg=");
+            statement.setString(10, "tBtlrrVWRfFpGntfYuWcX3KwxrtRuq6h");
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
-                    "INSERT INTO Teacher(firstname, lastname, username, userpwd, usersalt) VALUES(?, ?, ?, ?, ?);");
-            statement.setString(1, "Charlotte");
-            statement.setString(2, "Myrtille");
-            statement.setString(3, "cha_myr");
-            statement.setString(4, "R8ld7acSBTxT23oR7IHB+hR/blrP6SD7/8Ja6gh7aEg=");
-            statement.setString(5, "tBtlrrVWRfFpGntfYuWcX3KwxrtRuq6h");
+                    "INSERT INTO Sticker(color, description) " +
+                    "VALUES(?, ?)," +
+                    "(?, ?)," +
+                    "(?, ?);");
+            statement.setString(1, Color.GREEN.name());
+            statement.setString(2, Description.INDIVIDUAL_SERVICE.name());
+            statement.setString(3, Color.RED.name());
+            statement.setString(4, Description.OTHER_BAD_CONDUCT.name());
+            statement.setString(5, Color.WHITE.name());
+            statement.setString(6, Description.COMMUNITY_SERVICE.name());
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
-                    "INSERT INTO Sticker(color, description) VALUES(?, ?);");
-            statement.setString(1, "GREEN");
-            statement.setString(2, "INDIVIDUAL_SERVICE");
-            statement.executeUpdate();
-
-            statement = connection.prepareStatement(
-                    "INSERT INTO Sticker(color, description) VALUES(?, ?);");
-            statement.setString(1, "RED");
-            statement.setString(2, "OTHER_BAD_CONDUCT");
-            statement.executeUpdate();
-
-            statement = connection.prepareStatement(
-                    "INSERT INTO Sticker(color, description) VALUES(?, ?);");
-            statement.setString(1, "WHITE");
-            statement.setString(2, "COMMUNITY_SERVICE");
-            statement.executeUpdate();
-
-            statement = connection.prepareStatement(
-                    "INSERT INTO Student(lastname, firstname) VALUES(?, ?);");
+                    "INSERT INTO Student(lastname, firstname) " +
+                    "VALUES(?, ?)," +
+                    "(?, ?)," +
+                    "(?, ?);");
             statement.setString(1, "Woldemichael");
             statement.setString(2, "Eyosias");
+            statement.setString(3, "Doe");
+            statement.setString(4, "John");
+            statement.setString(5, "Drai");
+            statement.setString(6, "Alexis");
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
-                    "INSERT INTO Student(lastname, firstname) VALUES(?, ?);");
-            statement.setString(1, "Doe");
-            statement.setString(2, "John");
-            statement.executeUpdate();
-
-            statement = connection.prepareStatement(
-                    "INSERT INTO Student(lastname, firstname) VALUES(?, ?);");
-            statement.setString(1, "Drai");
-            statement.setString(2, "Alexis");
-            statement.executeUpdate();
-
-            statement = connection.prepareStatement(
-                    "INSERT INTO Award(id_teacher, id_sticker, id_student, attribution_date, motive) VALUES(?, ?, ?, ?, ?);");
+                    "INSERT INTO Award(id_teacher, id_sticker, id_student, attribution_date, motive) " +
+                    "VALUES(?, ?, ?, ?, ?)," +
+                    "(?, ?, ?, ?, ?)," +
+                    "(?, ?, ?, ?, ?);");
             statement.setLong(1, 1);
             statement.setLong(2, 2);
             statement.setLong(3, 3);
             statement.setDate(4, getSQLDateRelativeToToday(-5));
             statement.setString(5, "a cod&eacute; avec ses lunettes de soleil");
+            statement.setLong(6, 2);
+            statement.setLong(7, 3);
+            statement.setLong(8, 1);
+            statement.setDate(9, getSQLDateRelativeToToday(-9));
+            statement.setString(10, "a aid&eacute; &agrave; ranger les chaises");
+            statement.setLong(11, 1);
+            statement.setLong(12, 1);
+            statement.setLong(13, 2);
+            statement.setDate(14, getSQLDateRelativeToToday(-7));
+            statement.setString(15, "a aid&eacute; un camarade &agrave; faire tourner Gradle sur son poste");
             statement.executeUpdate();
 
-            statement = connection.prepareStatement(
-                    "INSERT INTO Award(id_teacher, id_sticker, id_student, attribution_date, motive) VALUES(?, ?, ?, ?, ?);");
-            statement.setLong(1, 2);
-            statement.setLong(2, 3);
-            statement.setLong(3, 1);
-            statement.setDate(4, getSQLDateRelativeToToday(-9));
-            statement.setString(5, "a aid&eacute; &agrave; ranger les chaises");
-            statement.executeUpdate();
-
-            statement = connection.prepareStatement(
-                    "INSERT INTO Award(id_teacher, id_sticker, id_student, attribution_date, motive) VALUES(?, ?, ?, ?, ?);");
-            statement.setLong(1, 1);
-            statement.setLong(2, 1);
-            statement.setLong(3, 2);
-            statement.setDate(4, getSQLDateRelativeToToday(-7));
-            statement.setString(5, "a aid&eacute; un camarade &agrave; faire tourner Gradle sur son poste");
-            statement.executeUpdate();
         } catch (Exception e)
         {
             e.printStackTrace();
