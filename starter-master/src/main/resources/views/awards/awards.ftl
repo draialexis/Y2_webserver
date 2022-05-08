@@ -31,21 +31,19 @@
     <#list awards as award>
         <li>
             <a href="/awards/id/${award.getId()}">
-                #${award.getId()} le ${award.getAttributionDate()}</a>
+                ${award.getId()} - le ${award.getAttributionDate()}</a>
             <br>
             gommette <a href="/stickers/${award.getSticker().getId()}">
                 ${award.getSticker().getColor().toString()}</a>
             attribu&eacute;e &agrave;
             <a href="/students/${award.getStudent().getId()}">
                 ${award.getStudent().getFirstName()} ${award.getStudent().getLastName()}
-                (<a href="/awards/student/${award.getStudent().getId()}">liste compl&egrave;te</a>)</a>
+            </a>(<a href="/awards/student/${award.getStudent().getId()}">voir sa liste compl&egrave;te</a>)
             <#if isAuthorized>
-                par Pr.
-                <a href="/teachers/${award.getTeacher().getId()}">
-                    ${award.getTeacher().getLastName()}</a>
+                par Pr.<a href="/teachers/${award.getTeacher().getId()}">${award.getTeacher().getLastName()}</a>
             </#if>
         </li>
-        <p>"${award.getMotive()}"</p>
+        <p>motif : "${award.getMotive()}"</p>
         <br>
     </#list>
 </ul>
