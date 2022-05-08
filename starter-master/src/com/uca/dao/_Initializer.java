@@ -52,16 +52,14 @@ public class _Initializer
                     "   motive TEXT NOT NULL," +
                     "   CONSTRAINT PK_Award PRIMARY KEY(id_award)," +
                     "   CONSTRAINT FK_Award_Teacher FOREIGN KEY(id_teacher) REFERENCES Teacher(id_teacher)," +
+                    // teachers cannot get deleted at the moment. if that changes, TeacherDAO.delete...() method(s)
+                    // will need to deal with updating the corresponding values in the Award table
                     "   CONSTRAINT FK_Award_Sticker FOREIGN KEY(id_sticker) REFERENCES Sticker(id_sticker) ON DELETE CASCADE," +
                     "   CONSTRAINT FK_Award_Student FOREIGN KEY(id_student) REFERENCES Student(id_student) ON DELETE CASCADE" +
                     ");"
             );
 
             statement.executeUpdate();
-
-            //TODO teacher.delete -> update id_teacher to NULL for the awards they gave
-            //sticker.delete -> delete corresponding awards
-            //student.delete -> delete their awards
 
             statement = connection.prepareStatement(
                     "INSERT INTO Teacher(firstname, lastname, username, userpwd, usersalt) VALUES(?, ?, ?, ?, ?);");
