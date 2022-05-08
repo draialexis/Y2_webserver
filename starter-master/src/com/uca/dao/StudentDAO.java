@@ -25,7 +25,7 @@ public class StudentDAO extends _Generic<StudentEntity>
         String S_firstN = obj.getFirstName();
         try {
             PreparedStatement statement = this.connect.prepareStatement(
-                    "INSERT INTO Student(id, lastName, firstName) VALUES(?, ?, ?);");
+                    "INSERT INTO Student(id_student, lastname, firstname) VALUES(?, ?, ?);");
             statement.setLong(1, S_id);
             statement.setString(2, S_lastN);
             statement.setString(3, S_firstN);
@@ -76,7 +76,14 @@ public class StudentDAO extends _Generic<StudentEntity>
         }
         return null; //TODO decide if we can let this return null... probably not
     }
+    public long findLastId() throws SQLException {
 
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "SELECT MAX(id_student) AS id_student FROM Student ;");
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            return resultSet.getLong("id_student");
+    }
     @Override
     public StudentEntity update(StudentEntity obj, long id)
     {
@@ -86,7 +93,7 @@ public class StudentDAO extends _Generic<StudentEntity>
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
-                    "UPDATE Sticker SET lastname = ?, firstname = ? WHERE id_student = ?;");
+                    "UPDATE Student SET lastname = ?, firstname = ? WHERE id_student = ?;");
             statement.setString(1, lName);
             statement.setString(2, fName);
             statement.setLong(3, id);
