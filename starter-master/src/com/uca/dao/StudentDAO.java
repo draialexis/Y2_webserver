@@ -29,11 +29,12 @@ public class StudentDAO extends _Generic<StudentEntity>
             statement.setString(1, obj.getLastName());
             statement.setString(2, obj.getFirstName());
             statement.executeUpdate();
+            return obj;
         } catch (SQLException e)
         {
             e.printStackTrace();
         }
-        return obj;
+        return null;
     }
 
     @Override
@@ -67,7 +68,6 @@ public class StudentDAO extends _Generic<StudentEntity>
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
-
             return getFullEntity(resultSet);
         } catch (SQLException e)
         {
@@ -87,13 +87,13 @@ public class StudentDAO extends _Generic<StudentEntity>
             statement.setString(2, obj.getLastName());
             statement.setLong(3, id);
             statement.executeUpdate();
-
             ensureIdIsSet(obj, id);
+            return obj;
         } catch (SQLException e)
         {
             e.printStackTrace();
         }
-        return obj;
+        return null;
     }
 
     @Override

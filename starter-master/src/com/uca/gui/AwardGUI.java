@@ -19,7 +19,7 @@ import java.util.Map;
 public class AwardGUI
 {
     public static String create(String motive, long teacherId, long studentId, long stickerId)
-            throws IOException, TemplateException
+            throws IOException, TemplateException, SQLException
     {
         AwardEntity award = new AwardEntity();
         award.setAttributionDate(new Date(new java.util.Date().getTime()));//TODO make customizable?
@@ -27,13 +27,8 @@ public class AwardGUI
         award.setTeacher(TeacherCore.readById(teacherId));
         award.setStudent(StudentCore.readById(studentId));
         award.setSticker(StickerCore.readById(stickerId));
-        try
-        {
-            AwardCore.create(award);
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
+        AwardCore.create(award);
+
         return readAll(true);
     }
 

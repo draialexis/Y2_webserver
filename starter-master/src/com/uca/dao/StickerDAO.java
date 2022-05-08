@@ -31,11 +31,12 @@ public class StickerDAO extends _Generic<StickerEntity>
             statement.setString(1, obj.getColor().toString());
             statement.setString(2, obj.getDescription().toString());
             statement.executeUpdate();
+            return obj;
         } catch (SQLException e)
         {
             e.printStackTrace();
         }
-        return obj;
+        return null;
     }
 
     @Override
@@ -69,7 +70,6 @@ public class StickerDAO extends _Generic<StickerEntity>
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
-
             return getFullEntity(resultSet);
         } catch (SQLException e)
         {
@@ -89,13 +89,13 @@ public class StickerDAO extends _Generic<StickerEntity>
             statement.setString(2, obj.getDescription().toString());
             statement.setLong(3, id);
             statement.executeUpdate();
-
             ensureIdIsSet(obj, id);
+            return obj;
         } catch (SQLException e)
         {
             e.printStackTrace();
         }
-        return obj;
+        return null;
     }
 
     @Override

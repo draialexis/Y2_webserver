@@ -32,6 +32,11 @@
     <input type="password" id="userpwd" name="userpwd" pattern="[a-zA-Z0-9!@#$%^&*_=+-]{4, 16}"
            title="entre 4 et 16 caract&egrave;res quelconques" required>
     <br>
+    <label for="userpwd-validation">mot de passe (confirmation)</label>
+    <br>
+    <input type="password" id="userpwd-validation" name="userpwd-validation" pattern="[a-zA-Z0-9!@#$%^&*_=+-]{4, 16}"
+           title="entre 4 et 16 caract&egrave;res quelconques" required>
+    <br>
 
     <button type="submit">Enregistrer</button>
 </form>

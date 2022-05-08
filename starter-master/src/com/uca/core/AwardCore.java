@@ -3,12 +3,11 @@ package com.uca.core;
 import com.uca.dao.AwardDAO;
 import com.uca.entity.AwardEntity;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class AwardCore
 {
-    public static AwardEntity create(AwardEntity obj) throws SQLException
+    public static AwardEntity create(AwardEntity obj)
     {
         return new AwardDAO().create(obj);
     }

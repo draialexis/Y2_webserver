@@ -22,17 +22,24 @@ public class TeacherDAO extends _Generic<TeacherEntity>
     }
 
     @Override
-    public TeacherEntity create(TeacherEntity obj) throws SQLException
+    public TeacherEntity create(TeacherEntity obj)
     {
-        PreparedStatement statement = this.connect.prepareStatement(
-                "INSERT INTO Teacher(firstname, lastname, username, userpwd, usersalt) VALUES(?, ?, ?, ?, ?);");
-        statement.setString(1, obj.getFirstName());
-        statement.setString(2, obj.getLastName());
-        statement.setString(3, obj.getUserName());
-        statement.setString(4, obj.getUserPwd());
-        statement.setString(5, obj.getUserSalt());
-        statement.executeUpdate();
-        return obj;
+        try
+        {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "INSERT INTO Teacher(firstname, lastname, username, userpwd, usersalt) VALUES(?, ?, ?, ?, ?);");
+            statement.setString(1, obj.getFirstName());
+            statement.setString(2, obj.getLastName());
+            statement.setString(3, obj.getUserName());
+            statement.setString(4, obj.getUserPwd());
+            statement.setString(5, obj.getUserSalt());
+            statement.executeUpdate();
+            return obj;
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override

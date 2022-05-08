@@ -8,6 +8,8 @@ import com.uca.gui.*;
 import java.util.HashMap;
 
 import static com.uca.util.RequestUtil.*;
+import static java.net.HttpURLConnection.HTTP_BAD_REQUEST;
+import static java.net.HttpURLConnection.HTTP_OK;
 import static spark.Spark.*;
 
 public class StartServer
@@ -44,8 +46,8 @@ public class StartServer
                  return TeacherGUI.create(getParamUTF8(params, "firstname"),
                                           getParamUTF8(params, "lastname"),
                                           getParamUTF8(params, "username"),
-                                          getParamUTF8(params, "userpwd"));
-
+                                          getParamUTF8(params, "userpwd"),
+                                          getParamUTF8(params, "userpwd-validation"));
              });
 
         get("/teachers", (req, res) -> TeacherGUI.readAll());
@@ -75,10 +77,21 @@ public class StartServer
         post("/awards", (req, res) -> {
             LoginUtil.ensureUserIsLoggedIn(req, res);
             HashMap<String, String> params = getParamFromReqBody(req.body());
-            return AwardGUI.create(getParamUTF8(params, "motive"),
-                                   TeacherCore.readByUserName(req.session().attribute("currentUser")).getId(),
-                                   Long.parseLong(getParamUTF8(params, "student-id")),
-                                   Long.parseLong(getParamUTF8(params, "sticker-id")));
+            try
+            {
+                String view = AwardGUI.create(
+                        getParamUTF8(params, "motive"),
+                        TeacherCore.readByUserName(req.session().attribute("currentUser")).getId(),
+                        Long.parseLong(getParamUTF8(params, "student-id")),
+                        Long.parseLong(getParamUTF8(params, "sticker-id")));
+                res.status(HTTP_OK);
+                return view;
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+                res.status(HTTP_BAD_REQUEST); // TODO improve?
+                return null;
+            }
         });
 
         get("/awards", (req, res) -> AwardGUI.readAll(LoginUtil.isLoggedIn(req)));
@@ -94,34 +107,5 @@ public class StartServer
             LoginUtil.ensureUserIsLoggedIn(req, res);
             return AwardGUI.deleteById(Long.parseLong(req.params(":id_award")));
         });
-
-        /*
-        // insert a post (using HTTP post method)
-        post("/posts", (request, response) -> {
-            try {
-                ObjectMapper mapper = new ObjectMapper();
-                NewPostPayload creation = mapper.readValue(request.body(), NewPostPayload.class);
-                if (!creation.isValid()) {
-                    response.status(HTTP_BAD_REQUEST);
-                    return "";
-                }
-                int id = model.createPost(creation.getTitle(), creation.getContent(), creation.getCategories());
-                response.status(200);
-                response.type("application/json");
-                return id;
-            } catch (JsonParseException jpe) {
-                response.status(HTTP_BAD_REQUEST);
-                return "";
-            }
-        });
-
-        // get all post (using HTTP get method)
-        get("/posts", (request, response) -> {
-            response.status(200);
-            response.type("application/json");
-            return dataToJson(model.getAllPosts());
-        });
-    }
-         */
     }
 }

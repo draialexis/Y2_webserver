@@ -27,17 +27,22 @@ public class AwardDAO extends _Generic<AwardEntity>
     }
 
     @Override
-    public AwardEntity create(AwardEntity obj) throws SQLException
+    public AwardEntity create(AwardEntity obj)
     {
-        PreparedStatement statement = this.connect.prepareStatement(
-                "INSERT INTO Award(attribution_date, motive, id_teacher, id_sticker, id_student) VALUES(?, ?, ?, ?, ?);");
-        statement.setDate(1, obj.getAttributionDate());
-        statement.setString(2, obj.getMotive());
-        statement.setLong(3, obj.getTeacher().getId());
-        statement.setLong(4, obj.getSticker().getId());
-        statement.setLong(5, obj.getStudent().getId());
-        statement.executeUpdate();
-        return obj;
+        try{
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "INSERT INTO Award(attribution_date, motive, id_teacher, id_sticker, id_student) VALUES(?, ?, ?, ?, ?);");
+            statement.setDate(1, obj.getAttributionDate());
+            statement.setString(2, obj.getMotive());
+            statement.setLong(3, obj.getTeacher().getId());
+            statement.setLong(4, obj.getSticker().getId());
+            statement.setLong(5, obj.getStudent().getId());
+            statement.executeUpdate();
+            return obj;
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override

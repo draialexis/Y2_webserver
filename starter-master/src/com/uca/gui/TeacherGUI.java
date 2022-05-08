@@ -6,11 +6,9 @@ import com.uca.entity.TeacherEntity;
 import com.uca.util.GuiUtil;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,36 +32,47 @@ public class TeacherGUI
         return GuiUtil.render(template, input, new StringWriter());
     }
 
-    public static String create(String firstName, String lastName, String userName, String userPwd)
+    public static String create(String firstName,
+                                String lastName,
+                                String userName,
+                                String userPwd,
+                                String userPwdValidation)
             throws IOException, TemplateException
     {
-        //TODO check not null, check size of userPwd between 4 and 16
+        String              status   = "status";
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("auth/signup.ftl");
         Map<String, Object> input    = new HashMap<>();
         TeacherEntity       teacher  = new TeacherEntity();
-        teacher.setFirstName(firstName);
-        teacher.setLastName(lastName);
-        teacher.setUserName(userName);
-        teacher.setUserSalt(_Encryptor.generateSalt(32));
-        teacher.setUserPwd(_Encryptor.generateSecurePassword(userPwd, teacher.getUserSalt()));
-        input.put("user", teacher);
-        try
+        if (firstName.isEmpty() || lastName.isEmpty() || userName.isEmpty() || userPwd.isEmpty())
         {
-            if (TeacherCore.create(teacher) != null)
+            input.put(status, "aucun des champs ne peut &ecirc;tre vide");
+        }
+        else
+        {
+            if (4 > userPwd.length() || userPwd.length() > 16)
             {
-                input.put("status", "est maintenant inscrit");
-            }
-        } catch (SQLException e)
-        {
-            if (e.getClass() == JdbcSQLIntegrityConstraintViolationException.class)
-            {// the only constraint in this table
-                input.put("status", "ce nom d'utilisateur est d&eacute;j&agrave; pris !");
+                input.put(status, "le mot de passe doit contenir 4 à 16 caract&egrave;res quelconques");
             }
             else
             {
-                input.put("status", "un probl&egrave;me est survernu " +
-                                    "&agrave; cause de ce nom d'utilisateur et/ou ce mot de passe");
-                e.printStackTrace();
+                if (!userPwd.equals(userPwdValidation))
+                {
+                    input.put(status, "ce nom d'utilisateur est d&eacute;j&agrave; pris");
+                }
+                else
+                {
+                    teacher.setFirstName(firstName);
+                    teacher.setLastName(lastName);
+                    teacher.setUserName(userName);
+                    teacher.setUserSalt(_Encryptor.generateSalt(32));
+                    teacher.setUserPwd(_Encryptor.generateSecurePassword(userPwd, teacher.getUserSalt()));
+                    input.put("user", teacher);
+
+                    if (TeacherCore.create(teacher) != null)
+                    {
+                        input.put(status, "est maintenant inscrit");
+                    }
+                }
             }
         }
         return GuiUtil.render(template, input, new StringWriter());

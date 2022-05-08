@@ -10,6 +10,9 @@ import spark.Response;
 
 import java.io.IOException;
 
+import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
+import static spark.Spark.halt;
+
 public class LoginUtil
 {
     public static String pathSaved = null;
@@ -60,6 +63,7 @@ public class LoginUtil
         {
             pathSaved = request.pathInfo(); // saves the path to redirect right away after login
             response.redirect("/login");
+            halt(HTTP_UNAUTHORIZED);
         }
     }
 }
