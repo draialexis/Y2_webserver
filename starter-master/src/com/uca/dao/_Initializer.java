@@ -2,9 +2,10 @@ package com.uca.dao;
 
 import java.sql.*;
 
+import static com.uca.util.DateUtil.getSQLDateRelativeToToday;
+
 public class _Initializer
 {
-
     public static void Init()
     {
         Connection connection = _Connector.getInstance();
@@ -13,21 +14,24 @@ public class _Initializer
         {
             PreparedStatement statement;
             statement = connection.prepareStatement(
-                    "DROP TABLE IF EXISTS Student CASCADE;" + // temporary
+                    "DROP TABLE IF EXISTS Student CASCADE;" +
+                    // temporary, would be removed when using a real DB for prod
                     "CREATE TABLE IF NOT EXISTS Student(" +
                     "   id_student BIGINT AUTO_INCREMENT," +
                     "   lastname VARCHAR(50) NOT NULL," +
                     "   firstname VARCHAR(50) NOT NULL," +
                     "   CONSTRAINT PK_Student PRIMARY KEY(id_student)" +
                     ");" +
-                    "DROP TABLE IF EXISTS Sticker CASCADE;" + // temporary
+                    "DROP TABLE IF EXISTS Sticker CASCADE;" +
+                    // temporary, would be removed when using a real DB for prod
                     "CREATE TABLE IF NOT EXISTS Sticker(" +
                     "   id_sticker BIGINT AUTO_INCREMENT," +
                     "   color VARCHAR(50) NOT NULL," +
                     "   description VARCHAR(50) NOT NULL," +
                     "   CONSTRAINT PK_Sticker PRIMARY KEY(id_sticker)" +
                     ");" +
-                    "DROP TABLE IF EXISTS Teacher CASCADE;" + // temporary
+                    "DROP TABLE IF EXISTS Teacher CASCADE;" +
+                    // temporary, would be removed when using a real DB for prod
                     "CREATE TABLE IF NOT EXISTS Teacher(" +
                     "   id_teacher BIGINT AUTO_INCREMENT," +
                     "   lastname VARCHAR(50) NOT NULL," +
@@ -38,33 +42,26 @@ public class _Initializer
                     "   CONSTRAINT PK_Teacher PRIMARY KEY(id_teacher)," +
                     "   CONSTRAINT AK_Teacher UNIQUE(username)" +
                     ");" +
-                    "DROP TABLE IF EXISTS Award;" + // temporary
+                    "DROP TABLE IF EXISTS Award;" + // temporary, would be removed when using a real DB for prod
                     "CREATE TABLE IF NOT EXISTS Award(" +
                     "   id_award BIGINT AUTO_INCREMENT," +
                     "   id_teacher BIGINT," +
-                    "   id_sticker BIGINT," +
-                    "   id_student BIGINT," +
+                    "   id_sticker BIGINT NOT NULL," +
+                    "   id_student BIGINT NOT NULL," +
                     "   attribution_date DATE NOT NULL," +
                     "   motive TEXT NOT NULL," +
                     "   CONSTRAINT PK_Award PRIMARY KEY(id_award)," +
-                    "   CONSTRAINT FK_Award_Teacher FOREIGN KEY(id_teacher) REFERENCES Teacher(id_teacher) ON UPDATE CASCADE ON DELETE CASCADE," +
-                    "   CONSTRAINT FK_Award_Sticker FOREIGN KEY(id_sticker) REFERENCES Sticker(id_sticker) ON UPDATE CASCADE ON DELETE CASCADE," +
-                    "   CONSTRAINT FK_Award_Student FOREIGN KEY(id_student) REFERENCES Student(id_student) ON UPDATE CASCADE ON DELETE CASCADE" +
+                    "   CONSTRAINT FK_Award_Teacher FOREIGN KEY(id_teacher) REFERENCES Teacher(id_teacher)," +
+                    "   CONSTRAINT FK_Award_Sticker FOREIGN KEY(id_sticker) REFERENCES Sticker(id_sticker) ON DELETE CASCADE," +
+                    "   CONSTRAINT FK_Award_Student FOREIGN KEY(id_student) REFERENCES Student(id_student) ON DELETE CASCADE" +
                     ");"
             );
 
-            // TODO
-            // instead of ON DELETE CASCADE, establish 'empty' values (or use NULL values?)
-            // N/A...
-            // gone...
-            // no longer here...
-
             statement.executeUpdate();
 
-            //Todo Remove me ? + Research Java.sql
-
-            statement = connection.prepareStatement("DELETE FROM Teacher;"); // temporary, for testing
-            statement.executeUpdate();
+            //TODO teacher.delete -> update id_teacher to NULL for the awards they gave
+            //sticker.delete -> delete corresponding awards
+            //student.delete -> delete their awards
 
             statement = connection.prepareStatement(
                     "INSERT INTO Teacher(firstname, lastname, username, userpwd, usersalt) VALUES(?, ?, ?, ?, ?);");
@@ -82,9 +79,6 @@ public class _Initializer
             statement.setString(3, "cha_myr");
             statement.setString(4, "R8ld7acSBTxT23oR7IHB+hR/blrP6SD7/8Ja6gh7aEg=");
             statement.setString(5, "tBtlrrVWRfFpGntfYuWcX3KwxrtRuq6h");
-            statement.executeUpdate();
-
-            statement = connection.prepareStatement("DELETE FROM Sticker;"); // temporary, for testing
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
@@ -105,9 +99,6 @@ public class _Initializer
             statement.setString(2, "COMMUNITY_SERVICE");
             statement.executeUpdate();
 
-            statement = connection.prepareStatement("DELETE FROM Student;"); // temporary, for testing
-            statement.executeUpdate();
-
             statement = connection.prepareStatement(
                     "INSERT INTO Student(lastname, firstname) VALUES(?, ?);");
             statement.setString(1, "Woldemichael");
@@ -126,18 +117,12 @@ public class _Initializer
             statement.setString(2, "Alexis");
             statement.executeUpdate();
 
-            statement = connection.prepareStatement("DELETE FROM Award;"); // temporary, for testing
-            statement.executeUpdate();
-
-            Date today = new Date(new java.util.Date().getTime());
-            // gets the number of ms since 01/01/1970 and feeds it to the javasql date object
-
             statement = connection.prepareStatement(
                     "INSERT INTO Award(id_teacher, id_sticker, id_student, attribution_date, motive) VALUES(?, ?, ?, ?, ?);");
             statement.setLong(1, 1);
             statement.setLong(2, 2);
             statement.setLong(3, 3);
-            statement.setDate(4, today);
+            statement.setDate(4, getSQLDateRelativeToToday(-5));
             statement.setString(5, "a cod&eacute; avec ses lunettes de soleil");
             statement.executeUpdate();
 
@@ -146,7 +131,7 @@ public class _Initializer
             statement.setLong(1, 2);
             statement.setLong(2, 3);
             statement.setLong(3, 1);
-            statement.setDate(4, today);
+            statement.setDate(4, getSQLDateRelativeToToday(-9));
             statement.setString(5, "a aid&eacute; &agrave; ranger les chaises");
             statement.executeUpdate();
 
@@ -155,12 +140,12 @@ public class _Initializer
             statement.setLong(1, 1);
             statement.setLong(2, 1);
             statement.setLong(3, 2);
-            statement.setDate(4, today);
+            statement.setDate(4, getSQLDateRelativeToToday(-7));
             statement.setString(5, "a aid&eacute; un camarade &agrave; faire tourner Gradle sur son poste");
             statement.executeUpdate();
         } catch (Exception e)
         {
-            System.out.println(e.toString());
+            e.printStackTrace();
             throw new RuntimeException("could not create database !");
         }
     }
