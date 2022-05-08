@@ -3,11 +3,15 @@ package com.uca.core;
 import com.uca.dao.TeacherDAO;
 import com.uca.entity.TeacherEntity;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TeacherCore
 {
+    public static TeacherEntity create(TeacherEntity obj)
+    {
+        return new TeacherDAO().create(obj);
+    }
+
     public static ArrayList<TeacherEntity> readAll()
     {
         return new TeacherDAO().readAll();
@@ -21,20 +25,5 @@ public class TeacherCore
     public static TeacherEntity readById(long id)
     {
         return new TeacherDAO().readById(id);
-    }
-
-    public static String getSalt(TeacherEntity user)
-    {
-        return user.getUserSalt();
-    }
-
-    public static String getHashedPassword(TeacherEntity user)
-    {
-        return user.getUserPwd();
-    }
-
-    public static TeacherEntity create(TeacherEntity obj) throws SQLException
-    {
-        return new TeacherDAO().create(obj);
     }
 }
