@@ -1,10 +1,9 @@
 <#ftl encoding="utf-8">
 
 <html lang="fr">
-
+<#include "../bits/head.html">
 <body xmlns="http://www.w3.org/1999/html">
-
-<a href="/stickers">&larr; Gommettes</a>
+<#include "../bits/navbar.ftl">
 
 <p>
     Gommette num&eacute;ro : ${sticker.getId()} <br>
