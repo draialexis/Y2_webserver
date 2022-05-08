@@ -17,7 +17,7 @@ public class StudentGUI
             throws IOException, TemplateException
     {
         Map<String, Object> input    = new HashMap<>();
-        Template            template = _FreeMarkerInitializer.getContext().getTemplate("pupils/pupils.ftl");
+        Template            template = _FreeMarkerInitializer.getContext().getTemplate("students/students.ftl");
         StudentEntity       student  = new StudentEntity();
         student.setFirstName(firstName);
         student.setLastName(lastName);
@@ -52,7 +52,7 @@ public class StudentGUI
             throws IOException, TemplateException
     {
         Map<String, Object> input    = new HashMap<>();
-        Template            template = _FreeMarkerInitializer.getContext().getTemplate("pupils/pupils.ftl");
+        Template            template = _FreeMarkerInitializer.getContext().getTemplate("students/students.ftl");
         input.put("students", StudentCore.readAll());
         if (StudentCore.update(student, student.getId()) != null)
         {
@@ -61,20 +61,25 @@ public class StudentGUI
         return GuiUtil.render(template, input, new StringWriter());
     }
 
-    public static String displayCreate() throws IOException, TemplateException
+    public static String deleteById(long id) throws TemplateException, IOException
     {
-        Template template = _FreeMarkerInitializer.getContext().getTemplate("pupils/createPupil.ftl");
-        return GuiUtil.render(template, null, new StringWriter());
+        StudentCore.deleteById(id);
+        return readAll();
     }
 
-    public static String displayModifPage(long id_stud) throws IOException, TemplateException
-    {
-        Map<String, Object> input    = new HashMap<>();
-        Template            template = _FreeMarkerInitializer.getContext().getTemplate("pupils/modifPupil.ftl");
-        String              p        = String.valueOf(id_stud);
-        input.put("pa", p);
-
-        return GuiUtil.render(template, input, new StringWriter());
-    }
-
+    //    public static String displayCreate() throws IOException, TemplateException
+    //    {
+    //        Template template = _FreeMarkerInitializer.getContext().getTemplate("pupils/createPupil.ftl");
+    //        return GuiUtil.render(template, null, new StringWriter());
+    //    }
+    //
+    //    public static String displayModifPage(long id) throws IOException, TemplateException
+    //    {
+    //        Map<String, Object> input    = new HashMap<>();
+    //        Template            template = _FreeMarkerInitializer.getContext().getTemplate("pupils/modifPupil.ftl");
+    //
+    //        input.put("student-id", id);
+    //        return GuiUtil.render(template, input, new StringWriter());
+    //    }
+    //TODO deal with
 }

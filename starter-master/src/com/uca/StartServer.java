@@ -1,6 +1,5 @@
 package com.uca;
 
-import com.uca.core.TeacherCore;
 import com.uca.util.LoginUtil;
 import com.uca.dao._Initializer;
 import com.uca.gui.*;
@@ -58,6 +57,15 @@ public class StartServer
         });
 
         //CRUD students
+        post("/students",
+             (req, res) -> {
+                 LoginUtil.ensureUserIsLoggedIn(req, res);
+                 HashMap<String, String> params = getParamFromReqBody(req.body());
+                 return StudentGUI.create(getParamUTF8(params, "lastname"),
+                                          getParamUTF8(params, "firstname"));
+
+             });
+
         get("/students", (req, res) -> {
             LoginUtil.ensureUserIsLoggedIn(req, res);
             return StudentGUI.readAll();
@@ -66,6 +74,27 @@ public class StartServer
         get("/students/:id_student", (req, res) -> {
             LoginUtil.ensureUserIsLoggedIn(req, res);
             return StudentGUI.readById(Long.parseLong(req.params(":id_student")));
+        });
+
+        //        post("/students/:id_student",
+        //             (req, res) -> {
+        //                 LoginUtil.ensureUserIsLoggedIn(req, res);
+        //
+        //                 HashMap<String, String> params  = getParamFromReqBody(req.body());
+        //                 StudentEntity           student = new StudentEntity();
+        //                 student.setFirstName(getParamUTF8(params, "firstName"));
+        //                 student.setLastName(getParamUTF8(params, "lastname"));
+        //                 student.setId(Long.parseLong(req.params(":id_student")));
+        //                 //StudentGUI.update(student); // cette method est pas trea bine n'affiche pas le resultat apres modification il faut reinitialiser pour voir si sa a maercher alors on redirige
+        //                 StudentCore.update(student, student.getId());
+        //                 res.redirect("/students");
+        //
+        //             });
+        // TODO make StudentGUI do the work, debug
+
+        post("/students/delete/:id_student", (req, res) -> {
+            LoginUtil.ensureUserIsLoggedIn(req, res);
+            return StudentGUI.deleteById(Long.parseLong(req.params(":id_student")));
         });
 
         //CRUD stickers
@@ -81,7 +110,7 @@ public class StartServer
             {
                 String view = AwardGUI.create(
                         getParamUTF8(params, "motive"),
-                        TeacherCore.readByUserName(req.session().attribute("currentUser")).getId(),
+                        req.session().attribute("currentUser"),
                         Long.parseLong(getParamUTF8(params, "student-id")),
                         Long.parseLong(getParamUTF8(params, "sticker-id")));
                 res.status(HTTP_OK);
