@@ -32,24 +32,36 @@ public class AwardGUI
         return readAll(true);
     }
 
-    public static String readAll(boolean isAuthorized) throws IOException, TemplateException
+    private static String readMany(boolean isAuthorized, long studentId) throws IOException, TemplateException
     {
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("awards/awards.ftl");
 
-        input.put("awards", AwardCore.readAll());
+        if (studentId == -1)
+        {
+            input.put("awards", AwardCore.readAll());
+        }
+        else
+        {
+            input.put("awards", AwardCore.readByStudentId(studentId));
+        }
         input.put("isAuthorized", isAuthorized);
+        if (isAuthorized)
+        {
+            input.put("stickers", StickerCore.readAll());
+            input.put("students", StudentCore.readAll());
+        }
         return GuiUtil.render(template, input, new StringWriter());
+    }
+
+    public static String readAll(boolean isAuthorized) throws IOException, TemplateException
+    {
+        return readMany(isAuthorized, -1);
     }
 
     public static String readByStudentId(boolean isAuthorized, long studentId) throws IOException, TemplateException
     {
-        Map<String, Object> input    = new HashMap<>();
-        Template            template = _FreeMarkerInitializer.getContext().getTemplate("awards/awards.ftl");
-
-        input.put("awards", AwardCore.readByStudentId(studentId));
-        input.put("isAuthorized", isAuthorized);
-        return GuiUtil.render(template, input, new StringWriter());
+        return readMany(isAuthorized, studentId);
     }
 
     public static String readById(boolean isAuthorized, long id) throws IOException, TemplateException
@@ -65,6 +77,7 @@ public class AwardGUI
     public static String deleteById(long id) throws IOException, TemplateException
     {
         AwardCore.deleteById(id);
+        // we assume that the user was only able to access this function because it was authorized
         return readAll(true);
     }
 }
