@@ -16,13 +16,11 @@ public class StudentGUI
     public static String create(String firstName, String lastName)
             throws IOException, TemplateException
     {
-        Template            template = _FreeMarkerInitializer.getContext().getTemplate("pupils/pupils.ftl");
         Map<String, Object> input    = new HashMap<>();
+        Template            template = _FreeMarkerInitializer.getContext().getTemplate("pupils/pupils.ftl");
         StudentEntity       student  = new StudentEntity();
         student.setFirstName(firstName);
         student.setLastName(lastName);
-        student.setId(StudentCore.findLastId() + 1);
-        // set the id of the new student the last one this way we don't need to auto increment
         input.put("user", student);
         input.put("students", StudentCore.readAll());
         if (StudentCore.create(student) != null)
@@ -53,9 +51,8 @@ public class StudentGUI
     public static String update(StudentEntity student)
             throws IOException, TemplateException
     {
-
-        Template            template = _FreeMarkerInitializer.getContext().getTemplate("pupils/pupils.ftl");
         Map<String, Object> input    = new HashMap<>();
+        Template            template = _FreeMarkerInitializer.getContext().getTemplate("pupils/pupils.ftl");
         input.put("students", StudentCore.readAll());
         if (StudentCore.update(student, student.getId()) != null)
         {
@@ -72,8 +69,8 @@ public class StudentGUI
 
     public static String displayModifPage(long id_stud) throws IOException, TemplateException
     {
-        Template            template = _FreeMarkerInitializer.getContext().getTemplate("pupils/modifPupil.ftl");
         Map<String, Object> input    = new HashMap<>();
+        Template            template = _FreeMarkerInitializer.getContext().getTemplate("pupils/modifPupil.ftl");
         String              p        = String.valueOf(id_stud);
         input.put("pa", p);
 
