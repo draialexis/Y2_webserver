@@ -21,7 +21,7 @@ public class AwardGUI extends _BasicGUI
             throws IOException, TemplateException, SQLException
     {
         AwardEntity award = new AwardEntity();
-        award.setAttributionDate(new Date(new java.util.Date().getTime()));//TODO (optional) make customizable?
+        award.setAttributionDate(new Date(new java.util.Date().getTime()));
         award.setMotive(motive);
         award.setTeacher(TeacherCore.readByUserName(teacherUserName));
         award.setStudent(StudentCore.readById(studentId));
@@ -30,8 +30,6 @@ public class AwardGUI extends _BasicGUI
 
         return readAll(true);
     }
-
-    //todo (optional) make more javadoc
 
     public static String readAll(boolean isAuthorized) throws IOException, TemplateException
     {
@@ -94,7 +92,4 @@ public class AwardGUI extends _BasicGUI
         // we assume that the user was only able to access this function because it was authorized
         return readMany(true, -1);
     }
-    //TODO (optional) rethink: if user is in "by student" mode, we don't want to send them back to "all" mode every time
-    // make separate functions..?
-
 }

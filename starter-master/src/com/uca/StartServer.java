@@ -121,5 +121,3 @@ public class StartServer
              (req, res) -> AwardGUI.deleteById(Long.parseLong(req.params(":id_award"))));
     }
 }
-
-// TODO deal with HTTP_CODES (404 not found for non-existent resources, instead of 500 internal error)

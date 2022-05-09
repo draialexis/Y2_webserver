@@ -18,8 +18,6 @@ public class LoginUtil
 {
     public static String pathSaved = null;
 
-    //TODO (optional) look into stateless authentication?
-
     public static String handleLoginPost(Request req, Response res) throws TemplateException, IOException
     {
         if (!authenticate(req.queryParams("username"), req.queryParams("userpwd")))

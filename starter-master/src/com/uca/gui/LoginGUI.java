@@ -17,6 +17,4 @@ public class LoginGUI extends _BasicGUI
         infoMsg = msg;
         return render(template, input, new StringWriter());
     }
-
-    //todo add logout?
 }
