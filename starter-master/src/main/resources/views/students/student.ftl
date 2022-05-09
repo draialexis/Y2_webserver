@@ -9,7 +9,9 @@
 
 <h2>El&egrave;ve num&eacute;ro : ${student.getId()}</h2>
 <p>${student.getFirstName()} ${student.getLastName()}</p>
-
+<form action="/student/delete/${student.getId()}" method="POST">
+    <button type="submit">SUPPRIMER</button>
+</form>
 </body>
 
 </html>

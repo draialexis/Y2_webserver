@@ -28,7 +28,7 @@ public class StartServer
         _Initializer.Init();
 
         //Index
-        get("/", (req, res) -> IndexGUI.display(LoginUtil.isLoggedIn(req)));
+        get("/", (req, res) -> IndexGUI.display());
 
         //Login
         get("/login", (req, res) -> LoginGUI.display("merci de vous identifier"));
@@ -53,7 +53,10 @@ public class StartServer
                                           getParamUTF8(params, "userpwd-validation"));
              });
 
-        get("/teachers", (req, res) -> TeacherGUI.readAll());
+        get("/teachers", (req, res) -> {
+            LoginUtil.ensureUserIsLoggedIn(req, res);
+            return TeacherGUI.readAll();
+        });
 
         get("/teachers/:id_teacher", (req, res) -> {
             LoginUtil.ensureUserIsLoggedIn(req, res);
@@ -61,14 +64,13 @@ public class StartServer
         });
 
         //CRUD students
-        post("/students",
-             (req, res) -> {
-                 LoginUtil.ensureUserIsLoggedIn(req, res);
-                 HashMap<String, String> params = getParamFromReqBody(req.body());
-                 return StudentGUI.create(getParamUTF8(params, "lastname"),
-                                          getParamUTF8(params, "firstname"));
+        post("/students", (req, res) -> {
+            LoginUtil.ensureUserIsLoggedIn(req, res);
+            HashMap<String, String> params = getParamFromReqBody(req.body());
+            return StudentGUI.create(getParamUTF8(params, "lastname"),
+                                     getParamUTF8(params, "firstname"));
 
-             });
+        });
 
         get("/students", (req, res) -> {
             LoginUtil.ensureUserIsLoggedIn(req, res);
@@ -103,9 +105,10 @@ public class StartServer
 
         });
 
-        get("/stickers", (req, res) -> StickerGUI.readAll());
+        get("/stickers", (req, res) -> StickerGUI.readAll(LoginUtil.isLoggedIn(req)));
 
-        get("/stickers/:id_sticker", (req, res) -> StickerGUI.readById(Long.parseLong(req.params(":id_sticker"))));
+        get("/stickers/:id_sticker",
+            (req, res) -> StickerGUI.readById(LoginUtil.isLoggedIn(req), Long.parseLong(req.params(":id_sticker"))));
 
         post("/stickers/:id_sticker",
              (req, res) -> {

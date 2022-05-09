@@ -25,24 +25,32 @@ public class StickerGUI extends _BasicGUI
         {
             status = "ajout : succ&egrave;s";
         }
-        return readAll();
+        // we assume that the user was only able to access this function because it was authorized
+        return readAll(true);
     }
+    //todo prevent pre-existing combinations? prevent it in the model too
 
-    public static String readAll() throws IOException, TemplateException
+    public static String readAll(boolean isAuthorized) throws IOException, TemplateException
     {
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("stickers/stickers.ftl");
-
+        input.put("colors", Color.values());
+        input.put("descriptions", Description.values());
         input.put("stickers", StickerCore.readAll());
+        input.put("isAuthorized", isAuthorized);
         return render(template, input, new StringWriter());
     }
 
-    public static String readById(long id) throws IOException, TemplateException
+    public static String readById(boolean isAuthorized, long id) throws IOException, TemplateException
     {
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("stickers/sticker.ftl");
 
+        input.put("colors", Color.values());
+        input.put("descriptions", Description.values());
+        input.put("stickers", StickerCore.readAll());
         input.put("sticker", StickerCore.readById(id));
+        input.put("isAuthorized", isAuthorized);
         return render(template, input, new StringWriter());
     }
 
@@ -57,13 +65,15 @@ public class StickerGUI extends _BasicGUI
         {
             status = "modification : succ&egrave;s";
         }
-        return readById(id);
+        // we assume that the user was only able to access this function because it was authorized
+        return readById(true, id);
     }
 
     public static String deleteById(long id) throws TemplateException, IOException
     {
         StickerCore.deleteById(id);
         status = "suppression : succ&egrave;s";
-        return readAll();
+        // we assume that the user was only able to access this function because it was authorized
+        return readAll(true);
     }
 }

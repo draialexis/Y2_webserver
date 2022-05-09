@@ -20,6 +20,9 @@
             <label for="color">couleur</label>
             <br>
             <select name="color" id="color" required>
+                <option value="${sticker.getColor().name()}">
+                    ACTUEL : ${sticker.getColor().name()}
+                </option>
                 <#list colors as color>
                     <option value="${color}">
                         ${color}
@@ -29,6 +32,9 @@
             <label for="description">description</label>
             <br>
             <select name="description" id="description" required>
+                <option value="${sticker.getDescription().name()}">
+                    ACTUEL : ${sticker.getDescription().name()}
+                </option>
                 <#list descriptions as description>
                     <option value="${description}">
                         ${description}

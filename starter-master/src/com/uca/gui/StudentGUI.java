@@ -61,6 +61,7 @@ public class StudentGUI extends _BasicGUI
     {
         StudentCore.deleteById(id);
         status = "suppression : succ&egrave;s";
+        System.out.println(status);
         return readAll();
     }
 }

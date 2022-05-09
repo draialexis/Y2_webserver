@@ -1,4 +1,4 @@
-<#if colors?has_content && description?has_content>
+<#if colors?has_content && descriptions?has_content>
     <h2>Ajouter une gommette</h2>
     <fieldset>
         <legend>nouvelle gommette</legend>

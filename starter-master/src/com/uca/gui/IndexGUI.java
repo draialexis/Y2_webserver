@@ -10,11 +10,10 @@ import java.util.Map;
 
 public class IndexGUI extends _BasicGUI
 {
-    public static String display(boolean isAuthorized) throws IOException, TemplateException
+    public static String display() throws IOException, TemplateException
     {
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("index.ftl");
-        input.put("isAuthorized", isAuthorized);
         return render(template, input, new StringWriter());
     }
 }
