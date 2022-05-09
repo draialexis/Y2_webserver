@@ -31,8 +31,6 @@ public class AwardGUI extends _BasicGUI
         return readAll(true);
     }
 
-    //todo test for <= 0 Id
-
     //todo make javadoc
 
     /**

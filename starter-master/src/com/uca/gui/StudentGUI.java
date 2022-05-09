@@ -38,11 +38,11 @@ public class StudentGUI extends _BasicGUI
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("students/student.ftl");
 
         input.put("student", StudentCore.readById(id));
-        // todo check if null EVERYWHERE where it could be null (if/else; Objects.requireNonNull();)
         return render(template, input, new StringWriter());
     }
 
-    //TODO validate inputs in ALL FUNCTIONS and METHODS
+    // TODO check if null EVERYWHERE where it could be null (if/else; Objects.requireNonNull();)
+    // TODO validate inputs in remaining functions
 
     public static String update(long id, String firstName, String lastName)
             throws IOException, TemplateException
