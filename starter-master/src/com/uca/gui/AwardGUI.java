@@ -31,7 +31,12 @@ public class AwardGUI extends _BasicGUI
         return readAll(true);
     }
 
-    //todo make javadoc
+    //todo (optional) make more javadoc
+
+    public static String readAll(boolean isAuthorized) throws IOException, TemplateException
+    {
+        return readMany(isAuthorized, -1);
+    }
 
     /**
      * displays several or all awards, depending on {@code studentId}
@@ -58,17 +63,13 @@ public class AwardGUI extends _BasicGUI
             input.put("isByStudent", true);
             input.put("awards", AwardCore.readByStudentId(studentId));
         }
-        if(isAuthorized){
+        if (isAuthorized)
+        {
             input.put("students", StudentCore.readAll());
             input.put("stickers", StickerCore.readAll());
         }
         input.put("isAuthorized", isAuthorized);
         return render(template, input, new StringWriter());
-    }
-
-    public static String readAll(boolean isAuthorized) throws IOException, TemplateException
-    {
-        return readMany(isAuthorized, -1);
     }
 
     public static String readByStudentId(boolean isAuthorized, long studentId)

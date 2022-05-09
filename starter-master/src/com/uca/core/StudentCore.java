@@ -27,7 +27,8 @@ public class StudentCore
         return new StudentDAO().update(obj, id);
     }
 
-    public static void deleteById(long id) {
+    public static void deleteById(long id)
+    {
         new StudentDAO().deleteById(id);
     }
 }

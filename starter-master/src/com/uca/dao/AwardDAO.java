@@ -29,7 +29,8 @@ public class AwardDAO extends _Generic<AwardEntity>
     @Override
     public AwardEntity create(AwardEntity obj)
     {
-        try{
+        try
+        {
             PreparedStatement statement = this.connect.prepareStatement(
                     "INSERT INTO Award(attribution_date, motive, id_teacher, id_sticker, id_student) VALUES(?, ?, ?, ?, ?);");
             statement.setDate(1, obj.getAttributionDate());
@@ -39,7 +40,8 @@ public class AwardDAO extends _Generic<AwardEntity>
             statement.setLong(5, obj.getStudent().getId());
             statement.executeUpdate();
             return obj;
-        } catch (SQLException e){
+        } catch (SQLException e)
+        {
             e.printStackTrace();
         }
         return null;
@@ -53,27 +55,6 @@ public class AwardDAO extends _Generic<AwardEntity>
         {
             PreparedStatement statement = this.connect.prepareStatement(
                     "SELECT * FROM Award ORDER BY attribution_date DESC, id_award DESC;");
-
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next())
-            {
-                entities.add(getFullEntity(resultSet));
-            }
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-        return entities;
-    }
-
-    public ArrayList<AwardEntity> readByStudentId(long studentId)
-    {
-        ArrayList<AwardEntity> entities = new ArrayList<>();
-        try
-        {
-            PreparedStatement statement = this.connect.prepareStatement(
-                    "SELECT * FROM Award WHERE id_student = ? ORDER BY attribution_date DESC;");
-            statement.setLong(1, studentId);
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next())

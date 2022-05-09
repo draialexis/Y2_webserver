@@ -44,6 +44,23 @@ public class TeacherDAO extends _Generic<TeacherEntity>
         return null;
     }
 
+    public TeacherEntity readByUserName(String userName)
+    {
+        try
+        {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "SELECT * FROM Teacher WHERE username = ?;");
+            statement.setString(1, userName); // username is UNIQUE, no risk of amibuguity
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            return getFullEntity(resultSet);
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     @Override
     public ArrayList<TeacherEntity> readAll()
     {
@@ -73,23 +90,6 @@ public class TeacherDAO extends _Generic<TeacherEntity>
             PreparedStatement statement = this.connect.prepareStatement(
                     "SELECT * FROM Teacher WHERE id_teacher = ?;");
             statement.setLong(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
-            return getFullEntity(resultSet);
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public TeacherEntity readByUserName(String userName)
-    {
-        try
-        {
-            PreparedStatement statement = this.connect.prepareStatement(
-                    "SELECT * FROM Teacher WHERE username = ?;");
-            statement.setString(1, userName); // username is UNIQUE, no risk of amibuguity
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
             return getFullEntity(resultSet);

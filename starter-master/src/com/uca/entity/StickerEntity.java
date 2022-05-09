@@ -50,13 +50,9 @@ public final class StickerEntity
     }
 
     @Override
-    public String toString()
+    public int hashCode()
     {
-        return "StickerEntity{" +
-               "id=" + id +
-               ", color=" + color +
-               ", description='" + description + '\'' +
-               '}';
+        return Objects.hash(color, description);
     }
 
     @Override
@@ -69,8 +65,12 @@ public final class StickerEntity
     }
 
     @Override
-    public int hashCode()
+    public String toString()
     {
-        return Objects.hash(color, description);
+        return "StickerEntity{" +
+               "id=" + id +
+               ", color=" + color +
+               ", description='" + description + '\'' +
+               '}';
     }
 }

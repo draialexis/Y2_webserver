@@ -32,6 +32,9 @@ public class StudentGUI extends _BasicGUI
         return render(template, input, new StringWriter());
     }
 
+    // TODO check if null EVERYWHERE where it could be null (if/else; Objects.requireNonNull();)
+    // TODO validate inputs in remaining functions
+
     public static String readById(long id) throws IOException, TemplateException
     {
         Map<String, Object> input    = new HashMap<>();
@@ -40,9 +43,6 @@ public class StudentGUI extends _BasicGUI
         input.put("student", StudentCore.readById(id));
         return render(template, input, new StringWriter());
     }
-
-    // TODO check if null EVERYWHERE where it could be null (if/else; Objects.requireNonNull();)
-    // TODO validate inputs in remaining functions
 
     public static String update(long id, String firstName, String lastName)
             throws IOException, TemplateException

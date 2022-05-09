@@ -31,6 +31,16 @@ public class _Encryptor
         return new String(salt);
     }
 
+    public static boolean verifyUserPassword(String providedPassword, String securedPassword, String salt)
+    {
+        return securedPassword.equalsIgnoreCase(generateSecurePassword(providedPassword, salt));
+    }
+
+    public static String generateSecurePassword(String password, String salt)
+    {
+        return Base64.getEncoder().encodeToString(generateHash(password.toCharArray(), salt.getBytes()));
+    }
+
     public static byte[] generateHash(char[] password, byte[] salt)
     {
         PBEKeySpec spec = new PBEKeySpec(password, salt, ITERATIONS, KEY_LENGTH);
@@ -46,16 +56,6 @@ public class _Encryptor
         {
             spec.clearPassword();
         }
-    }
-
-    public static String generateSecurePassword(String password, String salt)
-    {
-        return Base64.getEncoder().encodeToString(generateHash(password.toCharArray(), salt.getBytes()));
-    }
-
-    public static boolean verifyUserPassword(String providedPassword, String securedPassword, String salt)
-    {
-        return securedPassword.equalsIgnoreCase(generateSecurePassword(providedPassword, salt));
     }
 }
 

@@ -20,20 +20,6 @@ public class LoginUtil
 
     //TODO (optional) look into stateless authentication?
 
-    public static boolean authenticate(String username, String password)
-    {
-        if (username.isEmpty() || password.isEmpty())
-        { // tried to log in without filling in the form
-            return false;
-        }
-        TeacherEntity user = TeacherCore.readByUserName(username);
-        if (user == null)
-        { // means the user doesn't exist
-            return false;
-        }
-        return _Encryptor.verifyUserPassword(password, user.getUserPwd(), user.getUserSalt());
-    }
-
     public static String handleLoginPost(Request req, Response res) throws TemplateException, IOException
     {
         if (!authenticate(req.queryParams("username"), req.queryParams("userpwd")))
@@ -53,9 +39,18 @@ public class LoginUtil
         return null;
     }
 
-    public static boolean isLoggedIn(Request req)
+    public static boolean authenticate(String username, String password)
     {
-        return req.session().attribute("currentUser") != null;
+        if (username.isEmpty() || password.isEmpty())
+        { // tried to log in without filling in the form
+            return false;
+        }
+        TeacherEntity user = TeacherCore.readByUserName(username);
+        if (user == null)
+        { // means the user doesn't exist
+            return false;
+        }
+        return _Encryptor.verifyUserPassword(password, user.getUserPwd(), user.getUserSalt());
     }
 
     public static void ensureUserIsLoggedIn(Request req, Response res)
@@ -66,5 +61,10 @@ public class LoginUtil
             res.redirect("/login");
             halt(HTTP_UNAUTHORIZED);
         }
+    }
+
+    public static boolean isLoggedIn(Request req)
+    {
+        return req.session().attribute("currentUser") != null;
     }
 }
