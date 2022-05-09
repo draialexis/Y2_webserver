@@ -2,7 +2,6 @@ package com.uca.gui;
 
 import com.uca.core.StudentCore;
 import com.uca.entity.StudentEntity;
-import com.uca.util.GuiUtil;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -11,23 +10,19 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StudentGUI
+public class StudentGUI extends _BasicGUI
 {
     public static String create(String firstName, String lastName)
             throws IOException, TemplateException
     {
-        Map<String, Object> input    = new HashMap<>();
-        Template            template = _FreeMarkerInitializer.getContext().getTemplate("students/students.ftl");
-        StudentEntity       student  = new StudentEntity();
+        StudentEntity student = new StudentEntity();
         student.setFirstName(firstName);
         student.setLastName(lastName);
-        input.put("user", student);
-        input.put("students", StudentCore.readAll());
         if (StudentCore.create(student) != null)
         {
-            input.put("status", "est maintenant inscrit");
+            status = "ajout : succ&egrave;s";
         }
-        return GuiUtil.render(template, input, new StringWriter());
+        return readAll();
     }
 
     public static String readAll() throws IOException, TemplateException
@@ -36,7 +31,7 @@ public class StudentGUI
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("students/students.ftl");
 
         input.put("students", StudentCore.readAll());
-        return GuiUtil.render(template, input, new StringWriter());
+        return render(template, input, new StringWriter());
     }
 
     public static String readById(long id) throws IOException, TemplateException
@@ -45,41 +40,27 @@ public class StudentGUI
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("students/student.ftl");
 
         input.put("student", StudentCore.readById(id));
-        return GuiUtil.render(template, input, new StringWriter());
+        return render(template, input, new StringWriter());
     }
 
-    public static String update(StudentEntity student)
+    public static String update(long id, String firstName, String lastName)
             throws IOException, TemplateException
     {
-        Map<String, Object> input    = new HashMap<>();
-        Template            template = _FreeMarkerInitializer.getContext().getTemplate("students/students.ftl");
-        input.put("students", StudentCore.readAll());
+        StudentEntity student = new StudentEntity();
+        student.setId(id);
+        student.setFirstName(firstName);
+        student.setLastName(lastName);
         if (StudentCore.update(student, student.getId()) != null)
         {
-            input.put("status", "est maintenant modifier");
+            status = "modification : succ&egrave;s";
         }
-        return GuiUtil.render(template, input, new StringWriter());
+        return readById(id);
     }
 
     public static String deleteById(long id) throws TemplateException, IOException
     {
         StudentCore.deleteById(id);
+        status = "suppression : succ&egrave;s";
         return readAll();
     }
-
-    //    public static String displayCreate() throws IOException, TemplateException
-    //    {
-    //        Template template = _FreeMarkerInitializer.getContext().getTemplate("pupils/createPupil.ftl");
-    //        return GuiUtil.render(template, null, new StringWriter());
-    //    }
-    //
-    //    public static String displayModifPage(long id) throws IOException, TemplateException
-    //    {
-    //        Map<String, Object> input    = new HashMap<>();
-    //        Template            template = _FreeMarkerInitializer.getContext().getTemplate("pupils/modifPupil.ftl");
-    //
-    //        input.put("student-id", id);
-    //        return GuiUtil.render(template, input, new StringWriter());
-    //    }
-    //TODO deal with
 }

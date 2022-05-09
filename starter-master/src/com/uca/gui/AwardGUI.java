@@ -5,7 +5,6 @@ import com.uca.core.StickerCore;
 import com.uca.core.StudentCore;
 import com.uca.core.TeacherCore;
 import com.uca.entity.AwardEntity;
-import com.uca.util.GuiUtil;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -16,7 +15,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AwardGUI
+public class AwardGUI extends _BasicGUI
 {
     public static String create(String motive, String teacherUserName, long studentId, long stickerId)
             throws IOException, TemplateException, SQLException
@@ -27,12 +26,16 @@ public class AwardGUI
         award.setTeacher(TeacherCore.readByUserName(teacherUserName));
         award.setStudent(StudentCore.readById(studentId));
         award.setSticker(StickerCore.readById(stickerId));
-        AwardCore.create(award);
+        if (AwardCore.create(award) != null)
+        {
+            status = "ajout : success";
+        }
 
         return readAll(true);
     }
 
-    private static String readMany(boolean isAuthorized, long studentId) throws IOException, TemplateException
+    private static String readMany(boolean isAuthorized, long studentId)
+            throws IOException, TemplateException
     {
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("awards/awards.ftl");
@@ -51,7 +54,7 @@ public class AwardGUI
             input.put("stickers", StickerCore.readAll());
             input.put("students", StudentCore.readAll());
         }
-        return GuiUtil.render(template, input, new StringWriter());
+        return render(template, input, new StringWriter());
     }
 
     public static String readAll(boolean isAuthorized) throws IOException, TemplateException
@@ -59,7 +62,8 @@ public class AwardGUI
         return readMany(isAuthorized, -1);
     }
 
-    public static String readByStudentId(boolean isAuthorized, long studentId) throws IOException, TemplateException
+    public static String readByStudentId(boolean isAuthorized, long studentId)
+            throws IOException, TemplateException
     {
         return readMany(isAuthorized, studentId);
     }
@@ -71,12 +75,14 @@ public class AwardGUI
 
         input.put("award", AwardCore.readById(id));
         input.put("isAuthorized", isAuthorized);
-        return GuiUtil.render(template, input, new StringWriter());
+        return render(template, input, new StringWriter());
     }
 
     public static String deleteById(long id) throws IOException, TemplateException
     {
+
         AwardCore.deleteById(id);
+        status = "suppression : succ&egrave;s";
         // we assume that the user was only able to access this function because it was authorized
         return readAll(true);
     }

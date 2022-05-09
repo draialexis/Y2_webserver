@@ -11,3 +11,5 @@
         <li><a href="/signup">Enregistrer un utilisateur</a></li>
     </ul>
 </nav>
+
+<#include "../bits/status.ftl">

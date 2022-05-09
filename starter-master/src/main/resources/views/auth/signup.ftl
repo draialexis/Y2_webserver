@@ -4,15 +4,6 @@
 <body xmlns="http://www.w3.org/1999/html">
 <#include "../bits/navbar.ftl">
 
-<p>
-    <#if status?has_content>
-        ${status} :
-        <#if user?has_content>
-            ${user.firstName} ${user.lastName} (${user.userName})
-        </#if>
-    </#if>
-</p>
-
 <form method="POST" action="/signup">
     <label for="firstname">pr&eacute;nom</label>
     <br>

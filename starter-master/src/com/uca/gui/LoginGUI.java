@@ -1,6 +1,5 @@
 package com.uca.gui;
 
-import com.uca.util.GuiUtil;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -9,14 +8,13 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginGUI
+public class LoginGUI extends _BasicGUI
 {
     public static String display(String status) throws TemplateException, IOException
     {
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("auth/login.ftl");
-
         input.put("status", status);
-        return GuiUtil.render(template, input, new StringWriter());
+        return render(template, input, new StringWriter());
     }
 }

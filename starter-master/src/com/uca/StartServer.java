@@ -76,21 +76,14 @@ public class StartServer
             return StudentGUI.readById(Long.parseLong(req.params(":id_student")));
         });
 
-        //        post("/students/:id_student",
-        //             (req, res) -> {
-        //                 LoginUtil.ensureUserIsLoggedIn(req, res);
-        //
-        //                 HashMap<String, String> params  = getParamFromReqBody(req.body());
-        //                 StudentEntity           student = new StudentEntity();
-        //                 student.setFirstName(getParamUTF8(params, "firstName"));
-        //                 student.setLastName(getParamUTF8(params, "lastname"));
-        //                 student.setId(Long.parseLong(req.params(":id_student")));
-        //                 //StudentGUI.update(student); // cette method est pas trea bine n'affiche pas le resultat apres modification il faut reinitialiser pour voir si sa a maercher alors on redirige
-        //                 StudentCore.update(student, student.getId());
-        //                 res.redirect("/students");
-        //
-        //             });
-        // TODO make StudentGUI do the work, debug
+        post("/students/:id_student",
+             (req, res) -> {
+                 LoginUtil.ensureUserIsLoggedIn(req, res);
+                 HashMap<String, String> params = getParamFromReqBody(req.body());
+                 return StudentGUI.update(Long.parseLong(req.params(":id_student")),
+                                          getParamUTF8(params, "lastname"),
+                                          getParamUTF8(params, "firstname"));
+             });
 
         post("/students/delete/:id_student", (req, res) -> {
             LoginUtil.ensureUserIsLoggedIn(req, res);

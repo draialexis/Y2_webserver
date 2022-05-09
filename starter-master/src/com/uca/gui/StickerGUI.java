@@ -1,7 +1,6 @@
 package com.uca.gui;
 
 import com.uca.core.StickerCore;
-import com.uca.util.GuiUtil;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -10,7 +9,7 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StickerGUI
+public class StickerGUI extends _BasicGUI
 {
     public static String readAll() throws IOException, TemplateException
     {
@@ -18,7 +17,7 @@ public class StickerGUI
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("stickers/stickers.ftl");
 
         input.put("stickers", StickerCore.readAll());
-        return GuiUtil.render(template, input, new StringWriter());
+        return render(template, input, new StringWriter());
     }
 
     public static String readById(long id) throws IOException, TemplateException
@@ -27,6 +26,6 @@ public class StickerGUI
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("stickers/sticker.ftl");
 
         input.put("sticker", StickerCore.readById(id));
-        return GuiUtil.render(template, input, new StringWriter());
+        return render(template, input, new StringWriter());
     }
 }

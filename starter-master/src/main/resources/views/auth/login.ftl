@@ -4,12 +4,6 @@
 <body xmlns="http://www.w3.org/1999/html">
 <#include "../bits/navbar.ftl">
 
-<#if status?has_content>
-    <p>
-        ${status}
-    </p>
-</#if>
-
 <form method="POST" action="/login">
     <label for="username">nom d'utilisateur</label>
     <br>

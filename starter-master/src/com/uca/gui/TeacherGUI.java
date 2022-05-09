@@ -3,7 +3,6 @@ package com.uca.gui;
 import com.uca.core.TeacherCore;
 import com.uca.dao._Encryptor;
 import com.uca.entity.TeacherEntity;
-import com.uca.util.GuiUtil;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -12,7 +11,7 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TeacherGUI
+public class TeacherGUI extends _BasicGUI
 {
     public static String readAll() throws IOException, TemplateException
     {
@@ -20,7 +19,7 @@ public class TeacherGUI
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("teachers/teachers.ftl");
 
         input.put("teachers", TeacherCore.readAll());
-        return GuiUtil.render(template, input, new StringWriter());
+        return render(template, input, new StringWriter());
     }
 
     public static String readById(long id) throws IOException, TemplateException
@@ -29,7 +28,7 @@ public class TeacherGUI
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("teachers/teacher.ftl");
 
         input.put("teacher", TeacherCore.readById(id));
-        return GuiUtil.render(template, input, new StringWriter());
+        return render(template, input, new StringWriter());
     }
 
     public static String create(String firstName,
@@ -39,25 +38,22 @@ public class TeacherGUI
                                 String userPwdValidation)
             throws IOException, TemplateException
     {
-        String              status   = "status";
-        Template            template = _FreeMarkerInitializer.getContext().getTemplate("auth/signup.ftl");
-        Map<String, Object> input    = new HashMap<>();
-        TeacherEntity       teacher  = new TeacherEntity();
+        TeacherEntity teacher = new TeacherEntity();
         if (firstName.isEmpty() || lastName.isEmpty() || userName.isEmpty() || userPwd.isEmpty())
         {
-            input.put(status, "aucun des champs ne peut &ecirc;tre vide");
+            status = "aucun des champs ne peut &ecirc;tre vide";
         }
         else
         {
             if (4 > userPwd.length() || userPwd.length() > 16)
             {
-                input.put(status, "le mot de passe doit contenir 4 à 16 caract&egrave;res quelconques");
+                status = "le mot de passe doit contenir 4 à 16 caract&egrave;res quelconques";
             }
             else
             {
                 if (!userPwd.equals(userPwdValidation))
                 {
-                    input.put(status, "ce nom d'utilisateur est d&eacute;j&agrave; pris");
+                    status = "ce nom d'utilisateur est d&eacute;j&agrave; pris";
                 }
                 else
                 {
@@ -66,15 +62,13 @@ public class TeacherGUI
                     teacher.setUserName(userName);
                     teacher.setUserSalt(_Encryptor.generateSalt(32));
                     teacher.setUserPwd(_Encryptor.generateSecurePassword(userPwd, teacher.getUserSalt()));
-                    input.put("user", teacher);
-
                     if (TeacherCore.create(teacher) != null)
                     {
-                        input.put(status, "est maintenant inscrit");
+                        status = "ajout : succ&egrave;";
                     }
                 }
             }
         }
-        return GuiUtil.render(template, input, new StringWriter());
+        return readAll();
     }
 }
