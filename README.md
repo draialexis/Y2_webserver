@@ -1,15 +1,17 @@
 # TP Web-Serveur
 
-The back-end of a colored sticker dot app. Enjoy.
+The back-end of a colored sticker dot management app.
 
-We're using Java 11 here, for compatibility reasons
+## Java version
 
-## Running the app
+We're using Java 11 here, for compatibility reasons. It seems that the sweetspot is between 8 and 11 with the current settings - more research and tuning would be required in order to clear this up.
+
+## Running the app (UNIX system)
 `cd starter-master`
 
 `./gradlew run`
 
-then enter `https://localhost:8081/` in a browser 
+then enter `https://localhost:8081/` in a browser .
 
 ## Project instructions
 
