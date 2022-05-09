@@ -1,5 +1,5 @@
-<table>
-    <#if awards?has_content>
+<#if awards?has_content>
+    <table>
         <tr>
             <th>ID</th>
             <th>date</th>
@@ -33,5 +33,5 @@
                 <td>"${award.getMotive()}"</td>
             </tr>
         </#list>
-    </#if>
-</table>
+    </table>
+</#if>
