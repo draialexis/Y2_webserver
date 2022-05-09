@@ -1,5 +1,9 @@
 package com.uca;
 
+import com.uca.core.StickerCore;
+import com.uca.entity.Color;
+import com.uca.entity.Description;
+import com.uca.entity.StickerEntity;
 import com.uca.util.LoginUtil;
 import com.uca.dao._Initializer;
 import com.uca.gui.*;
@@ -91,9 +95,31 @@ public class StartServer
         });
 
         //CRUD stickers
+        post("/stickers", (req, res) -> {
+            LoginUtil.ensureUserIsLoggedIn(req, res);
+            HashMap<String, String> params = getParamFromReqBody(req.body());
+            return StickerGUI.create(getParamUTF8(params, "color"),
+                                     getParamUTF8(params, "description"));
+
+        });
+
         get("/stickers", (req, res) -> StickerGUI.readAll());
 
         get("/stickers/:id_sticker", (req, res) -> StickerGUI.readById(Long.parseLong(req.params(":id_sticker"))));
+
+        post("/stickers/:id_sticker",
+             (req, res) -> {
+                 LoginUtil.ensureUserIsLoggedIn(req, res);
+                 HashMap<String, String> params = getParamFromReqBody(req.body());
+                 return StudentGUI.update(Long.parseLong(req.params(":id_sticker")),
+                                          getParamUTF8(params, "color"),
+                                          getParamUTF8(params, "description"));
+             });
+
+        post("/stickers/delete/:id_sticker", (req, res) -> {
+            LoginUtil.ensureUserIsLoggedIn(req, res);
+            return StickerGUI.deleteById(Long.parseLong(req.params(":id_sticker")));
+        });
 
         //CR*D awards
         post("/awards", (req, res) -> {
