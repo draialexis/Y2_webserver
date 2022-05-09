@@ -6,7 +6,7 @@
 <#include "../bits/navbar.ftl">
 
 <h2>Enseignants</h2>
-<#--TODO add ?has_content checks everywhere -->
+
 <#if teachers?has_content>
     <table>
         <tr>

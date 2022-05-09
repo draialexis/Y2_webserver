@@ -4,7 +4,9 @@
 <body xmlns="http://www.w3.org/1999/html">
 <#include "../bits/navbar.ftl">
 
-<#include "award-create-form.ftl">
+<#if isAuthorized>
+    <#include "award-create-form.ftl">
+</#if>
 
 <h2>Attributions</h2>
 

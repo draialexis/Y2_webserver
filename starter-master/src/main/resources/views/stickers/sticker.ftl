@@ -9,13 +9,18 @@
     <#include "sticker-update-form.ftl">
 </#if>
 
-<h2>Gommette num&eacute;ro : ${sticker.getId()}</h2>
-<p>${sticker.getColor().toString()} ; ${sticker.getDescription().toString()}</p>
-<#if isAuthorized>
-    <form action="/hidden/stickers/delete/${sticker.getId()}" method="POST">
-        <button type="submit">Supprimer</button>
-    </form>
+<#if sticker?has_content>
+    <h2>Gommette num&eacute;ro : ${sticker.getId()}</h2>
+    <p>${sticker.getColor().toString()} ; ${sticker.getDescription().toString()}</p>
+    <#if isAuthorized>
+        <form action="/hidden/stickers/delete/${sticker.getId()}" method="POST">
+            <button type="submit">Supprimer</button>
+        </form>
+    </#if>
+<#else>
+    <p class="info-msg">ID mal lu ou absence de la ressource</p>
 </#if>
+
 </body>
 
 </html>

@@ -38,6 +38,6 @@
     </fieldset>
 <#else>
     <p class="info-msg">
-        ID de gommette mal lu, ou absence de COLOR et/ou de DESCRIPTION et/ou de gommettes dans le mod&egrave;le
+        ID mal lu, ou absence de COLOR et/ou de DESCRIPTION et/ou de gommettes dans le mod&egrave;le
     </p>
 </#if>

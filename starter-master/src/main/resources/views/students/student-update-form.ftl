@@ -14,4 +14,6 @@
             <button type="submit">Modifier</button>
         </form>
     </fieldset>
+<#else>
+    <p class="info-msg">ID mal lu ou absence de la ressource</p>
 </#if>
