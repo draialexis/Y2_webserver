@@ -82,7 +82,7 @@ public class StudentDAO extends _Generic<StudentEntity>
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
-                    "UPDATE Sticker SET lastname = ?, firstname = ? WHERE id_student = ?;");
+                    "UPDATE Student SET lastname = ?, firstname = ? WHERE id_student = ?;");
             statement.setString(1, obj.getFirstName());
             statement.setString(2, obj.getLastName());
             statement.setLong(3, id);
@@ -100,8 +100,6 @@ public class StudentDAO extends _Generic<StudentEntity>
     public void delete(StudentEntity obj)
     {
         this.deleteById(obj.getId());
-        //Todo if we want to use this then we have to change deleteByID to private ?
-        // --> no, but maybe we should get rid of this delete() function (if we don't use it later)
     }
 
     @Override
