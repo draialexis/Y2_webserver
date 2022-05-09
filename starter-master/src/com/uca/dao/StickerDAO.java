@@ -75,7 +75,7 @@ public class StickerDAO extends _Generic<StickerEntity>
         {
             e.printStackTrace();
         }
-        return null; //TODO decide if we can let this return null... probably not
+        return null;
     }
 
     @Override

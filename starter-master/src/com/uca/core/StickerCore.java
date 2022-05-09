@@ -3,7 +3,6 @@ package com.uca.core;
 import com.uca.dao.StickerDAO;
 import com.uca.entity.StickerEntity;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class StickerCore

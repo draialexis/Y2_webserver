@@ -3,7 +3,8 @@ package com.uca.dao;
 import com.uca.entity.Color;
 import com.uca.entity.Description;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 import static com.uca.util.DateUtil.getSQLDateRelativeToToday;
 

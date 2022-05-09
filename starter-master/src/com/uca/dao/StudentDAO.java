@@ -73,7 +73,7 @@ public class StudentDAO extends _Generic<StudentEntity>
         {
             e.printStackTrace();
         }
-        return null; //TODO decide if we can let this return null... probably not
+        return null;
     }
 
     @Override

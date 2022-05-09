@@ -3,7 +3,9 @@ package com.uca.dao;
 import com.uca.entity.TeacherEntity;
 
 import javax.naming.OperationNotSupportedException;
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TeacherDAO extends _Generic<TeacherEntity>
@@ -21,6 +23,7 @@ public class TeacherDAO extends _Generic<TeacherEntity>
         return entity;
     }
 
+    // TODO deal with bad inputs, do validation
     @Override
     public TeacherEntity create(TeacherEntity obj)
     {

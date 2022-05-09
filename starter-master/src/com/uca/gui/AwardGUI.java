@@ -21,14 +21,14 @@ public class AwardGUI extends _BasicGUI
             throws IOException, TemplateException, SQLException
     {
         AwardEntity award = new AwardEntity();
-        award.setAttributionDate(new Date(new java.util.Date().getTime()));//TODO make customizable?
+        award.setAttributionDate(new Date(new java.util.Date().getTime()));//TODO (optional) make customizable?
         award.setMotive(motive);
         award.setTeacher(TeacherCore.readByUserName(teacherUserName));
         award.setStudent(StudentCore.readById(studentId));
         award.setSticker(StickerCore.readById(stickerId));
         if (AwardCore.create(award) != null)
         {
-            status = "ajout : success";
+            infoMsg = "ajout : success";
         }
 
         return readAll(true);
@@ -82,7 +82,7 @@ public class AwardGUI extends _BasicGUI
     {
 
         AwardCore.deleteById(id);
-        status = "suppression : succ&egrave;s";
+        infoMsg = "suppression : succ&egrave;s";
         // we assume that the user was only able to access this function because it was authorized
         return readAll(true);
     }

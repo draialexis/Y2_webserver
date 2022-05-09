@@ -23,12 +23,14 @@ public class StickerGUI extends _BasicGUI
         sticker.setDescription(Description.valueOf(description));
         if (StickerCore.create(sticker) != null)
         {
-            status = "ajout : succ&egrave;s";
+            infoMsg = "ajout : succ&egrave;s";
         }
         // we assume that the user was only able to access this function because it was authorized
         return readAll(true);
     }
     //todo prevent pre-existing combinations? prevent it in the model too
+
+    //todo (optional) prevent using same color? prevent it in the model too
 
     public static String readAll(boolean isAuthorized) throws IOException, TemplateException
     {
@@ -63,7 +65,7 @@ public class StickerGUI extends _BasicGUI
         sticker.setDescription(Description.valueOf(description));
         if (StickerCore.update(sticker, sticker.getId()) != null)
         {
-            status = "modification : succ&egrave;s";
+            infoMsg = "modification : succ&egrave;s";
         }
         // we assume that the user was only able to access this function because it was authorized
         return readById(true, id);
@@ -72,7 +74,7 @@ public class StickerGUI extends _BasicGUI
     public static String deleteById(long id) throws TemplateException, IOException
     {
         StickerCore.deleteById(id);
-        status = "suppression : succ&egrave;s";
+        infoMsg = "suppression : succ&egrave;s";
         // we assume that the user was only able to access this function because it was authorized
         return readAll(true);
     }

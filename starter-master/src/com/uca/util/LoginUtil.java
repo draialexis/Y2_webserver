@@ -17,7 +17,7 @@ public class LoginUtil
 {
     public static String pathSaved = null;
 
-    //TODO look into stateless authentication?
+    //TODO (optional) look into stateless authentication?
 
     public static boolean authenticate(String username, String password)
     {

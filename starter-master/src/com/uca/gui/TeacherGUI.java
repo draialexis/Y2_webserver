@@ -41,19 +41,19 @@ public class TeacherGUI extends _BasicGUI
         TeacherEntity teacher = new TeacherEntity();
         if (firstName.isEmpty() || lastName.isEmpty() || userName.isEmpty() || userPwd.isEmpty())
         {
-            status = "aucun des champs ne peut &ecirc;tre vide";
+            infoMsg = "aucun des champs ne peut &ecirc;tre vide";
         }
         else
         {
             if (4 > userPwd.length() || userPwd.length() > 16)
             {
-                status = "le mot de passe doit contenir 4 à 16 caract&egrave;res quelconques";
+                infoMsg = "le mot de passe doit contenir 4 à 16 caract&egrave;res quelconques";
             }
             else
             {
                 if (!userPwd.equals(userPwdValidation))
                 {
-                    status = "ce nom d'utilisateur est d&eacute;j&agrave; pris";
+                    infoMsg = "ce nom d'utilisateur est d&eacute;j&agrave; pris";
                 }
                 else
                 {
@@ -64,7 +64,7 @@ public class TeacherGUI extends _BasicGUI
                     teacher.setUserPwd(_Encryptor.generateSecurePassword(userPwd, teacher.getUserSalt()));
                     if (TeacherCore.create(teacher) != null)
                     {
-                        status = "ajout : succ&egrave;s";
+                        infoMsg = "ajout : succ&egrave;s";
                     }
                 }
             }

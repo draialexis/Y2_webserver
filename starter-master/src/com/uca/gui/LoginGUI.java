@@ -14,7 +14,7 @@ public class LoginGUI extends _BasicGUI
     {
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("auth/login.ftl");
-        status = statusMsg;
+        infoMsg = statusMsg;
         return render(template, input, new StringWriter());
     }
 

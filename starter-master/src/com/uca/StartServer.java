@@ -1,16 +1,13 @@
 package com.uca;
 
-import com.uca.core.StickerCore;
-import com.uca.entity.Color;
-import com.uca.entity.Description;
-import com.uca.entity.StickerEntity;
-import com.uca.util.LoginUtil;
 import com.uca.dao._Initializer;
 import com.uca.gui.*;
+import com.uca.util.LoginUtil;
 
 import java.util.HashMap;
 
-import static com.uca.util.RequestUtil.*;
+import static com.uca.util.RequestUtil.getParamFromReqBody;
+import static com.uca.util.RequestUtil.getParamUTF8;
 import static java.net.HttpURLConnection.HTTP_BAD_REQUEST;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static spark.Spark.*;
@@ -81,6 +78,8 @@ public class StartServer
             LoginUtil.ensureUserIsLoggedIn(req, res);
             return StudentGUI.readById(Long.parseLong(req.params(":id_student")));
         });
+
+        //todo DRY loginUtil.ensure...
 
         post("/students/:id_student",
              (req, res) -> {

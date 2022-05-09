@@ -15,6 +15,7 @@
             <th>date</th>
             <th>gommette</th>
             <th>&eacute;l&egrave;ve</th>
+            <th>sa liste</th>
             <#if isAuthorized>
                 <th>enseignant</th>
                 <th>actions</th>
@@ -34,7 +35,11 @@
                     <a href="/students/${award.getStudent().getId()}">
                         ${award.getStudent().getFirstName()} ${award.getStudent().getLastName()}
                     </a>
-                    (<a href="/awards/student/${award.getStudent().getId()}">voir sa liste compl&egrave;te</a>)
+                </td>
+                <td>
+                    <a href="/awards/student/${award.getStudent().getId()}">
+                        <button>voir</button>
+                    </a>
                 </td>
                 <#if isAuthorized>
                     <td><a href="/teachers/${award.getTeacher().getId()}">${award.getTeacher().getLastName()}</a></td>

@@ -18,9 +18,10 @@ public class StudentGUI extends _BasicGUI
         StudentEntity student = new StudentEntity();
         student.setFirstName(firstName);
         student.setLastName(lastName);
+        System.out.println(student.getId()); // 0 or null
         if (StudentCore.create(student) != null)
         {
-            status = "ajout : succ&egrave;s";
+            infoMsg = "ajout : succ&egrave;s";
         }
         return readAll();
     }
@@ -40,8 +41,11 @@ public class StudentGUI extends _BasicGUI
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("students/student.ftl");
 
         input.put("student", StudentCore.readById(id));
+        // todo check if null EVERYWHERE where it could be null (if/else; Objects.requireNonNull();)
         return render(template, input, new StringWriter());
     }
+
+    //TODO validate inputs in ALL FUNCTIONS and METHODS
 
     public static String update(long id, String firstName, String lastName)
             throws IOException, TemplateException
@@ -52,7 +56,7 @@ public class StudentGUI extends _BasicGUI
         student.setLastName(lastName);
         if (StudentCore.update(student, student.getId()) != null)
         {
-            status = "modification : succ&egrave;s";
+            infoMsg = "modification : succ&egrave;s";
         }
         return readById(id);
     }
@@ -60,7 +64,7 @@ public class StudentGUI extends _BasicGUI
     public static String deleteById(long id) throws TemplateException, IOException
     {
         StudentCore.deleteById(id);
-        status = "suppression : succ&egrave;s";
+        infoMsg = "suppression : succ&egrave;s";
         return readAll();
     }
 }

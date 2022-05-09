@@ -9,12 +9,12 @@ import java.util.Map;
 
 public abstract class _BasicGUI
 {
-    protected static String status = null;
+    protected static String infoMsg = null;
 
     protected static void useAndResetStatus(Map<String, Object> input)
     {
-        input.put("status", status);
-        status = null;
+        input.put("status", infoMsg);
+        infoMsg = null;
     }
 
     protected static String render(Template template, Map<String, Object> input, Writer output)
