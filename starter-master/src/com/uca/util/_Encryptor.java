@@ -1,4 +1,4 @@
-package com.uca.dao;
+package com.uca.util;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;

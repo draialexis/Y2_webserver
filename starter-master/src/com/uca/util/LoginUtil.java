@@ -1,7 +1,6 @@
 package com.uca.util;
 
 import com.uca.core.TeacherCore;
-import com.uca.dao._Encryptor;
 import com.uca.entity.TeacherEntity;
 import com.uca.gui.InfoMsg;
 import com.uca.gui.LoginGUI;

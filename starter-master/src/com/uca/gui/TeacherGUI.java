@@ -1,7 +1,7 @@
 package com.uca.gui;
 
 import com.uca.core.TeacherCore;
-import com.uca.dao._Encryptor;
+import com.uca.util._Encryptor;
 import com.uca.entity.TeacherEntity;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
