@@ -25,7 +25,11 @@
             <tr>
                 <td><a href="/awards/id/${award.getId()}">${award.getId()}</a></td>
                 <td>${award.getAttributionDate()}</td>
-                <td><a href="/stickers/${award.getSticker().getId()}">${award.getSticker().getColor().name()}</a></td>
+                <td>
+                    <a href="/stickers/${award.getSticker().getId()}">
+                        ${award.getSticker().getColor().name()} : ${award.getSticker().getDescription().name()}
+                    </a>
+                </td>
                 <td>
                     <a href="/students/${award.getStudent().getId()}">
                         ${award.getStudent().getFirstName()} ${award.getStudent().getLastName()}

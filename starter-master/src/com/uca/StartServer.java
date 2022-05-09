@@ -114,7 +114,7 @@ public class StartServer
              (req, res) -> {
                  LoginUtil.ensureUserIsLoggedIn(req, res);
                  HashMap<String, String> params = getParamFromReqBody(req.body());
-                 return StudentGUI.update(Long.parseLong(req.params(":id_sticker")),
+                 return StickerGUI.update(Long.parseLong(req.params(":id_sticker")),
                                           getParamUTF8(params, "color"),
                                           getParamUTF8(params, "description"));
              });

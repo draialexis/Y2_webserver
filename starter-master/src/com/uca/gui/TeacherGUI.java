@@ -64,7 +64,7 @@ public class TeacherGUI extends _BasicGUI
                     teacher.setUserPwd(_Encryptor.generateSecurePassword(userPwd, teacher.getUserSalt()));
                     if (TeacherCore.create(teacher) != null)
                     {
-                        status = "ajout : succ&egrave;";
+                        status = "ajout : succ&egrave;s";
                     }
                 }
             }
