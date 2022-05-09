@@ -20,6 +20,7 @@ public class _Initializer
             statement = connection.prepareStatement(
                     "DROP TABLE IF EXISTS Student CASCADE;" +
                     // temporary, would be removed when using a real DB for prod
+
                     "CREATE TABLE IF NOT EXISTS Student(" +
                     "   id_student BIGINT AUTO_INCREMENT," +
                     "   lastname VARCHAR(50) NOT NULL," +
@@ -28,14 +29,17 @@ public class _Initializer
                     ");" +
                     "DROP TABLE IF EXISTS Sticker CASCADE;" +
                     // temporary, would be removed when using a real DB for prod
+
                     "CREATE TABLE IF NOT EXISTS Sticker(" +
                     "   id_sticker BIGINT AUTO_INCREMENT," +
                     "   color VARCHAR(50) NOT NULL," +
                     "   description VARCHAR(50) NOT NULL," +
-                    "   CONSTRAINT PK_Sticker PRIMARY KEY(id_sticker)" +
+                    "   CONSTRAINT PK_Sticker PRIMARY KEY(id_sticker)," +
+                    "   CONSTRAINT AK_Sticker unique(color, description)" + // unique combinations, no repeats
                     ");" +
                     "DROP TABLE IF EXISTS Teacher CASCADE;" +
                     // temporary, would be removed when using a real DB for prod
+
                     "CREATE TABLE IF NOT EXISTS Teacher(" +
                     "   id_teacher BIGINT AUTO_INCREMENT," +
                     "   lastname VARCHAR(50) NOT NULL," +
@@ -46,7 +50,9 @@ public class _Initializer
                     "   CONSTRAINT PK_Teacher PRIMARY KEY(id_teacher)," +
                     "   CONSTRAINT AK_Teacher UNIQUE(username)" +
                     ");" +
-                    "DROP TABLE IF EXISTS Award;" + // temporary, would be removed when using a real DB for prod
+                    "DROP TABLE IF EXISTS Award;" +
+                    // temporary, would be removed when using a real DB for prod
+
                     "CREATE TABLE IF NOT EXISTS Award(" +
                     "   id_award BIGINT AUTO_INCREMENT," +
                     "   id_teacher BIGINT," +
