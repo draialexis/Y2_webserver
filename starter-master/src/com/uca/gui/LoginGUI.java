@@ -10,11 +10,11 @@ import java.util.Map;
 
 public class LoginGUI extends _BasicGUI
 {
-    public static String display(String statusMsg) throws TemplateException, IOException
+    public static String display(InfoMsg msg) throws TemplateException, IOException
     {
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("auth/login.ftl");
-        infoMsg = statusMsg;
+        infoMsg = msg;
         return render(template, input, new StringWriter());
     }
 

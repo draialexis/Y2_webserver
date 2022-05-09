@@ -9,7 +9,7 @@ import java.util.Map;
 
 public abstract class _BasicGUI
 {
-    static String infoMsg = null;
+    static InfoMsg infoMsg = null;
 
     static void useAndResetStatus(Map<String, Object> input)
     {
@@ -26,3 +26,4 @@ public abstract class _BasicGUI
         return output.toString();
     }
 }
+

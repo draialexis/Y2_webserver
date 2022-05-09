@@ -3,6 +3,7 @@ package com.uca.util;
 import com.uca.core.TeacherCore;
 import com.uca.dao._Encryptor;
 import com.uca.entity.TeacherEntity;
+import com.uca.gui.InfoMsg;
 import com.uca.gui.LoginGUI;
 import freemarker.template.TemplateException;
 import spark.Request;
@@ -37,7 +38,7 @@ public class LoginUtil
     {
         if (!authenticate(req.queryParams("username"), req.queryParams("userpwd")))
         {
-            return LoginGUI.display("&eacute;chec d'authentification");
+            return LoginGUI.display(InfoMsg.ECHEC_AUTHENTIFICATION);
         }
         // else, login success
         req.session().attribute("currentUser", req.queryParams("username"));

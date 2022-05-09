@@ -27,7 +27,7 @@ public class StartServer
         //===============Auth & Index===============
         get("/", (req, res) -> IndexGUI.display());
 
-        get("/login", (req, res) -> LoginGUI.display("merci de vous identifier"));
+        get("/login", (req, res) -> LoginGUI.display(InfoMsg.AUTHENTIFICATION_REQUISE));
 
         post("/login", LoginUtil::handleLoginPost);
 

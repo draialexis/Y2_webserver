@@ -18,10 +18,8 @@ public class StudentGUI extends _BasicGUI
         StudentEntity student = new StudentEntity();
         student.setFirstName(firstName);
         student.setLastName(lastName);
-        if (StudentCore.create(student) != null)
-        {
-            infoMsg = "ajout : succ&egrave;s";
-        }
+        infoMsg = StudentCore.create(student) != null ? InfoMsg.AJOUT_SUCCES : InfoMsg.AJOUT_ECHEC;
+
         return readAll();
     }
 
@@ -53,17 +51,14 @@ public class StudentGUI extends _BasicGUI
         student.setId(id);
         student.setFirstName(firstName);
         student.setLastName(lastName);
-        if (StudentCore.update(student, student.getId()) != null)
-        {
-            infoMsg = "modification : succ&egrave;s";
-        }
+        infoMsg = StudentCore.update(student, id) != null ? InfoMsg.MODIFICATION_SUCCES : InfoMsg.MODIFICATION_ECHEC;
+
         return readById(id);
     }
 
     public static String deleteById(long id) throws TemplateException, IOException
     {
         StudentCore.deleteById(id);
-        infoMsg = "suppression : succ&egrave;s";
         return readAll();
     }
 }

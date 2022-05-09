@@ -26,10 +26,7 @@ public class AwardGUI extends _BasicGUI
         award.setTeacher(TeacherCore.readByUserName(teacherUserName));
         award.setStudent(StudentCore.readById(studentId));
         award.setSticker(StickerCore.readById(stickerId));
-        if (AwardCore.create(award) != null)
-        {
-            infoMsg = "ajout : success";
-        }
+        infoMsg = AwardCore.create(award) != null ? InfoMsg.AJOUT_SUCCES : InfoMsg.AJOUT_ECHEC;
 
         return readAll(true);
     }
@@ -80,13 +77,11 @@ public class AwardGUI extends _BasicGUI
 
     public static String deleteById(long id) throws IOException, TemplateException
     {
-
         AwardCore.deleteById(id);
-        infoMsg = "suppression : succ&egrave;s";
         // we assume that the user was only able to access this function because it was authorized
-        return readAll(true);
+        return readMany(true, -1);
     }
-    //TODO rethink: if user is in "by student" mode, we don't want to send them back to "all" mode every time
+    //TODO (optional) rethink: if user is in "by student" mode, we don't want to send them back to "all" mode every time
     // make separate functions..?
 
 }

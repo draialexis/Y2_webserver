@@ -21,10 +21,8 @@ public class StickerGUI extends _BasicGUI
         StickerEntity sticker = new StickerEntity();
         sticker.setColor(Color.valueOf(color));
         sticker.setDescription(Description.valueOf(description));
-        if (StickerCore.create(sticker) != null)
-        {
-            infoMsg = "ajout : succ&egrave;s";
-        }
+        infoMsg = StickerCore.create(sticker) != null ? InfoMsg.AJOUT_SUCCES : InfoMsg.AJOUT_ECHEC;
+
         // we assume that the user was only able to access this function because it was authorized
         return readAll(true);
     }
@@ -63,10 +61,8 @@ public class StickerGUI extends _BasicGUI
         sticker.setId(id);
         sticker.setColor(Color.valueOf(color));
         sticker.setDescription(Description.valueOf(description));
-        if (StickerCore.update(sticker, sticker.getId()) != null)
-        {
-            infoMsg = "modification : succ&egrave;s";
-        }
+        infoMsg = StickerCore.update(sticker, id) != null ? InfoMsg.MODIFICATION_SUCCES : InfoMsg.MODIFICATION_ECHEC;
+
         // we assume that the user was only able to access this function because it was authorized
         return readById(true, id);
     }
@@ -74,7 +70,7 @@ public class StickerGUI extends _BasicGUI
     public static String deleteById(long id) throws TemplateException, IOException
     {
         StickerCore.deleteById(id);
-        infoMsg = "suppression : succ&egrave;s";
+
         // we assume that the user was only able to access this function because it was authorized
         return readAll(true);
     }
