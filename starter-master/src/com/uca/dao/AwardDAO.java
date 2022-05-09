@@ -68,6 +68,27 @@ public class AwardDAO extends _Generic<AwardEntity>
         return entities;
     }
 
+    public ArrayList<AwardEntity> readByStudentId(long studentId)
+    {
+        ArrayList<AwardEntity> entities = new ArrayList<>();
+        try
+        {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "SELECT * FROM Award WHERE id_student = ? ORDER BY attribution_date DESC;");
+            statement.setLong(1, studentId);
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next())
+            {
+                entities.add(getFullEntity(resultSet));
+            }
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return entities;
+    }
+
     @Override
     public AwardEntity readById(long id)
     {

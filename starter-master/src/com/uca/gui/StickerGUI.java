@@ -46,6 +46,7 @@ public class StickerGUI extends _BasicGUI
     {
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("stickers/stickers.ftl");
+
         input.put("colors", Color.values());
         input.put("descriptions", Description.values());
         input.put("stickers", StickerCore.readAll());
