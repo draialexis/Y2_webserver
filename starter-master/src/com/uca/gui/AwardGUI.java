@@ -18,13 +18,13 @@ import java.util.Map;
 
 public class AwardGUI
 {
-    public static String create(String motive, long teacherId, long studentId, long stickerId)
+    public static String create(String motive, String teacherUserName, long studentId, long stickerId)
             throws IOException, TemplateException, SQLException
     {
         AwardEntity award = new AwardEntity();
         award.setAttributionDate(new Date(new java.util.Date().getTime()));//TODO make customizable?
         award.setMotive(motive);
-        award.setTeacher(TeacherCore.readById(teacherId));
+        award.setTeacher(TeacherCore.readByUserName(teacherUserName));
         award.setStudent(StudentCore.readById(studentId));
         award.setSticker(StickerCore.readById(stickerId));
         AwardCore.create(award);
