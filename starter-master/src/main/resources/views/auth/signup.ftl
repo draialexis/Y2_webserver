@@ -4,7 +4,7 @@
 <body xmlns="http://www.w3.org/1999/html">
 <#include "../bits/navbar.ftl">
 
-<form method="POST" action="/signup">
+<form method="POST" action="/hidden/signup">
     <label for="firstname">pr&eacute;nom</label>
     <br>
     <input type="text" id="firstname" name="firstname" required>

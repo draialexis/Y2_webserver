@@ -31,7 +31,7 @@
                         <a href="/stickers/${sticker.getId()}">
                             <button type="button">Modifier</button>
                         </a>
-                        <form method="POST" action="/stickers/delete/${sticker.id}">
+                        <form method="POST" action="/hidden/stickers/delete/${sticker.id}">
                             <button type="submit">Supprimer</button>
                         </form>
                     </td>

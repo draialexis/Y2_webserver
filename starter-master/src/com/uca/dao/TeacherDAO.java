@@ -23,7 +23,6 @@ public class TeacherDAO extends _Generic<TeacherEntity>
         return entity;
     }
 
-    // TODO deal with bad inputs, do validation
     @Override
     public TeacherEntity create(TeacherEntity obj)
     {

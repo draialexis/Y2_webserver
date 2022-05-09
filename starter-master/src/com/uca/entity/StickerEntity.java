@@ -1,6 +1,6 @@
 package com.uca.entity;
 
-public class StickerEntity implements Identifiable
+public class StickerEntity
 {
     private long        id;
     private Color       color;

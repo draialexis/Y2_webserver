@@ -81,6 +81,11 @@ public class StickerDAO extends _Generic<StickerEntity>
     @Override
     public StickerEntity update(StickerEntity obj, long id)
     {
+        if (obj.getId() != id)
+        {
+            throw new IllegalArgumentException(String.format("IDs do not conform: %d != %d", obj.getId(), id));
+            // just in case; this should never happen
+        }
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
@@ -89,7 +94,6 @@ public class StickerDAO extends _Generic<StickerEntity>
             statement.setString(2, obj.getDescription().toString());
             statement.setLong(3, id);
             statement.executeUpdate();
-            ensureIdIsSet(obj, id);
             return obj;
         } catch (SQLException e)
         {

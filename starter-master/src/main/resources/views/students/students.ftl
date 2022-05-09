@@ -19,14 +19,14 @@
         </tr>
         <#list students as student>
             <tr>
-                <td><a href="/students/${student.getId()}">${student.getId()}</a></td>
+                <td><a href="/hidden/students/${student.getId()}">${student.getId()}</a></td>
                 <td>${student.getLastName()}</td>
                 <td>${student.getFirstName()}</td>
                 <td>
-                    <a href="/students/${student.getId()}">
+                    <a href="/hidden/students/${student.getId()}">
                         <button type="button">Modifier</button>
                     </a>
-                    <form method="POST" action="/students/delete/${student.id}">
+                    <form method="POST" action="/hidden/students/delete/${student.id}">
                         <button type="submit">Supprimer</button>
                     </form>
                 </td>

@@ -1,8 +1,8 @@
 <#if student?has_content>
-    <h2>Modifier une attribution</h2>
+    <h2>Modifier un &eacute;l&egrave;ve</h2>
     <fieldset>
         <legend>&eacute;l&egrave;ve</legend>
-        <form method="POST" action="/students/${student.getId()}">
+        <form method="POST" action="/hidden/students/${student.getId()}">
             <label for="lastname">nom</label>
             <br>
             <input type="text" id="lastname" name="lastname" value="${student.getLastName()}" required>

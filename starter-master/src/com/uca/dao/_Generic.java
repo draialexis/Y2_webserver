@@ -1,26 +1,16 @@
 package com.uca.dao;
 
-import com.uca.entity.Identifiable;
-
 import javax.naming.OperationNotSupportedException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 
-public abstract class _Generic<T extends Identifiable>
+public abstract class _Generic<T>
 {
     public Connection connect = _Connector.getInstance();
 
     protected abstract T getFullEntity(ResultSet resultSet) throws SQLException;
-
-    protected void ensureIdIsSet(T obj, long id)
-    {
-        if (obj.getId() != id)
-        {
-            obj.setId(id);
-        }
-    }
 
     public abstract T create(T obj);
 

@@ -18,7 +18,6 @@ public class StudentGUI extends _BasicGUI
         StudentEntity student = new StudentEntity();
         student.setFirstName(firstName);
         student.setLastName(lastName);
-        System.out.println(student.getId()); // 0 or null
         if (StudentCore.create(student) != null)
         {
             infoMsg = "ajout : succ&egrave;s";

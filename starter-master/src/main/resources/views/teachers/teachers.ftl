@@ -6,7 +6,7 @@
 <#include "../bits/navbar.ftl">
 
 <h2>Enseignants</h2>
-
+<#--TODO add ?has_content checks everywhere -->
 <#if teachers?has_content>
     <table>
         <tr>
@@ -17,7 +17,7 @@
         </tr>
         <#list teachers as teacher>
             <tr>
-                <td><a href="/teachers/${teacher.getId()}">${teacher.getId()}</a></td>
+                <td><a href="/hidden/teachers/${teacher.getId()}">${teacher.getId()}</a></td>
                 <td>${teacher.getLastName()}</td>
                 <td>${teacher.getFirstName()}</td>
                 <td>${teacher.getUserName()}</td>

@@ -2,21 +2,7 @@
     <h2>Modifier une gommette</h2>
     <fieldset>
         <legend>gommette</legend>
-        <form method="POST" action="/stickers/${sticker.getId()}">
-            <label for="sticker-id">gommette</label>
-            <br>
-            <select name="sticker-id" id="sticker-id" required>
-                <option value="${sticker.getId()}">
-                    ACTUEL : ${sticker.getId()}
-                    (${sticker.getColor().name()} : ${sticker.getDescription().name()})
-                </option>
-                <#list stickers as otherSticker>
-                    <option value="${otherSticker.getId()}">
-                        ${otherSticker.getId()}
-                        (${otherSticker.getColor().name()} : ${otherSticker.getDescription().name()})
-                    </option>
-                </#list>
-            </select>
+        <form method="POST" action="/hidden/stickers/${sticker.getId()}">
             <label for="color">couleur</label>
             <br>
             <select name="color" id="color" required>
@@ -24,11 +10,14 @@
                     ACTUEL : ${sticker.getColor().name()}
                 </option>
                 <#list colors as color>
-                    <option value="${color}">
-                        ${color}
-                    </option>
+                    <#if color != sticker.getColor().name()>
+                        <option value="${color}">
+                            ${color}
+                        </option>
+                    </#if>
                 </#list>
             </select>
+            <br>
             <label for="description">description</label>
             <br>
             <select name="description" id="description" required>
@@ -36,9 +25,11 @@
                     ACTUEL : ${sticker.getDescription().name()}
                 </option>
                 <#list descriptions as description>
-                    <option value="${description}">
-                        ${description}
-                    </option>
+                    <#if description != sticker.getDescription().name()>
+                        <option value="${description}">
+                            ${description}
+                        </option>
+                    </#if>
                 </#list>
             </select>
             <br>

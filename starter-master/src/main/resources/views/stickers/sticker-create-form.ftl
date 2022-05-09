@@ -2,7 +2,7 @@
     <h2>Ajouter une gommette</h2>
     <fieldset>
         <legend>nouvelle gommette</legend>
-        <form method="POST" action="/stickers">
+        <form method="POST" action="/hidden/stickers">
             <label for="color">couleur</label>
             <br>
             <select name="color" id="color" required>

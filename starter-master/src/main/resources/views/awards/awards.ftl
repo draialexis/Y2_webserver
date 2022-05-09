@@ -32,7 +32,7 @@
                     </a>
                 </td>
                 <td>
-                    <a href="/students/${award.getStudent().getId()}">
+                    <a href="/hidden/students/${award.getStudent().getId()}">
                         ${award.getStudent().getFirstName()} ${award.getStudent().getLastName()}
                     </a>
                 </td>
@@ -42,10 +42,14 @@
                     </a>
                 </td>
                 <#if isAuthorized>
-                    <td><a href="/teachers/${award.getTeacher().getId()}">${award.getTeacher().getLastName()}</a></td>
                     <td>
-                        <form action="/awards/delete/${award.getId()}" method="POST">
-                            <button type="submit">SUPPRIMER</button>
+                        <a href="/hidden/teachers/${award.getTeacher().getId()}">
+                            ${award.getTeacher().getLastName()}
+                        </a>
+                    </td>
+                    <td>
+                        <form action="/hidden/awards/delete/${award.getId()}" method="POST">
+                            <button type="submit">Supprimer</button>
                         </form>
                     </td>
                 </#if>

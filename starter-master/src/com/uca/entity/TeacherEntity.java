@@ -1,6 +1,6 @@
 package com.uca.entity;
 
-public class TeacherEntity implements Identifiable
+public class TeacherEntity
 {
     private long   id;
     private String lastName;

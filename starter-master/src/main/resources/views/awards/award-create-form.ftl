@@ -2,7 +2,7 @@
     <h2>Attribuer une gommette</h2>
     <fieldset>
         <legend>nouvelle attribution</legend>
-        <form method="POST" action="/awards">
+        <form method="POST" action="/hidden/awards">
             <label for="student-id">&eacute;l&egrave;ve</label>
             <br>
             <select name="student-id" id="student-id" required>

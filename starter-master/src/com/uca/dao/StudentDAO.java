@@ -79,6 +79,11 @@ public class StudentDAO extends _Generic<StudentEntity>
     @Override
     public StudentEntity update(StudentEntity obj, long id)
     {
+        if (obj.getId() != id)
+        {
+            throw new IllegalArgumentException(String.format("IDs do not conform: %d != %d", obj.getId(), id));
+            // just in case; this should never happen
+        }
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
@@ -87,7 +92,6 @@ public class StudentDAO extends _Generic<StudentEntity>
             statement.setString(2, obj.getLastName());
             statement.setLong(3, id);
             statement.executeUpdate();
-            ensureIdIsSet(obj, id);
             return obj;
         } catch (SQLException e)
         {

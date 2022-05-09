@@ -12,13 +12,13 @@
         Gommette <a href="/stickers/${award.getSticker().getId()}">
             ${award.getSticker().getColor().name()}</a>
         attribu&eacute;e &agrave;
-        <a href="/students/${award.getStudent().getId()}">
+        <a href="/hidden/students/${award.getStudent().getId()}">
             ${award.getStudent().getFirstName()} ${award.getStudent().getLastName()}
         </a>
         <#if isAuthorized>
-            par Pr.<a href="/teachers/${award.getTeacher().getId()}">${award.getTeacher().getLastName()}</a>
+            par Pr.<a href="/hidden/teachers/${award.getTeacher().getId()}">${award.getTeacher().getLastName()}</a>
             <br>
-            <form action="/awards/delete/${award.getId()}" method="POST">
+            <form action="/hidden/awards/delete/${award.getId()}" method="POST">
                 <button type="submit">SUPPRIMER</button>
             </form>
         </#if>
