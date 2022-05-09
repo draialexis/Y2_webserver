@@ -22,7 +22,7 @@ public abstract class _Generic<T extends Identifiable>
         }
     }
 
-    public abstract T create(T obj) throws SQLException;
+    public abstract T create(T obj);
 
     public abstract Collection<T> readAll();
 
