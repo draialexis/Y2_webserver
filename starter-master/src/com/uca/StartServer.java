@@ -1,6 +1,10 @@
 package com.uca;
 
+import com.uca.core.StickerCore;
 import com.uca.core.StudentCore;
+import com.uca.entity.Color;
+import com.uca.entity.Description;
+import com.uca.entity.StickerEntity;
 import com.uca.entity.StudentEntity;
 import com.uca.login.LoginController;
 import com.uca.dao._Initializer;
@@ -28,7 +32,7 @@ public class StartServer
         get("/teachers", (req, res) -> TeacherGUI.readAll());
 
         get("/students", (req, res) ->{
-            //LoginController.ensureUserIsLoggedIn(req, res);
+            LoginController.ensureUserIsLoggedIn(req, res);
             if (clientAcceptsHtml(req))
             {
                 return StudentGUI.readAll();
@@ -37,7 +41,7 @@ public class StartServer
         });
 
         get("/students/:id_student", (req, res) -> {
-            //LoginController.ensureUserIsLoggedIn(req, res);
+            LoginController.ensureUserIsLoggedIn(req, res);
             if (clientAcceptsHtml(req))
             {
                 return StudentGUI.readById(Long.parseLong(req.params(":id_student")));
@@ -46,7 +50,7 @@ public class StartServer
         });
         post("/students", (req, res) ->
         {
-            //LoginController.ensureUserIsLoggedIn(req, res);
+            LoginController.ensureUserIsLoggedIn(req, res);
             if (clientAcceptsHtml(req))
             {
                 return StudentGUI.displayCreate();
@@ -56,18 +60,19 @@ public class StartServer
 
         post("/students/create",
                 (req, res) -> {
-                    //LoginController.ensureUserIsLoggedIn(req, res);
+                    LoginController.ensureUserIsLoggedIn(req, res);
                     if (clientAcceptsHtml(req))
                     {
                         HashMap<String, String> params = getParamFromReqBody(req.body());
-                        return StudentGUI.create(getParamUTF8(params, "lastname"),
+                        StudentGUI.create(getParamUTF8(params, "lastname"),
                                 getParamUTF8(params, "firstName"));
+                        res.redirect("/students");
                     }
                     return null;
                 });
         post("/students/:id_student",
                 (req, res) ->{
-                    //LoginController.ensureUserIsLoggedIn(req, res);
+                    LoginController.ensureUserIsLoggedIn(req, res);
                     if (clientAcceptsHtml(req))
                     {
                         StudentGUI.displayModifPage(Long.parseLong(req.params(":id_student")));
@@ -77,7 +82,7 @@ public class StartServer
                 });
         post("/students/modif/:id_student",
                 (req, res) ->{
-                    //LoginController.ensureUserIsLoggedIn(req, res);
+                    LoginController.ensureUserIsLoggedIn(req, res);
                     if (clientAcceptsHtml(req))
                     {
                         HashMap<String, String> params = getParamFromReqBody(req.body());
@@ -85,14 +90,13 @@ public class StartServer
                         student.setFirstName(getParamUTF8(params, "firstName"));
                         student.setLastName(getParamUTF8(params, "lastname"));
                         student.setId(Long.parseLong(req.params(":id_student")));
-                        //StudentGUI.update(student); // cette method est pas trea bine n'affiche pas le resultat apres modification il faut reinitialiser pour voir si sa a maercher alors on redirige
                         StudentCore.update(student, student.getId());
                         res.redirect("/students");
                     }
                     return null;
                 });
         post("/students/delete/:id_student", (req, res) -> {
-            //LoginController.ensureUserIsLoggedIn(req, res);
+            LoginController.ensureUserIsLoggedIn(req, res);
             if (clientAcceptsHtml(req))
             {
                 StudentCore.deletbyId(Long.parseLong(req.params(":id_student")));
@@ -148,5 +152,57 @@ public class StartServer
         get("/stickers", (req, res) -> StickerGUI.readAll());
 
         get("/stickers/:id_sticker", (req, res) -> StickerGUI.readById(Long.parseLong(req.params(":id_sticker"))));
+        post("/stickers", (req, res) -> {
+            LoginController.ensureUserIsLoggedIn(req, res);
+            if (clientAcceptsHtml(req)) {
+                return StickerGUI.dispalyCreatePage();
+            }
+            return null;
+        });
+
+        post("/stickers/create", (req, res) -> {
+            LoginController.ensureUserIsLoggedIn(req, res);
+            if (clientAcceptsHtml(req)) {
+                HashMap<String, String> params = getParamFromReqBody(req.body());
+                StickerEntity sticker  = new StickerEntity();
+                sticker.setColor(Color.valueOf(getParamUTF8(params, "color")));
+                sticker.setDescription(Description.valueOf(getParamUTF8(params, "description")));
+                sticker.setId(StickerCore.findLastId() + 1);
+                StickerCore.create(sticker);
+                res.redirect("/stickers");
+            }
+            return null;
+        });
+
+        post("/stickers/:id_sticker", (req, res) -> {
+            LoginController.ensureUserIsLoggedIn(req, res);
+            if (clientAcceptsHtml(req)) {
+                return StickerGUI.dispalyModifPage(Long.parseLong(req.params(":id_sticker")));
+            }
+            return null;
+        });
+
+        post("/stickers/modif/:id_sticker", (req, res) -> {
+            LoginController.ensureUserIsLoggedIn(req, res);
+            if (clientAcceptsHtml(req)) {
+                HashMap<String, String> params = getParamFromReqBody(req.body());
+                StickerEntity sticker  = new StickerEntity();
+                sticker.setColor(Color.valueOf(getParamUTF8(params, "color")));
+                sticker.setDescription(Description.valueOf(getParamUTF8(params, "description")));
+                sticker.setId(Long.parseLong(req.params(":id_sticker"))); // set the id of the new sticker the last one this way we don't need to auto increment
+                StickerCore.update(sticker, sticker.getId());
+                res.redirect("/stickers");
+            }
+            return null;
+        });
+
+        post("/stickers/delete/:id_sticker", (req, res) -> {
+            LoginController.ensureUserIsLoggedIn(req, res);
+            if (clientAcceptsHtml(req)) {
+                StickerCore.deleteById(Long.parseLong(req.params(":id_sticker")));
+                res.redirect("/stickers");
+            }
+            return null;
+        });
     }
 }
