@@ -3,7 +3,7 @@ package com.uca.dao;
 import com.uca.entity.Color;
 import com.uca.entity.Description;
 import com.uca.entity.StickerEntity;
-import com.uca.entity.TeacherEntity;
+
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -123,5 +123,13 @@ public class StickerDAO extends _Generic<StickerEntity>
         {
             e.printStackTrace();
         }
+    }
+    public long findLastId() throws SQLException {
+
+        PreparedStatement statement = this.connect.prepareStatement(
+                "SELECT MAX(id_sticker) AS id_sticker FROM Sticker ;");
+        ResultSet resultSet = statement.executeQuery();
+        resultSet.next();
+        return resultSet.getLong("id_sticker");
     }
 }
