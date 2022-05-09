@@ -6,9 +6,14 @@ public class StudentEntity
     private String lastName;
     private String firstName;
 
-    public StudentEntity()
+    public StudentEntity() {}
+
+    // copy constructor (https://www.baeldung.com/java-constructors#copy)
+    StudentEntity(StudentEntity other)
     {
-        // never used
+        this.id = other.id;
+        this.lastName = other.lastName;
+        this.firstName = other.firstName;
     }
 
     public long getId()

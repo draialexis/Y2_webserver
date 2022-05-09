@@ -6,9 +6,14 @@ public class StickerEntity
     private Color       color;
     private Description description;
 
-    public StickerEntity()
+    public StickerEntity() {}
+
+    // copy constructor (https://www.baeldung.com/java-constructors#copy)
+    StickerEntity(StickerEntity other)
     {
-        // never used
+        this.id = other.id;
+        this.color = other.color;
+        this.description = other.description;
     }
 
     public long getId()

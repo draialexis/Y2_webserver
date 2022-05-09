@@ -23,8 +23,7 @@ public class AwardEntity
 
     public Date getAttributionDate()
     {
-        // TODO return a copy instead ?
-        return attributionDate;
+        return (Date) attributionDate.clone();
     }
 
     public void setAttributionDate(Date attributionDate)
@@ -44,8 +43,7 @@ public class AwardEntity
 
     public TeacherEntity getTeacher()
     {
-        // TODO return a copy instead
-        return teacher;
+        return new TeacherEntity(this.teacher);
     }
 
     public void setTeacher(TeacherEntity teacher)
@@ -55,8 +53,7 @@ public class AwardEntity
 
     public StickerEntity getSticker()
     {
-        // TODO return a copy instead
-        return sticker;
+        return new StickerEntity(this.sticker);
     }
 
     public void setSticker(StickerEntity sticker)
@@ -66,8 +63,7 @@ public class AwardEntity
 
     public StudentEntity getStudent()
     {
-        // TODO return a copy instead
-        return student;
+        return new StudentEntity(this.student);
     }
 
     public void setStudent(StudentEntity student)

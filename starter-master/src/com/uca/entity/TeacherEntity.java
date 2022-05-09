@@ -9,9 +9,17 @@ public class TeacherEntity
     private String userPwd;
     private String userSalt;
 
-    public TeacherEntity()
+    public TeacherEntity() {}
+
+    // copy constructor (https://www.baeldung.com/java-constructors#copy)
+    TeacherEntity(TeacherEntity other)
     {
-        // never used
+        this.id = other.id;
+        this.lastName = other.lastName;
+        this.firstName = other.firstName;
+        this.userName = other.userName;
+        this.userPwd = other.userPwd;
+        this.userSalt = other.userSalt;
     }
 
     public long getId()
