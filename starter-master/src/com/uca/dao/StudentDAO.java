@@ -79,23 +79,21 @@ public class StudentDAO extends _Generic<StudentEntity>
     @Override
     public StudentEntity update(StudentEntity obj, long id)
     {
-        if (obj.getId() != id)
+        if (areValid(obj.getId(), id))
         {
-            throw new IllegalArgumentException(String.format("IDs do not conform: %d != %d", obj.getId(), id));
-            // just in case; this should never happen
-        }
-        try
-        {
-            PreparedStatement statement = this.connect.prepareStatement(
-                    "UPDATE Student SET lastname = ?, firstname = ? WHERE id_student = ?;");
-            statement.setString(1, obj.getFirstName());
-            statement.setString(2, obj.getLastName());
-            statement.setLong(3, id);
-            statement.executeUpdate();
-            return obj;
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
+            try
+            {
+                PreparedStatement statement = this.connect.prepareStatement(
+                        "UPDATE Student SET lastname = ?, firstname = ? WHERE id_student = ?;");
+                statement.setString(1, obj.getFirstName());
+                statement.setString(2, obj.getLastName());
+                statement.setLong(3, id);
+                statement.executeUpdate();
+                return obj;
+            } catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
         }
         return null;
     }

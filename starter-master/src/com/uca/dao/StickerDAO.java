@@ -81,23 +81,21 @@ public class StickerDAO extends _Generic<StickerEntity>
     @Override
     public StickerEntity update(StickerEntity obj, long id)
     {
-        if (obj.getId() != id)
+        if (areValid(obj.getId(), id))
         {
-            throw new IllegalArgumentException(String.format("IDs do not conform: %d != %d", obj.getId(), id));
-            // just in case; this should never happen
-        }
-        try
-        {
-            PreparedStatement statement = this.connect.prepareStatement(
-                    "UPDATE Sticker SET color = ?, description = ? WHERE id_sticker = ?;");
-            statement.setString(1, obj.getColor().toString());
-            statement.setString(2, obj.getDescription().toString());
-            statement.setLong(3, id);
-            statement.executeUpdate();
-            return obj;
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
+            try
+            {
+                PreparedStatement statement = this.connect.prepareStatement(
+                        "UPDATE Sticker SET color = ?, description = ? WHERE id_sticker = ?;");
+                statement.setString(1, obj.getColor().toString());
+                statement.setString(2, obj.getDescription().toString());
+                statement.setLong(3, id);
+                statement.executeUpdate();
+                return obj;
+            } catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
         }
         return null;
     }
