@@ -86,4 +86,7 @@ public class AwardGUI extends _BasicGUI
         // we assume that the user was only able to access this function because it was authorized
         return readAll(true);
     }
+    //TODO rethink: if user is in "by student" mode, we don't want to send them back to "all" mode every time
+    // make separate functions..?
+
 }
