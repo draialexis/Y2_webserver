@@ -41,7 +41,7 @@ public class TeacherGUI extends _BasicGUI
                 {
                     if (TeacherCore.readByUserName(userName) != null)
                     {
-                        infoMsg = InfoMsg.NOM_UTILISATEUR_DEJA_PRIS;
+                        infoMsg = InfoMsg.NOM_UTILISATEUR_EXISTE_DEJA;
                     }
                     else
                     {

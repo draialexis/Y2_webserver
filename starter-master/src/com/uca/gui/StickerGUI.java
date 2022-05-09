@@ -9,6 +9,7 @@ import freemarker.template.TemplateException;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,17 +19,28 @@ public class StickerGUI extends _BasicGUI
     public static String create(String color, String description)
             throws IOException, TemplateException
     {
-        StickerEntity sticker = new StickerEntity();
-        sticker.setColor(Color.valueOf(color));
-        sticker.setDescription(Description.valueOf(description));
-        infoMsg = StickerCore.create(sticker) != null ? InfoMsg.AJOUT_SUCCES : InfoMsg.AJOUT_ECHEC;
-
+        if (color.isEmpty() || description.isEmpty())
+        {
+            infoMsg = InfoMsg.CHAMPS_VIDES_INTERDITS;
+        }
+        else
+        {
+            ArrayList<StickerEntity> allStickers = StickerCore.readAll();
+            StickerEntity            sticker     = new StickerEntity();
+            sticker.setColor(Color.valueOf(color));
+            sticker.setDescription(Description.valueOf(description));
+            if (allStickers.contains(sticker))
+            {
+                infoMsg = InfoMsg.COMBINAISON_EXISTE_DEJA;
+            }
+            else
+            {
+                infoMsg = StickerCore.create(sticker) != null ? InfoMsg.AJOUT_SUCCES : InfoMsg.AJOUT_ECHEC;
+            }
+        }
         // we assume that the user was only able to access this function because it was authorized
         return readAll(true);
     }
-    //todo prevent pre-existing combinations? prevent it in the model too
-
-    //todo (optional) prevent using same color? prevent it in the model too
 
     public static String readAll(boolean isAuthorized) throws IOException, TemplateException
     {
@@ -57,14 +69,22 @@ public class StickerGUI extends _BasicGUI
     public static String update(long id, String color, String description)
             throws IOException, TemplateException
     {
-        StickerEntity sticker = new StickerEntity();
-        sticker.setId(id);
-        sticker.setColor(Color.valueOf(color));
-        sticker.setDescription(Description.valueOf(description));
-        infoMsg = StickerCore.update(sticker, id) != null ? InfoMsg.MODIFICATION_SUCCES : InfoMsg.MODIFICATION_ECHEC;
-
+        if (color.isEmpty() || description.isEmpty())
+        {
+            infoMsg = InfoMsg.CHAMPS_VIDES_INTERDITS;
+        }
+        else
+        {
+            StickerEntity sticker = new StickerEntity();
+            sticker.setId(id);
+            sticker.setColor(Color.valueOf(color));
+            sticker.setDescription(Description.valueOf(description));
+            infoMsg = StickerCore.update(sticker, id) != null ? InfoMsg.MODIFICATION_SUCCES
+                                                              : InfoMsg.MODIFICATION_ECHEC;
+        }
         // we assume that the user was only able to access this function because it was authorized
         return readById(true, id);
+
     }
 
     public static String deleteById(long id) throws TemplateException, IOException

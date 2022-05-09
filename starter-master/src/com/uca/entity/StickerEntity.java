@@ -1,6 +1,9 @@
 package com.uca.entity;
 
-public class StickerEntity
+import java.util.Objects;
+
+//final because we overrode equals() and hash()
+public final class StickerEntity
 {
     private long        id;
     private Color       color;
@@ -54,5 +57,20 @@ public class StickerEntity
                ", color=" + color +
                ", description='" + description + '\'' +
                '}';
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StickerEntity that = (StickerEntity) o;
+        return color == that.color && description == that.description;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(color, description);
     }
 }
