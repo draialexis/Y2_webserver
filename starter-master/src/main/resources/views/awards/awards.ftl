@@ -15,7 +15,9 @@
             <th>date</th>
             <th>gommette</th>
             <th>&eacute;l&egrave;ve</th>
-            <th>sa liste</th>
+            <#if !isByStudent>
+                <th>sa liste</th>
+            </#if>
             <#if isAuthorized>
                 <th>enseignant</th>
                 <th>actions</th>
@@ -36,11 +38,13 @@
                         ${award.getStudent().getFirstName()} ${award.getStudent().getLastName()}
                     </a>
                 </td>
-                <td>
-                    <a href="/awards/student/${award.getStudent().getId()}">
-                        <button>voir</button>
-                    </a>
-                </td>
+                <#if !isByStudent>
+                    <td>
+                        <a href="/awards/student/${award.getStudent().getId()}">
+                            <button>voir</button>
+                        </a>
+                    </td>
+                </#if>
                 <#if isAuthorized>
                     <td>
                         <a href="/hidden/teachers/${award.getTeacher().getId()}">

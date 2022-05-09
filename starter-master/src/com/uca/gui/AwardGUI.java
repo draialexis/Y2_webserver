@@ -31,26 +31,36 @@ public class AwardGUI extends _BasicGUI
         return readAll(true);
     }
 
+    //todo test for <= 0 Id
+
+    //todo make javadoc
+
+    /**
+     * displays several or all awards, depending on {@code studentId}
+     *
+     * @param isAuthorized whether the user is authorized to access the resource
+     * @param studentId    a student id (will trigger a reading <em>by student</em> if > 0)
+     * @return a view that displays said awards
+     * @throws IOException
+     * @throws TemplateException
+     */
     private static String readMany(boolean isAuthorized, long studentId)
             throws IOException, TemplateException
     {
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("awards/awards.ftl");
 
-        if (studentId == -1)
+        if (studentId <= 0)
         {
             input.put("awards", AwardCore.readAll());
+            input.put("isByStudent", false);
         }
         else
         {
+            input.put("isByStudent", true);
             input.put("awards", AwardCore.readByStudentId(studentId));
         }
         input.put("isAuthorized", isAuthorized);
-        if (isAuthorized)
-        {
-            input.put("stickers", StickerCore.readAll());
-            input.put("students", StudentCore.readAll());
-        }
         return render(template, input, new StringWriter());
     }
 
