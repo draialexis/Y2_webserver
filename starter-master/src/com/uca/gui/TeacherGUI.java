@@ -71,4 +71,5 @@ public class TeacherGUI extends _BasicGUI
         }
         return readAll();
     }
+//    TODO use infoMsg everywhere
 }

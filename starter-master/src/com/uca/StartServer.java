@@ -8,8 +8,6 @@ import java.util.HashMap;
 
 import static com.uca.util.RequestUtil.getParamFromReqBody;
 import static com.uca.util.RequestUtil.getParamUTF8;
-import static java.net.HttpURLConnection.HTTP_BAD_REQUEST;
-import static java.net.HttpURLConnection.HTTP_OK;
 import static spark.Spark.*;
 
 public class StartServer
@@ -24,24 +22,20 @@ public class StartServer
 
         _Initializer.Init();
 
-        //Index
+        before("/hidden/*", LoginUtil::ensureUserIsLoggedIn);
+
+        //===============Auth & Index===============
         get("/", (req, res) -> IndexGUI.display());
 
-        //Login
         get("/login", (req, res) -> LoginGUI.display("merci de vous identifier"));
 
         post("/login", LoginUtil::handleLoginPost);
 
-        //Signup
-        get("/signup", (req, res) -> {
-            LoginUtil.ensureUserIsLoggedIn(req, res);
-            return SignUpGUI.display();
-        });
+        get("/hidden/signup", (req, res) -> SignUpGUI.display());
 
-        //CR** teachers
-        post("/signup",
+        //===============CR** teachers===============
+        post("/hidden/signup",
              (req, res) -> {
-                 LoginUtil.ensureUserIsLoggedIn(req, res);
                  HashMap<String, String> params = getParamFromReqBody(req.body());
                  return TeacherGUI.create(getParamUTF8(params, "firstname"),
                                           getParamUTF8(params, "lastname"),
@@ -50,54 +44,38 @@ public class StartServer
                                           getParamUTF8(params, "userpwd-validation"));
              });
 
-        get("/teachers", (req, res) -> {
-            LoginUtil.ensureUserIsLoggedIn(req, res);
-            return TeacherGUI.readAll();
-        });
+        get("/hidden/teachers", (req, res) -> TeacherGUI.readAll());
 
-        get("/teachers/:id_teacher", (req, res) -> {
-            LoginUtil.ensureUserIsLoggedIn(req, res);
-            return TeacherGUI.readById(Long.parseLong(req.params(":id_teacher")));
-        });
+        get("/hidden/teachers/:id_teacher",
+            (req, res) -> TeacherGUI.readById(Long.parseLong(req.params(":id_teacher"))));
 
-        //CRUD students
-        post("/students", (req, res) -> {
-            LoginUtil.ensureUserIsLoggedIn(req, res);
+        //===============CRUD students===============
+        post("/hidden/students", (req, res) -> {
             HashMap<String, String> params = getParamFromReqBody(req.body());
             return StudentGUI.create(getParamUTF8(params, "lastname"),
                                      getParamUTF8(params, "firstname"));
 
         });
 
-        get("/students", (req, res) -> {
-            LoginUtil.ensureUserIsLoggedIn(req, res);
-            return StudentGUI.readAll();
-        });
+        get("/hidden/students", (req, res) -> StudentGUI.readAll());
 
-        get("/students/:id_student", (req, res) -> {
-            LoginUtil.ensureUserIsLoggedIn(req, res);
-            return StudentGUI.readById(Long.parseLong(req.params(":id_student")));
-        });
+        get("/hidden/students/:id_student",
+            (req, res) -> StudentGUI.readById(Long.parseLong(req.params(":id_student"))));
 
-        //todo DRY loginUtil.ensure...
-
-        post("/students/:id_student",
+        post("/hidden/students/:id_student",
              (req, res) -> {
-                 LoginUtil.ensureUserIsLoggedIn(req, res);
                  HashMap<String, String> params = getParamFromReqBody(req.body());
                  return StudentGUI.update(Long.parseLong(req.params(":id_student")),
                                           getParamUTF8(params, "lastname"),
                                           getParamUTF8(params, "firstname"));
+
              });
 
-        post("/students/delete/:id_student", (req, res) -> {
-            LoginUtil.ensureUserIsLoggedIn(req, res);
-            return StudentGUI.deleteById(Long.parseLong(req.params(":id_student")));
-        });
+        post("/hidden/students/delete/:id_student",
+             (req, res) -> StudentGUI.deleteById(Long.parseLong(req.params(":id_student"))));
 
-        //CRUD stickers
-        post("/stickers", (req, res) -> {
-            LoginUtil.ensureUserIsLoggedIn(req, res);
+        //===============CRUD stickers===============
+        post("/hidden/stickers", (req, res) -> {
             HashMap<String, String> params = getParamFromReqBody(req.body());
             return StickerGUI.create(getParamUTF8(params, "color"),
                                      getParamUTF8(params, "description"));
@@ -109,39 +87,25 @@ public class StartServer
         get("/stickers/:id_sticker",
             (req, res) -> StickerGUI.readById(LoginUtil.isLoggedIn(req), Long.parseLong(req.params(":id_sticker"))));
 
-        post("/stickers/:id_sticker",
+        post("/hidden/stickers/:id_sticker",
              (req, res) -> {
-                 LoginUtil.ensureUserIsLoggedIn(req, res);
                  HashMap<String, String> params = getParamFromReqBody(req.body());
                  return StickerGUI.update(Long.parseLong(req.params(":id_sticker")),
                                           getParamUTF8(params, "color"),
                                           getParamUTF8(params, "description"));
              });
 
-        post("/stickers/delete/:id_sticker", (req, res) -> {
-            LoginUtil.ensureUserIsLoggedIn(req, res);
-            return StickerGUI.deleteById(Long.parseLong(req.params(":id_sticker")));
-        });
+        post("/hidden/stickers/delete/:id_sticker",
+             (req, res) -> StickerGUI.deleteById(Long.parseLong(req.params(":id_sticker"))));
 
-        //CR*D awards
-        post("/awards", (req, res) -> {
-            LoginUtil.ensureUserIsLoggedIn(req, res);
+        //===============CR*D awards===============
+        post("/hidden/awards", (req, res) -> {
             HashMap<String, String> params = getParamFromReqBody(req.body());
-            try
-            {
-                String view = AwardGUI.create(
-                        getParamUTF8(params, "motive"),
-                        req.session().attribute("currentUser"),
-                        Long.parseLong(getParamUTF8(params, "student-id")),
-                        Long.parseLong(getParamUTF8(params, "sticker-id")));
-                res.status(HTTP_OK);
-                return view;
-            } catch (Exception e)
-            {
-                e.printStackTrace();
-                res.status(HTTP_BAD_REQUEST); // TODO improve?
-                return null;
-            }
+            return AwardGUI.create(
+                    getParamUTF8(params, "motive"),
+                    req.session().attribute("currentUser"),
+                    Long.parseLong(getParamUTF8(params, "student-id")),
+                    Long.parseLong(getParamUTF8(params, "sticker-id")));
         });
 
         get("/awards", (req, res) -> AwardGUI.readAll(LoginUtil.isLoggedIn(req)));
@@ -153,9 +117,9 @@ public class StartServer
         get("/awards/id/:id_award",
             (req, res) -> AwardGUI.readById(LoginUtil.isLoggedIn(req), Long.parseLong(req.params(":id_award"))));
 
-        post("/awards/delete/:id_award", (req, res) -> {
-            LoginUtil.ensureUserIsLoggedIn(req, res);
-            return AwardGUI.deleteById(Long.parseLong(req.params(":id_award")));
-        });
+        post("/hidden/awards/delete/:id_award",
+             (req, res) -> AwardGUI.deleteById(Long.parseLong(req.params(":id_award"))));
     }
 }
+
+// TODO deal with HTTP_CODES (404 not found for non-existent resources, instead of 500 internal error)

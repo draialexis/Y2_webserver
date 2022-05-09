@@ -52,17 +52,17 @@ public class LoginUtil
         return null;
     }
 
-    public static boolean isLoggedIn(Request request)
+    public static boolean isLoggedIn(Request req)
     {
-        return request.session().attribute("currentUser") != null;
+        return req.session().attribute("currentUser") != null;
     }
 
-    public static void ensureUserIsLoggedIn(Request request, Response response)
+    public static void ensureUserIsLoggedIn(Request req, Response res)
     {
-        if (!isLoggedIn(request))
+        if (!isLoggedIn(req))
         {
-            pathSaved = request.pathInfo(); // saves the path to redirect right away after login
-            response.redirect("/login");
+            pathSaved = req.pathInfo(); // saves the path to redirect right away after login
+            res.redirect("/login");
             halt(HTTP_UNAUTHORIZED);
         }
     }
