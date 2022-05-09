@@ -77,9 +77,9 @@ public class TeacherEntity
         return userSalt;
     }
 
-    public void setUserSalt(String userSPWD)
+    public void setUserSalt(String userSalt)
     {
-        this.userSalt = userSPWD;
+        this.userSalt = userSalt;
     }
 
     @Override
