@@ -60,6 +60,10 @@ public class AwardGUI extends _BasicGUI
             input.put("isByStudent", true);
             input.put("awards", AwardCore.readByStudentId(studentId));
         }
+        if(isAuthorized){
+            input.put("students", StudentCore.readAll());
+            input.put("stickers", StickerCore.readAll());
+        }
         input.put("isAuthorized", isAuthorized);
         return render(template, input, new StringWriter());
     }
