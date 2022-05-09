@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class TeacherDAO extends _Generic<TeacherEntity>
 {
     @Override
-    protected TeacherEntity getFullEntity(ResultSet resultSet) throws SQLException
+    TeacherEntity getFullEntity(ResultSet resultSet) throws SQLException
     {
         TeacherEntity entity = new TeacherEntity();
         entity.setId(resultSet.getLong("id_teacher"));

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class StickerDAO extends _Generic<StickerEntity>
 {
     @Override
-    protected StickerEntity getFullEntity(ResultSet resultSet) throws SQLException
+    StickerEntity getFullEntity(ResultSet resultSet) throws SQLException
     {
         StickerEntity entity = new StickerEntity();
         entity.setId(resultSet.getLong("id_sticker"));

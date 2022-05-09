@@ -10,7 +10,7 @@ public abstract class _Generic<T>
 {
     public Connection connect = _Connector.getInstance();
 
-    protected abstract T getFullEntity(ResultSet resultSet) throws SQLException;
+    abstract T getFullEntity(ResultSet resultSet) throws SQLException;
 
     public abstract T create(T obj);
 

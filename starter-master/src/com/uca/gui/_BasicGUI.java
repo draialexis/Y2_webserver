@@ -9,15 +9,15 @@ import java.util.Map;
 
 public abstract class _BasicGUI
 {
-    protected static String infoMsg = null;
+    static String infoMsg = null;
 
-    protected static void useAndResetStatus(Map<String, Object> input)
+    static void useAndResetStatus(Map<String, Object> input)
     {
         input.put("status", infoMsg);
         infoMsg = null;
     }
 
-    protected static String render(Template template, Map<String, Object> input, Writer output)
+    static String render(Template template, Map<String, Object> input, Writer output)
             throws TemplateException, IOException
     {
         useAndResetStatus(input);

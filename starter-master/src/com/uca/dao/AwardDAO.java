@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class AwardDAO extends _Generic<AwardEntity>
 {
     @Override
-    protected AwardEntity getFullEntity(ResultSet resultSet) throws SQLException
+    AwardEntity getFullEntity(ResultSet resultSet) throws SQLException
     {
         AwardEntity entity = new AwardEntity();
         entity.setId(resultSet.getLong("id_award"));

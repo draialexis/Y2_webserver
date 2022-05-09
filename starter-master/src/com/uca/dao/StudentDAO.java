@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class StudentDAO extends _Generic<StudentEntity>
 {
     @Override
-    protected StudentEntity getFullEntity(ResultSet resultSet) throws SQLException
+    StudentEntity getFullEntity(ResultSet resultSet) throws SQLException
     {
         StudentEntity entity = new StudentEntity();
         entity.setId(resultSet.getLong("id_student"));
