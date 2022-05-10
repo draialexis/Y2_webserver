@@ -7,25 +7,25 @@
 <form method="POST" action="/hidden/signup">
     <label for="firstname">pr&eacute;nom</label>
     <br>
-    <input type="text" id="firstname" name="firstname" required>
+    <input type="text" id="firstname" name="firstname" maxlength="50" required>
     <br>
     <label for="lastname">nom</label>
     <br>
-    <input type="text" id="lastname" name="lastname" required>
+    <input type="text" id="lastname" name="lastname" maxlength="50" required>
     <br>
     <label for="username">nom d'utilisateur</label>
     <br>
-    <input type="text" id="username" name="username" required>
+    <input type="text" id="username" name="username" maxlength="50" required>
     <br>
     <label for="userpwd">mot de passe</label>
     <br>
     <input type="password" id="userpwd" name="userpwd" pattern="[a-zA-Z0-9!@#$%^&*_=+-]{4, 16}"
-           title="entre 4 et 16 caract&egrave;res quelconques" required>
+           title="entre 4 et 16 caract&egrave;res quelconques" minlength="4" maxlength="16" required>
     <br>
     <label for="userpwd-validation">mot de passe (confirmation)</label>
     <br>
     <input type="password" id="userpwd-validation" name="userpwd-validation" pattern="[a-zA-Z0-9!@#$%^&*_=+-]{4, 16}"
-           title="entre 4 et 16 caract&egrave;res quelconques" required>
+           title="entre 4 et 16 caract&egrave;res quelconques" minlength="4" maxlength="16" required>
     <br>
 
     <button type="submit">Enregistrer</button>

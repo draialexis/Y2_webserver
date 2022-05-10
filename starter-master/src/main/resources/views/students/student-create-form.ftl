@@ -4,11 +4,11 @@
     <form method="POST" action="/hidden/students">
         <label for="lastname">nom</label>
         <br>
-        <input type="text" id="lastname" name="lastname" required>
+        <input type="text" id="lastname" name="lastname" maxlength="50" required>
         <br>
         <label for="firstname">pr&eacute;nom</label>
         <br>
-        <input type="text" id="firstname" name="firstname" required>
+        <input type="text" id="firstname" name="firstname" maxlength="50" required>
         <br>
         <button type="submit">Enregistrer</button>
     </form>
