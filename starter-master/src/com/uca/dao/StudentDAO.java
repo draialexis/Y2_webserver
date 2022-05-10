@@ -67,7 +67,6 @@ public class StudentDAO extends _Generic<StudentEntity>
                     "SELECT * FROM Student WHERE id_student = ?;");
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
             if (resultSet.next())
             {
                 return getFullEntity(resultSet);

@@ -98,7 +98,6 @@ public class AwardDAO extends _Generic<AwardEntity>
                     "SELECT * FROM Award WHERE id_award = ?;");
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
             if (resultSet.next())
             {
                 return getFullEntity(resultSet);

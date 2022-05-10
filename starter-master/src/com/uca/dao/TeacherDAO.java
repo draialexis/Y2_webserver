@@ -96,7 +96,6 @@ public class TeacherDAO extends _Generic<TeacherEntity>
                     "SELECT * FROM Teacher WHERE id_teacher = ?;");
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
             if (resultSet.next())
             {
                 return getFullEntity(resultSet);

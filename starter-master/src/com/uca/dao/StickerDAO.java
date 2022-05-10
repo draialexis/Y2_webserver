@@ -69,7 +69,6 @@ public class StickerDAO extends _Generic<StickerEntity>
                     "SELECT * FROM Sticker WHERE id_sticker = ?;");
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
             if (resultSet.next())
             {
                 return getFullEntity(resultSet);
