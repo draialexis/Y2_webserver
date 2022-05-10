@@ -113,7 +113,7 @@ public class AwardDAO extends _Generic<AwardEntity>
     @Override
     public AwardEntity update(AwardEntity obj, long id) throws OperationNotSupportedException
     {
-        throw new OperationNotSupportedException("modifier une attribution : hors de la portée de ce projet");
+        throw new OperationNotSupportedException("update award: not in this project's scope");
     }
 
     @Override

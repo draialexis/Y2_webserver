@@ -1,18 +1,21 @@
 package com.uca.dao;
 
 import com.uca.entity.TeacherEntity;
+import com.uca.util.StringUtil;
 
 import javax.naming.OperationNotSupportedException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class TeacherDAO extends _Generic<TeacherEntity>
 {
     @Override
     TeacherEntity getFullEntity(ResultSet resultSet) throws SQLException
     {
+        Objects.requireNonNull(resultSet);
         TeacherEntity entity = new TeacherEntity();
         entity.setId(resultSet.getLong("id_teacher"));
         entity.setFirstName(resultSet.getString("firstname"));
@@ -26,6 +29,7 @@ public class TeacherDAO extends _Generic<TeacherEntity>
     @Override
     public TeacherEntity create(TeacherEntity obj)
     {
+        Objects.requireNonNull(obj);
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
@@ -46,6 +50,7 @@ public class TeacherDAO extends _Generic<TeacherEntity>
 
     public TeacherEntity readByUserName(String userName)
     {
+        StringUtil.required(userName);
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
@@ -108,7 +113,7 @@ public class TeacherDAO extends _Generic<TeacherEntity>
     @Override
     public TeacherEntity update(TeacherEntity obj, long id) throws OperationNotSupportedException
     {
-        throw new OperationNotSupportedException("modifier un professeur : hors de la portée de ce projet");
+        throw new OperationNotSupportedException("update teacher: not in this project's scope");
     }
 
     @Override
@@ -120,7 +125,7 @@ public class TeacherDAO extends _Generic<TeacherEntity>
     @Override
     public void deleteById(long id) throws OperationNotSupportedException
     {
-        throw new OperationNotSupportedException("effacer un professeur : hors de la portée de ce projet");
+        throw new OperationNotSupportedException("delete teacher: not in this project's scope");
     }
 
 }

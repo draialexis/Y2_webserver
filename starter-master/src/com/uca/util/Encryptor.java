@@ -21,7 +21,7 @@ public class Encryptor
     {
         if (size < 1)
         {
-            throw new IllegalArgumentException("la longueur du 'salt' doit etre positive");
+            throw new IllegalArgumentException("salt must have a strictly positive length");
         }
         StringBuilder salt = new StringBuilder(size);
         for (int i = 0; i < size; i++)
