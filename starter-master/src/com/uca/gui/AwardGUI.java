@@ -18,7 +18,7 @@ import java.util.Map;
 public class AwardGUI extends _BasicGUI
 {
     public static String create(String motive, String teacherUserName, long studentId, long stickerId)
-            throws IOException, TemplateException, SQLException
+            throws IOException, TemplateException
     {
         AwardEntity award = new AwardEntity();
         award.setAttributionDate(new Date(new java.util.Date().getTime()));
