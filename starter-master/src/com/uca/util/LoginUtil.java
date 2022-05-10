@@ -5,6 +5,7 @@ import com.uca.entity.TeacherEntity;
 import com.uca.gui.InfoMsg;
 import com.uca.gui.LoginGUI;
 import freemarker.template.TemplateException;
+import io.jsonwebtoken.ExpiredJwtException;
 import spark.Request;
 import spark.Response;
 
@@ -15,25 +16,48 @@ import static spark.Spark.halt;
 
 public class LoginUtil
 {
-    public static String pathSaved = null;
+    private static String pathSaved = null;
+    private static String token     = null;
+    private static String userName  = null;
+
+    public static String getUserName()
+    {
+        return userName;
+    }
 
     public static String handleLoginPost(Request req, Response res) throws TemplateException, IOException
     {
-        if (!authenticate(req.queryParams("username"), req.queryParams("userpwd")))
+        userName = req.queryParams("username");
+        if (!authenticate(userName, req.queryParams("userpwd")))
         {
+            userName = null;
             return LoginGUI.display(InfoMsg.ECHEC_AUTHENTIFICATION);
         }
-        // else, login success
-        req.session().attribute("currentUser", req.queryParams("username"));
-        if (pathSaved != null)
+        else
         {
-            res.redirect(pathSaved);
-            // if they requested to go somewhere without being logged in...
-            // once logged in they will be redirected there
+            token = JWTLoginUtil.makeToken(userName);
         }
-        res.redirect("/");
-        // if logged in without a query we redirect them to the root
+        // if user was redirected here, they are sent back to their original destination -- else, to index
+        res.redirect(pathSaved != null ? pathSaved : "/");
         return null;
+    }
+
+    public static String handleLogout() throws TemplateException, IOException
+    {
+        disconnect();
+        return LoginGUI.display(InfoMsg.DECONNEXION_SUCCES);
+    }
+
+    public static void handleTimeout(Response res)
+    {
+        disconnect();
+        res.redirect("/login/timeout");
+    }
+
+    public static void disconnect()
+    {
+        userName = null;
+        token = null;
     }
 
     public static boolean authenticate(String username, String password)
@@ -50,18 +74,29 @@ public class LoginUtil
         return Encryptor.verifyUserPassword(password, user.getUserPwd(), user.getUserSalt());
     }
 
-    public static void ensureUserIsLoggedIn(Request req, Response res)
+    public static void ensureUserIsLoggedIn(Request req, Response res) throws IOException
     {
-        if (!isLoggedIn(req))
+        if (!isLoggedIn(res))
         {
             pathSaved = req.pathInfo(); // saves the path to redirect right away after login
-            res.redirect("/login");
+            res.redirect("/login/redirected");
             halt(HTTP_UNAUTHORIZED);
         }
     }
 
-    public static boolean isLoggedIn(Request req)
+    public static boolean isLoggedIn(Response res) throws IOException
     {
-        return req.session().attribute("currentUser") != null;
+        if (token != null && userName != null)
+        {
+            try
+            {
+                return JWTLoginUtil.checkToken(token).get("sub", String.class).equals(userName);
+            } catch (ExpiredJwtException e)
+            {
+                handleTimeout(res);
+                halt(HTTP_UNAUTHORIZED);
+            }
+        }
+        return false;
     }
 }

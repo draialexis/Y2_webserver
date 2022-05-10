@@ -8,6 +8,7 @@
     </ul>
     <ul>
         <li><a href="/login">S'identifier</a></li>
+        <li><a href="/logout">Se d&eacute;connecter</a></li>
         <li><a href="/hidden/signup">Enregistrer un utilisateur</a></li>
     </ul>
 </nav>
