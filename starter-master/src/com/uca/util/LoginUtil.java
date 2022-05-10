@@ -47,7 +47,7 @@ public class LoginUtil
         { // means the user doesn't exist
             return false;
         }
-        return _Encryptor.verifyUserPassword(password, user.getUserPwd(), user.getUserSalt());
+        return Encryptor.verifyUserPassword(password, user.getUserPwd(), user.getUserSalt());
     }
 
     public static void ensureUserIsLoggedIn(Request req, Response res)

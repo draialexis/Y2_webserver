@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.Random;
 
-public class _Encryptor
+public class Encryptor
 {
     private static final Random RANDOM       = new SecureRandom();
     private static final String CHARS        = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";

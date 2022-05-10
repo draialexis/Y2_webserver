@@ -1,7 +1,7 @@
 package com.uca.gui;
 
 import com.uca.core.TeacherCore;
-import com.uca.util._Encryptor;
+import com.uca.util.Encryptor;
 import com.uca.entity.TeacherEntity;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -48,8 +48,8 @@ public class TeacherGUI extends _BasicGUI
                         teacher.setFirstName(firstName);
                         teacher.setLastName(lastName);
                         teacher.setUserName(userName);
-                        teacher.setUserSalt(_Encryptor.generateSalt(32));
-                        teacher.setUserPwd(_Encryptor.generateSecurePassword(userPwd, teacher.getUserSalt()));
+                        teacher.setUserSalt(Encryptor.generateSalt(32));
+                        teacher.setUserPwd(Encryptor.generateSecurePassword(userPwd, teacher.getUserSalt()));
                         infoMsg = TeacherCore.create(teacher) != null
                                   ? InfoMsg.AJOUT_SUCCES
                                   : InfoMsg.AJOUT_ECHEC;
