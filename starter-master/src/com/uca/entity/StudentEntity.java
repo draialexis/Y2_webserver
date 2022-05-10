@@ -38,7 +38,7 @@ public class StudentEntity
 
     public void setLastName(String lastName)
     {
-        this.lastName = StringUtil.required(lastName);
+        this.lastName = StringUtil.requiredOfSize(lastName);
     }
 
     public String getFirstName()
@@ -48,7 +48,7 @@ public class StudentEntity
 
     public void setFirstName(String firstName)
     {
-        this.firstName = StringUtil.required(firstName);
+        this.firstName = StringUtil.requiredOfSize(firstName);
     }
 
     @Override

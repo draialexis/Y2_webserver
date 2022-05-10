@@ -31,8 +31,8 @@ public class StudentDAO extends _Generic<StudentEntity>
         {
             PreparedStatement statement = this.connect.prepareStatement(
                     "INSERT INTO Student(lastname, firstname) VALUES(?, ?);");
-            statement.setString(1, StringUtil.required(obj.getLastName()));
-            statement.setString(2, StringUtil.required(obj.getFirstName()));
+            statement.setString(1, StringUtil.requiredOfSize(obj.getLastName()));
+            statement.setString(2, StringUtil.requiredOfSize(obj.getFirstName()));
             statement.executeUpdate();
             return obj;
         } catch (SQLException e)
@@ -93,8 +93,8 @@ public class StudentDAO extends _Generic<StudentEntity>
         {
             PreparedStatement statement = this.connect.prepareStatement(
                     "UPDATE Student SET lastname = ?, firstname = ? WHERE id_student = ?;");
-            statement.setString(1, StringUtil.required(obj.getFirstName()));
-            statement.setString(2, StringUtil.required(obj.getLastName()));
+            statement.setString(1, StringUtil.requiredOfSize(obj.getFirstName()));
+            statement.setString(2, StringUtil.requiredOfSize(obj.getLastName()));
             statement.setLong(3, id);
             statement.executeUpdate();
             return obj;

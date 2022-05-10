@@ -44,7 +44,7 @@ public class TeacherEntity
 
     public void setLastName(String lastName)
     {
-        this.lastName = StringUtil.required(lastName);
+        this.lastName = StringUtil.requiredOfSize(lastName);
     }
 
     public String getFirstName()
@@ -54,7 +54,7 @@ public class TeacherEntity
 
     public void setFirstName(String firstName)
     {
-        this.firstName = StringUtil.required(firstName);
+        this.firstName = StringUtil.requiredOfSize(firstName);
     }
 
     public String getUserName()
@@ -64,7 +64,7 @@ public class TeacherEntity
 
     public void setUserName(String userName)
     {
-        this.userName = StringUtil.required(userName);
+        this.userName = StringUtil.requiredOfSize(userName);
     }
 
     public String getUserPwd()
@@ -74,7 +74,7 @@ public class TeacherEntity
 
     public void setUserPwd(String userPwd)
     {
-        this.userPwd = StringUtil.required(userPwd);
+        this.userPwd = StringUtil.requiredOfSize(userPwd);
     }
 
     public String getUserSalt()
@@ -84,7 +84,7 @@ public class TeacherEntity
 
     public void setUserSalt(String userSalt)
     {
-        this.userSalt = StringUtil.required(userSalt);
+        this.userSalt = StringUtil.requiredOfSize(userSalt);
     }
 
     @Override

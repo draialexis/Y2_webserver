@@ -34,11 +34,11 @@ public class TeacherDAO extends _Generic<TeacherEntity>
         {
             PreparedStatement statement = this.connect.prepareStatement(
                     "INSERT INTO Teacher(firstname, lastname, username, userpwd, usersalt) VALUES(?, ?, ?, ?, ?);");
-            statement.setString(1, StringUtil.required(obj.getFirstName()));
-            statement.setString(2, StringUtil.required(obj.getLastName()));
-            statement.setString(3, StringUtil.required(obj.getUserName()));
-            statement.setString(4, StringUtil.required(obj.getUserPwd()));
-            statement.setString(5, StringUtil.required(obj.getUserSalt()));
+            statement.setString(1, StringUtil.requiredOfSize(obj.getFirstName()));
+            statement.setString(2, StringUtil.requiredOfSize(obj.getLastName()));
+            statement.setString(3, StringUtil.requiredOfSize(obj.getUserName()));
+            statement.setString(4, StringUtil.requiredOfSize(obj.getUserPwd()));
+            statement.setString(5, StringUtil.requiredOfSize(obj.getUserSalt()));
             statement.executeUpdate();
             return obj;
         } catch (SQLException e)
@@ -50,7 +50,7 @@ public class TeacherDAO extends _Generic<TeacherEntity>
 
     public TeacherEntity readByUserName(String userName)
     {
-        StringUtil.required(userName);
+        StringUtil.requiredOfSize(userName);
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(

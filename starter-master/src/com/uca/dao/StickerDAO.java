@@ -33,8 +33,8 @@ public class StickerDAO extends _Generic<StickerEntity>
         {
             PreparedStatement statement = this.connect.prepareStatement(
                     "INSERT INTO Sticker(color, description) VALUES(?, ?);");
-            statement.setString(1, StringUtil.required(obj.getColor().name()));
-            statement.setString(2, StringUtil.required(obj.getDescription().name()));
+            statement.setString(1, StringUtil.requiredOfSize(obj.getColor().name()));
+            statement.setString(2, StringUtil.requiredOfSize(obj.getDescription().name()));
             statement.executeUpdate();
             return obj;
         } catch (SQLException e)
@@ -95,8 +95,8 @@ public class StickerDAO extends _Generic<StickerEntity>
         {
             PreparedStatement statement = this.connect.prepareStatement(
                     "UPDATE Sticker SET color = ?, description = ? WHERE id_sticker = ?;");
-            statement.setString(1, StringUtil.required(obj.getColor().name()));
-            statement.setString(2, StringUtil.required(obj.getDescription().name()));
+            statement.setString(1, StringUtil.requiredOfSize(obj.getColor().name()));
+            statement.setString(2, StringUtil.requiredOfSize(obj.getDescription().name()));
             statement.setLong(3, id);
             statement.executeUpdate();
             return obj;

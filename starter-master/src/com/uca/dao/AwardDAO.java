@@ -88,7 +88,7 @@ public class AwardDAO extends _Generic<AwardEntity>
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
-                    "SELECT * FROM Award WHERE id_student = ? ORDER BY attribution_date DESC;");
+                    "SELECT * FROM Award WHERE id_student = ? ORDER BY attribution_date DESC, id_award DESC;");
             statement.setLong(1, studentId);
 
             ResultSet resultSet = statement.executeQuery();

@@ -23,7 +23,7 @@ public class TeacherCore
 
     public static TeacherEntity readByUserName(String userName)
     {
-        StringUtil.required(userName);
+        StringUtil.requiredOfSize(userName);
         return new TeacherDAO().readByUserName(userName);
     }
 
