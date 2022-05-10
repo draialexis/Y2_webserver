@@ -1,6 +1,6 @@
 <#ftl encoding="utf-8">
 <html lang="fr">
-<#include "../bits/head.html">
+<#include "../bits/head.ftl">
 <body xmlns="http://www.w3.org/1999/html">
 <#include "../bits/navbar.ftl">
 
@@ -8,9 +8,13 @@
     <#include "award-create-form.ftl">
 </#if>
 
-<h2>Attributions</h2>
-
 <#if awards?has_content>
+    <h2>
+        Attributions
+        <#if isByStudent>
+            de ${awards[0].getStudent().getFirstName()} ${awards[0].getStudent().getLastName()}
+        </#if>
+    </h2>
     <table>
         <tr>
             <th>ID</th>
@@ -43,7 +47,7 @@
                 <#if !isByStudent>
                     <td>
                         <a href="/awards/student/${award.getStudent().getId()}">
-                            <button>voir</button>
+                            <button>Voir</button>
                         </a>
                     </td>
                 </#if>
