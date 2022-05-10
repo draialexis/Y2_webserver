@@ -1,6 +1,8 @@
 package com.uca.core;
 
 import com.uca.dao.StickerDAO;
+import com.uca.entity.Color;
+import com.uca.entity.Description;
 import com.uca.entity.StickerEntity;
 import com.uca.util.IDUtil;
 
@@ -37,5 +39,10 @@ public class StickerCore
     {
         IDUtil.requireValid(id);
         new StickerDAO().deleteById(id);
+    }
+
+    public static boolean comboExists(Color color, Description description)
+    {
+        return new StickerDAO().comboExists(color, description);
     }
 }

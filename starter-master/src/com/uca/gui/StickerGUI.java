@@ -19,26 +19,26 @@ import static com.uca.util.StringUtil.isValidString;
 public class StickerGUI extends _BasicGUI
 {
 
-    public static String create(String color, String description)
+    public static String create(String colorString, String descriptionString)
             throws IOException, TemplateException
     {
-        if (!isValidString(color) || !isValidString(description))
+        if (!isValidString(colorString) || !isValidString(descriptionString))
         {
             infoMsg = InfoMsg.CHAMPS_VIDES_INTERDITS;
         }
         else
         {
-            ArrayList<StickerEntity> allStickers = StickerCore.readAll();
-            StickerEntity            sticker     = new StickerEntity();
-            sticker.setColor(Color.valueOf(color));
-            sticker.setDescription(Description.valueOf(description));
-            if (allStickers.contains(sticker))
-            //  TODO    if(StickerCore().comboExists(sticker))
+            Color       color       = Color.valueOf(colorString);
+            Description description = Description.valueOf(descriptionString);
+            if (StickerCore.comboExists(color, description))
             {
                 infoMsg = InfoMsg.COMBINAISON_EXISTE_DEJA;
             }
             else
             {
+                StickerEntity sticker = new StickerEntity();
+                sticker.setColor(color);
+                sticker.setDescription(description);
                 infoMsg = StickerCore.create(sticker) != null ? InfoMsg.AJOUT_SUCCES : InfoMsg.AJOUT_ECHEC;
             }
         }

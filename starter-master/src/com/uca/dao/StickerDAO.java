@@ -129,4 +129,24 @@ public class StickerDAO extends _Generic<StickerEntity>
             e.printStackTrace();
         }
     }
+
+    public boolean comboExists(Color color, Description description)
+    {
+        try
+        {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "SELECT * FROM Sticker WHERE color = ? AND description = ?;");
+            statement.setString(1, StringUtil.requiredOfSize(color.name()));
+            statement.setString(2, StringUtil.requiredOfSize(description.name()));
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next())
+            {
+                return getFullEntity(resultSet) != null;
+            }
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
