@@ -11,6 +11,7 @@ import spark.Response;
 
 import java.io.IOException;
 
+import static com.uca.util.StringUtil.isValidString;
 import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
 import static spark.Spark.halt;
 
@@ -20,9 +21,9 @@ public class LoginHandler
     private static String token     = null;
     private static String userName  = null;
 
-    public static int UNHASHED_PWD_SIZE_MAX = 16;
-    public static int UNHASHED_PWD_SIZE_MIN = 4;
-    public static int SALT_SIZE             = 32;
+    public static final int UNHASHED_PWD_SIZE_MAX = 16;
+    public static final int UNHASHED_PWD_SIZE_MIN = 4;
+    public static final int SALT_SIZE             = 32;
 
     public static String getUserName()
     {
@@ -62,18 +63,18 @@ public class LoginHandler
         token = null;
     }
 
-    public static boolean authenticate(String username, String password)
+    public static boolean authenticate(String userName, String userPwd)
     {
-        if (username.isEmpty() || password.isEmpty())
+        if (!isValidString(userName) || !isValidString(userName))
         { // tried to log in without filling in the form
             return false;
         }
-        TeacherEntity user = TeacherCore.readByUserName(username);
+        TeacherEntity user = TeacherCore.readByUserName(userName);
         if (user == null)
         { // means the user doesn't exist
             return false;
         }
-        return Encryptor.verifyUserPassword(password, user.getUserPwd(), user.getUserSalt());
+        return Encryptor.verifyUserPassword(userPwd, user.getUserPwd(), user.getUserSalt());
     }
 
     public static void ensureUserIsLoggedIn(Request req, Response res) throws IOException

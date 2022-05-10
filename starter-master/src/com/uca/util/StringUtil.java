@@ -6,7 +6,7 @@ public class StringUtil
 
     public static String required(String string)
     {
-        if (string == null || string.isBlank())
+        if (!isValidString(string))
         {
             throw new IllegalArgumentException("this string is not allowed to be null, empty, or blank");
         }
@@ -22,5 +22,10 @@ public class StringUtil
             );
         }
         return string;
+    }
+
+    public static boolean isValidString(String string)
+    {
+        return string != null && !string.isBlank();
     }
 }

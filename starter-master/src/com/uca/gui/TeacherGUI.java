@@ -11,6 +11,8 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.uca.util.StringUtil.isValidString;
+
 public class TeacherGUI extends _BasicGUI
 {
     public static String create(String firstName,
@@ -21,7 +23,11 @@ public class TeacherGUI extends _BasicGUI
             throws IOException, TemplateException
     {
         TeacherEntity teacher = new TeacherEntity();
-        if (firstName.isEmpty() || lastName.isEmpty() || userName.isEmpty() || userPwd.isEmpty())
+        if (!isValidString(firstName)
+            || !isValidString(lastName)
+            || !isValidString(userName)
+            || !isValidString(userPwd)
+            || !isValidString(userPwdValidation))
         {
             infoMsg = InfoMsg.CHAMPS_VIDES_INTERDITS;
         }

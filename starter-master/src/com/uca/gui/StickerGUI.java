@@ -13,13 +13,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.uca.util.IDUtil.isValidId;
+import static com.uca.util.StringUtil.isValidString;
+
 public class StickerGUI extends _BasicGUI
 {
 
     public static String create(String color, String description)
             throws IOException, TemplateException
     {
-        if (color.isEmpty() || description.isEmpty())
+        if (!isValidString(color) || !isValidString(description))
         {
             infoMsg = InfoMsg.CHAMPS_VIDES_INTERDITS;
         }
@@ -30,6 +33,7 @@ public class StickerGUI extends _BasicGUI
             sticker.setColor(Color.valueOf(color));
             sticker.setDescription(Description.valueOf(description));
             if (allStickers.contains(sticker))
+            //  TODO    if(StickerCore().comboExists(sticker))
             {
                 infoMsg = InfoMsg.COMBINAISON_EXISTE_DEJA;
             }
@@ -59,10 +63,17 @@ public class StickerGUI extends _BasicGUI
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("stickers/sticker.ftl");
 
+        if (!isValidId(id))
+        {
+            infoMsg = InfoMsg.ID_INVALIDE;
+        }
+        else
+        {
+            input.put("sticker", StickerCore.readById(id));
+        }
         input.put("colors", Color.values());
         input.put("descriptions", Description.values());
         input.put("stickers", StickerCore.readAll());
-        input.put("sticker", StickerCore.readById(id));
         input.put("isAuthorized", isAuthorized);
         return render(template, input, new StringWriter());
     }
@@ -70,18 +81,26 @@ public class StickerGUI extends _BasicGUI
     public static String update(long id, String color, String description)
             throws IOException, TemplateException
     {
-        if (color.isEmpty() || description.isEmpty())
+        if (!isValidString(color) || !isValidString(description))
         {
             infoMsg = InfoMsg.CHAMPS_VIDES_INTERDITS;
         }
         else
         {
-            StickerEntity sticker = new StickerEntity();
-            sticker.setId(id);
-            sticker.setColor(Color.valueOf(color));
-            sticker.setDescription(Description.valueOf(description));
-            infoMsg = StickerCore.update(sticker, id) != null ? InfoMsg.MODIFICATION_SUCCES
-                                                              : InfoMsg.MODIFICATION_ECHEC;
+            if (!isValidId(id))
+            {
+                infoMsg = InfoMsg.ID_INVALIDE;
+                return readAll(true);
+            }
+            else
+            {
+                StickerEntity sticker = new StickerEntity();
+                sticker.setId(id);
+                sticker.setColor(Color.valueOf(color));
+                sticker.setDescription(Description.valueOf(description));
+                infoMsg = StickerCore.update(sticker, id) != null ? InfoMsg.MODIFICATION_SUCCES
+                                                                  : InfoMsg.MODIFICATION_ECHEC;
+            }
         }
         // we assume that the user was only able to access this function because it was authorized
         return readById(true, id);
@@ -90,8 +109,14 @@ public class StickerGUI extends _BasicGUI
 
     public static String deleteById(long id) throws TemplateException, IOException
     {
-        StickerCore.deleteById(id);
-
+        if (!isValidId(id))
+        {
+            infoMsg = InfoMsg.ID_INVALIDE;
+        }
+        else
+        {
+            StickerCore.deleteById(id);
+        }
         // we assume that the user was only able to access this function because it was authorized
         return readAll(true);
     }
