@@ -2,7 +2,6 @@ package com.uca;
 
 import com.uca.dao._Initializer;
 import com.uca.gui.*;
-import com.uca.util.LoginUtil;
 
 import java.util.HashMap;
 
@@ -22,7 +21,7 @@ public class StartServer
 
         _Initializer.Init();
 
-        before("/hidden/*", LoginUtil::ensureUserIsLoggedIn);
+        before("/hidden/*", LoginHandler::ensureUserIsLoggedIn);
 
         //===============Auth & Index===============
         get("/", (req, res) -> IndexGUI.display());
@@ -33,9 +32,9 @@ public class StartServer
 
         get("/login/redirected", (req, res) -> LoginGUI.display(InfoMsg.AUTHENTIFICATION_REQUISE));
 
-        post("/login", LoginUtil::handleLoginPost);
+        post("/login", LoginHandler::handleLoginPost);
 
-        get("/logout", (req, res) -> LoginUtil.handleLogout());
+        get("/logout", (req, res) -> LoginHandler.handleLogout());
 
         get("/hidden/signup", (req, res) -> SignUpGUI.display());
 
@@ -88,10 +87,10 @@ public class StartServer
 
         });
 
-        get("/stickers", (req, res) -> StickerGUI.readAll(LoginUtil.isLoggedIn(res)));
+        get("/stickers", (req, res) -> StickerGUI.readAll(LoginHandler.isLoggedIn(res)));
 
         get("/stickers/:id_sticker",
-            (req, res) -> StickerGUI.readById(LoginUtil.isLoggedIn(res), Long.parseLong(req.params(":id_sticker"))));
+            (req, res) -> StickerGUI.readById(LoginHandler.isLoggedIn(res), Long.parseLong(req.params(":id_sticker"))));
 
         post("/hidden/stickers/:id_sticker",
              (req, res) -> {
@@ -109,19 +108,19 @@ public class StartServer
             HashMap<String, String> params = getParamFromReqBody(req.body());
             return AwardGUI.create(
                     getParamUTF8(params, "motive"),
-                    LoginUtil.getUserName(),
+                    LoginHandler.getUserName(),
                     Long.parseLong(getParamUTF8(params, "student-id")),
                     Long.parseLong(getParamUTF8(params, "sticker-id")));
         });
 
-        get("/awards", (req, res) -> AwardGUI.readAll(LoginUtil.isLoggedIn(res)));
+        get("/awards", (req, res) -> AwardGUI.readAll(LoginHandler.isLoggedIn(res)));
 
         get("/awards/student/:id_student",
-            (req, res) -> AwardGUI.readByStudentId(LoginUtil.isLoggedIn(res),
+            (req, res) -> AwardGUI.readByStudentId(LoginHandler.isLoggedIn(res),
                                                    Long.parseLong(req.params(":id_student"))));
 
         get("/awards/id/:id_award",
-            (req, res) -> AwardGUI.readById(LoginUtil.isLoggedIn(res), Long.parseLong(req.params(":id_award"))));
+            (req, res) -> AwardGUI.readById(LoginHandler.isLoggedIn(res), Long.parseLong(req.params(":id_award"))));
 
         post("/hidden/awards/delete/:id_award",
              (req, res) -> AwardGUI.deleteById(Long.parseLong(req.params(":id_award"))));

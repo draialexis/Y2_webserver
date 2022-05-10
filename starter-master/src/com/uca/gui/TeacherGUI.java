@@ -27,7 +27,7 @@ public class TeacherGUI extends _BasicGUI
         }
         else
         {
-            if (4 >= userPwd.length() || userPwd.length() >= 16)
+            if (LoginHandler.PWD_SIZE_MIN >= userPwd.length() || userPwd.length() >= LoginHandler.PWD_SIZE_MAX)
             {
                 infoMsg = InfoMsg.CONTRAINTES_MOT_DE_PASSE_NON_RESPECTEES;
             }
@@ -48,7 +48,7 @@ public class TeacherGUI extends _BasicGUI
                         teacher.setFirstName(firstName);
                         teacher.setLastName(lastName);
                         teacher.setUserName(userName);
-                        teacher.setUserSalt(Encryptor.generateSalt(32));
+                        teacher.setUserSalt(Encryptor.generateSalt(LoginHandler.SALT_SIZE));
                         teacher.setUserPwd(Encryptor.generateSecurePassword(userPwd, teacher.getUserSalt()));
                         infoMsg = TeacherCore.create(teacher) != null
                                   ? InfoMsg.AJOUT_SUCCES

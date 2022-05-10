@@ -1,5 +1,13 @@
 package com.uca.entity;
 
+import com.uca.util.IDUtil;
+import com.uca.util.StringUtil;
+
+import java.util.Objects;
+
+import static com.uca.gui.LoginHandler.PWD_SIZE_MAX;
+import static com.uca.gui.LoginHandler.PWD_SIZE_MIN;
+
 public class TeacherEntity
 {
     private long   id;
@@ -11,9 +19,9 @@ public class TeacherEntity
 
     public TeacherEntity() {}
 
-    // copy constructor (https://www.baeldung.com/java-constructors#copy)
     TeacherEntity(TeacherEntity other)
     {
+        Objects.requireNonNull(other);
         this.id = other.id;
         this.lastName = other.lastName;
         this.firstName = other.firstName;
@@ -29,7 +37,7 @@ public class TeacherEntity
 
     public void setId(long id)
     {
-        this.id = id;
+        this.id = IDUtil.requireValid(id);
     }
 
     public String getLastName()
@@ -39,7 +47,7 @@ public class TeacherEntity
 
     public void setLastName(String lastName)
     {
-        this.lastName = lastName;
+        this.lastName = StringUtil.required(lastName);
     }
 
     public String getFirstName()
@@ -49,7 +57,7 @@ public class TeacherEntity
 
     public void setFirstName(String firstName)
     {
-        this.firstName = firstName;
+        this.firstName = StringUtil.required(firstName);
     }
 
     public String getUserName()
@@ -59,7 +67,7 @@ public class TeacherEntity
 
     public void setUserName(String userName)
     {
-        this.userName = userName;
+        this.userName = StringUtil.required(userName);
     }
 
     public String getUserPwd()
@@ -69,8 +77,14 @@ public class TeacherEntity
 
     public void setUserPwd(String userPwd)
     {
-        //todo add validation
-        this.userPwd = userPwd;
+        if (userPwd != null && userPwd.trim().length() >= PWD_SIZE_MIN && userPwd.trim().length() <= PWD_SIZE_MAX)
+        {
+            this.userPwd = userPwd;
+        }
+        else
+        {
+            throw new IllegalArgumentException("password : wrong size");
+        }
     }
 
     public String getUserSalt()
@@ -80,7 +94,7 @@ public class TeacherEntity
 
     public void setUserSalt(String userSalt)
     {
-        this.userSalt = userSalt;
+        this.userSalt = StringUtil.required(userSalt);
     }
 
     @Override

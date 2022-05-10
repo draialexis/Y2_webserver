@@ -1,9 +1,9 @@
-package com.uca.util;
+package com.uca.gui;
 
 import com.uca.core.TeacherCore;
 import com.uca.entity.TeacherEntity;
-import com.uca.gui.InfoMsg;
-import com.uca.gui.LoginGUI;
+import com.uca.util.Encryptor;
+import com.uca.util.JWTLoginUtil;
 import freemarker.template.TemplateException;
 import io.jsonwebtoken.ExpiredJwtException;
 import spark.Request;
@@ -14,11 +14,15 @@ import java.io.IOException;
 import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
 import static spark.Spark.halt;
 
-public class LoginUtil
+public class LoginHandler
 {
     private static String pathSaved = null;
     private static String token     = null;
     private static String userName  = null;
+
+    public static int PWD_SIZE_MAX = 16;
+    public static int PWD_SIZE_MIN = 4;
+    public static int SALT_SIZE    = 32;
 
     public static String getUserName()
     {

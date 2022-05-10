@@ -1,5 +1,7 @@
 package com.uca.entity;
 
+import com.uca.util.IDUtil;
+
 import java.util.Objects;
 
 //final because we overrode equals() and hash()
@@ -14,6 +16,7 @@ public final class StickerEntity
     // copy constructor (https://www.baeldung.com/java-constructors#copy)
     StickerEntity(StickerEntity other)
     {
+        Objects.requireNonNull(other);
         this.id = other.id;
         this.color = other.color;
         this.description = other.description;
@@ -26,7 +29,7 @@ public final class StickerEntity
 
     public void setId(long id)
     {
-        this.id = id;
+        this.id = IDUtil.requireValid(id);
     }
 
     public Color getColor()

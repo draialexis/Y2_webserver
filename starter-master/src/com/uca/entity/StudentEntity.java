@@ -1,5 +1,10 @@
 package com.uca.entity;
 
+import com.uca.util.IDUtil;
+import com.uca.util.StringUtil;
+
+import java.util.Objects;
+
 public class StudentEntity
 {
     private long   id;
@@ -8,9 +13,9 @@ public class StudentEntity
 
     public StudentEntity() {}
 
-    // copy constructor (https://www.baeldung.com/java-constructors#copy)
     StudentEntity(StudentEntity other)
     {
+        Objects.requireNonNull(other);
         this.id = other.id;
         this.lastName = other.lastName;
         this.firstName = other.firstName;
@@ -23,7 +28,7 @@ public class StudentEntity
 
     public void setId(long id)
     {
-        this.id = id;
+        this.id = IDUtil.requireValid(id);
     }
 
     public String getLastName()
@@ -33,7 +38,7 @@ public class StudentEntity
 
     public void setLastName(String lastName)
     {
-        this.lastName = lastName;
+        this.lastName = StringUtil.required(lastName);
     }
 
     public String getFirstName()
@@ -43,7 +48,7 @@ public class StudentEntity
 
     public void setFirstName(String firstName)
     {
-        this.firstName = firstName;
+        this.firstName = StringUtil.required(firstName);
     }
 
     @Override
