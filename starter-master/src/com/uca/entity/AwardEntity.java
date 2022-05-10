@@ -79,11 +79,12 @@ public class AwardEntity
     public String toString()
     {
         return "AwardEntity{" +
-               "teacher=" + teacher +
-               ", sticker=" + sticker +
-               ", student=" + student +
+               "id=" + id +
                ", attributionDate=" + attributionDate +
                ", motive='" + motive + '\'' +
+               ", teacher=" + teacher +
+               ", sticker=" + sticker +
+               ", student=" + student +
                '}';
     }
 }

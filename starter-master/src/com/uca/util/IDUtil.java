@@ -6,9 +6,7 @@ public class IDUtil
     {
         if (requireValid(id1) != id2)
         {
-            throw new IllegalArgumentException(
-                    String.format("IDs should be identical: %d != %d", id1, id2)
-            );
+            throw new IllegalArgumentException(String.format("IDs should be identical: (%d != %d)", id1, id2));
         }
     }
 
@@ -16,9 +14,7 @@ public class IDUtil
     {
         if (!isValid(id))
         {
-            throw new IllegalArgumentException(
-                    String.format("ID should be strictly positive: %d <= 0", id)
-            );
+            throw new IllegalArgumentException(String.format("ID should be strictly positive: (%d <= 0)", id));
         }
         return id;
     }

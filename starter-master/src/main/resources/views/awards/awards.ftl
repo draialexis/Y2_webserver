@@ -40,9 +40,9 @@
                     </a>
                 </td>
                 <td>
-                    <a href="/hidden/students/${award.getStudent().getId()}">
+                    <#if isAuthorized><a href="/hidden/students/${award.getStudent().getId()}"></#if>
                         ${award.getStudent().getFirstName()} ${award.getStudent().getLastName()}
-                    </a>
+                        <#if isAuthorized></a></#if>
                 </td>
                 <#if !isByStudent>
                     <td>

@@ -20,9 +20,9 @@ public class LoginHandler
     private static String token     = null;
     private static String userName  = null;
 
-    public static int PWD_SIZE_MAX = 16;
-    public static int PWD_SIZE_MIN = 4;
-    public static int SALT_SIZE    = 32;
+    public static int UNHASHED_PWD_SIZE_MAX = 16;
+    public static int UNHASHED_PWD_SIZE_MIN = 4;
+    public static int SALT_SIZE             = 32;
 
     public static String getUserName()
     {

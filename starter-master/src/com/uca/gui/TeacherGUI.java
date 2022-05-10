@@ -27,9 +27,10 @@ public class TeacherGUI extends _BasicGUI
         }
         else
         {
-            if (LoginHandler.PWD_SIZE_MIN >= userPwd.length() || userPwd.length() >= LoginHandler.PWD_SIZE_MAX)
+            if (userPwd.length() < LoginHandler.UNHASHED_PWD_SIZE_MIN ||
+                userPwd.length() > LoginHandler.UNHASHED_PWD_SIZE_MAX)
             {
-                infoMsg = InfoMsg.CONTRAINTES_MOT_DE_PASSE_NON_RESPECTEES;
+                infoMsg = InfoMsg.TAILLE_MOT_DE_PASSE_NON_RESPECTEES;
             }
             else
             {
