@@ -4,18 +4,22 @@ import com.uca.core.StickerCore;
 import com.uca.core.StudentCore;
 import com.uca.core.TeacherCore;
 import com.uca.entity.AwardEntity;
+import com.uca.util.IDUtil;
+import com.uca.util.StringUtil;
 
 import javax.naming.OperationNotSupportedException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class AwardDAO extends _Generic<AwardEntity>
 {
     @Override
     AwardEntity getFullEntity(ResultSet resultSet) throws SQLException
-    {//TODO check if null
+    {
+        Objects.requireNonNull(resultSet);
         AwardEntity entity = new AwardEntity();
         entity.setId(resultSet.getLong("id_award"));
         entity.setTeacher(TeacherCore.readById(resultSet.getLong("id_teacher")));
@@ -29,15 +33,24 @@ public class AwardDAO extends _Generic<AwardEntity>
     @Override
     public AwardEntity create(AwardEntity obj)
     {
+        Objects.requireNonNull(obj);
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
-                    "INSERT INTO Award(attribution_date, motive, id_teacher, id_sticker, id_student) VALUES(?, ?, ?, ?, ?);");
-            statement.setDate(1, obj.getAttributionDate());
-            statement.setString(2, obj.getMotive());
-            statement.setLong(3, obj.getTeacher().getId());
-            statement.setLong(4, obj.getSticker().getId());
-            statement.setLong(5, obj.getStudent().getId());
+                    "INSERT INTO Award(attribution_date, motive, id_sticker, id_student)" +
+                    "VALUES(?, ?, ?, ?);");
+
+            if (Objects.nonNull(obj.getTeacher()))
+            {
+                statement = this.connect.prepareStatement(
+                        "INSERT INTO Award(attribution_date, motive, id_teacher, id_sticker, id_student)" +
+                        "VALUES(?, ?, ?, ?, ?);");
+                statement.setLong(3, IDUtil.requireValid(obj.getTeacher().getId()));
+            }
+            statement.setDate(1, Objects.requireNonNull(obj.getAttributionDate()));
+            statement.setString(2, StringUtil.required(obj.getMotive()));
+            statement.setLong(4, IDUtil.requireValid(Objects.requireNonNull(obj.getSticker()).getId()));
+            statement.setLong(5, IDUtil.requireValid(Objects.requireNonNull(obj.getStudent()).getId()));
             statement.executeUpdate();
             return obj;
         } catch (SQLException e)
@@ -70,6 +83,7 @@ public class AwardDAO extends _Generic<AwardEntity>
 
     public ArrayList<AwardEntity> readByStudentId(long studentId)
     {
+        IDUtil.requireValid(studentId);
         ArrayList<AwardEntity> entities = new ArrayList<>();
         try
         {
@@ -92,10 +106,10 @@ public class AwardDAO extends _Generic<AwardEntity>
     @Override
     public AwardEntity readById(long id)
     {
+        IDUtil.requireValid(id);
         try
         {
-            PreparedStatement statement = this.connect.prepareStatement(
-                    "SELECT * FROM Award WHERE id_award = ?;");
+            PreparedStatement statement = this.connect.prepareStatement("SELECT * FROM Award WHERE id_award = ?;");
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next())
@@ -109,6 +123,9 @@ public class AwardDAO extends _Generic<AwardEntity>
         return null;
     }
 
+    /**
+     * NOT SUPPORTED
+     */
     @Override
     public AwardEntity update(AwardEntity obj, long id) throws OperationNotSupportedException
     {
@@ -118,12 +135,14 @@ public class AwardDAO extends _Generic<AwardEntity>
     @Override
     public void delete(AwardEntity obj)
     {
+        Objects.requireNonNull(obj);
         this.deleteById(obj.getId());
     }
 
     @Override
     public void deleteById(long id)
     {
+        IDUtil.requireValid(id);
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(

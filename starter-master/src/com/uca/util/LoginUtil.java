@@ -33,10 +33,8 @@ public class LoginUtil
             userName = null;
             return LoginGUI.display(InfoMsg.ECHEC_AUTHENTIFICATION);
         }
-        else
-        {
-            token = JWTLoginUtil.makeToken(userName);
-        }
+
+        token = JWTLoginUtil.makeToken(userName);
         // if user was redirected here, they are sent back to their original destination -- else, to index
         res.redirect(pathSaved != null ? pathSaved : "/");
         return null;

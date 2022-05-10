@@ -1,17 +1,21 @@
 package com.uca.dao;
 
 import com.uca.entity.StudentEntity;
+import com.uca.util.IDUtil;
+import com.uca.util.StringUtil;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class StudentDAO extends _Generic<StudentEntity>
 {
     @Override
     StudentEntity getFullEntity(ResultSet resultSet) throws SQLException
     {
+        Objects.requireNonNull(resultSet);
         StudentEntity entity = new StudentEntity();
         entity.setId(resultSet.getLong("id_student"));
         entity.setFirstName(resultSet.getString("firstname"));
@@ -22,12 +26,13 @@ public class StudentDAO extends _Generic<StudentEntity>
     @Override
     public StudentEntity create(StudentEntity obj)
     {
+        Objects.requireNonNull(obj);
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
                     "INSERT INTO Student(lastname, firstname) VALUES(?, ?);");
-            statement.setString(1, obj.getLastName());
-            statement.setString(2, obj.getFirstName());
+            statement.setString(1, StringUtil.required(obj.getLastName()));
+            statement.setString(2, StringUtil.required(obj.getFirstName()));
             statement.executeUpdate();
             return obj;
         } catch (SQLException e)
@@ -61,6 +66,7 @@ public class StudentDAO extends _Generic<StudentEntity>
     @Override
     public StudentEntity readById(long id)
     {
+        IDUtil.requireValid(id);
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
@@ -81,21 +87,20 @@ public class StudentDAO extends _Generic<StudentEntity>
     @Override
     public StudentEntity update(StudentEntity obj, long id)
     {
-        if (areValid(obj.getId(), id))
+        Objects.requireNonNull(obj);
+        IDUtil.requireValidAndIdentical(obj.getId(), id);
+        try
         {
-            try
-            {
-                PreparedStatement statement = this.connect.prepareStatement(
-                        "UPDATE Student SET lastname = ?, firstname = ? WHERE id_student = ?;");
-                statement.setString(1, obj.getFirstName());
-                statement.setString(2, obj.getLastName());
-                statement.setLong(3, id);
-                statement.executeUpdate();
-                return obj;
-            } catch (SQLException e)
-            {
-                e.printStackTrace();
-            }
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "UPDATE Student SET lastname = ?, firstname = ? WHERE id_student = ?;");
+            statement.setString(1, StringUtil.required(obj.getFirstName()));
+            statement.setString(2, StringUtil.required(obj.getLastName()));
+            statement.setLong(3, id);
+            statement.executeUpdate();
+            return obj;
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
         }
         return null;
     }
@@ -103,12 +108,14 @@ public class StudentDAO extends _Generic<StudentEntity>
     @Override
     public void delete(StudentEntity obj)
     {
+        Objects.requireNonNull(obj);
         this.deleteById(obj.getId());
     }
 
     @Override
     public void deleteById(long id)
     {
+        IDUtil.requireValid(id);
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(

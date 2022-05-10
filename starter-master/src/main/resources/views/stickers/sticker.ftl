@@ -11,7 +11,7 @@
 
 <#if sticker?has_content>
     <h2>Gommette num&eacute;ro : ${sticker.getId()}</h2>
-    <p>${sticker.getColor().toString()} ; ${sticker.getDescription().toString()}</p>
+    <p>${sticker.getColor().name()} ; ${sticker.getDescription().name()}</p>
     <#if isAuthorized>
         <form action="/hidden/stickers/delete/${sticker.getId()}" method="POST">
             <button type="submit">Supprimer</button>

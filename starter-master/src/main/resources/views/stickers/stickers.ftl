@@ -24,8 +24,8 @@
         <#list stickers as sticker>
             <tr>
                 <td><a href="/stickers/${sticker.getId()}">${sticker.getId()}</a></td>
-                <td>${sticker.getColor().toString()}</td>
-                <td>${sticker.getDescription().toString()}</td>
+                <td>${sticker.getColor().name()}</td>
+                <td>${sticker.getDescription().name()}</td>
                 <#if isAuthorized>
                     <td>
                         <a href="/stickers/${sticker.getId()}">

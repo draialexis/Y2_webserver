@@ -1,9 +1,5 @@
 package com.uca.dao;
 
-import com.uca.core.AwardCore;
-import com.uca.core.StickerCore;
-import com.uca.core.StudentCore;
-import com.uca.core.TeacherCore;
 import com.uca.entity.Color;
 import com.uca.entity.Description;
 

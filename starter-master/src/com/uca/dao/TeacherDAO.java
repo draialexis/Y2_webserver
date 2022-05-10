@@ -1,6 +1,7 @@
 package com.uca.dao;
 
 import com.uca.entity.TeacherEntity;
+import com.uca.util.IDUtil;
 import com.uca.util.StringUtil;
 
 import javax.naming.OperationNotSupportedException;
@@ -15,6 +16,7 @@ public class TeacherDAO extends _Generic<TeacherEntity>
     @Override
     TeacherEntity getFullEntity(ResultSet resultSet) throws SQLException
     {
+        Objects.requireNonNull(resultSet);
         TeacherEntity entity = new TeacherEntity();
         entity.setId(resultSet.getLong("id_teacher"));
         entity.setFirstName(resultSet.getString("firstname"));
@@ -32,11 +34,11 @@ public class TeacherDAO extends _Generic<TeacherEntity>
         {
             PreparedStatement statement = this.connect.prepareStatement(
                     "INSERT INTO Teacher(firstname, lastname, username, userpwd, usersalt) VALUES(?, ?, ?, ?, ?);");
-            statement.setString(1, obj.getFirstName());
-            statement.setString(2, obj.getLastName());
-            statement.setString(3, obj.getUserName());
-            statement.setString(4, obj.getUserPwd());
-            statement.setString(5, obj.getUserSalt());
+            statement.setString(1, StringUtil.required(obj.getFirstName()));
+            statement.setString(2, StringUtil.required(obj.getLastName()));
+            statement.setString(3, StringUtil.required(obj.getUserName()));
+            statement.setString(4, StringUtil.required(obj.getUserPwd()));
+            statement.setString(5, StringUtil.required(obj.getUserSalt()));
             statement.executeUpdate();
             return obj;
         } catch (SQLException e)
@@ -90,6 +92,7 @@ public class TeacherDAO extends _Generic<TeacherEntity>
     @Override
     public TeacherEntity readById(long id)
     {
+        IDUtil.requireValid(id);
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
@@ -107,18 +110,27 @@ public class TeacherDAO extends _Generic<TeacherEntity>
         return null;
     }
 
+    /**
+     * NOT SUPPORTED
+     */
     @Override
     public TeacherEntity update(TeacherEntity obj, long id) throws OperationNotSupportedException
     {
         throw new OperationNotSupportedException("update teacher: not in this project's scope");
     }
 
+    /**
+     * NOT SUPPORTED
+     */
     @Override
     public void delete(TeacherEntity obj) throws OperationNotSupportedException
     {
         this.deleteById(obj.getId());
     }
 
+    /**
+     * NOT SUPPORTED
+     */
     @Override
     public void deleteById(long id) throws OperationNotSupportedException
     {

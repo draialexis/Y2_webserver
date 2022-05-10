@@ -3,17 +3,21 @@ package com.uca.dao;
 import com.uca.entity.Color;
 import com.uca.entity.Description;
 import com.uca.entity.StickerEntity;
+import com.uca.util.IDUtil;
+import com.uca.util.StringUtil;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class StickerDAO extends _Generic<StickerEntity>
 {
     @Override
     StickerEntity getFullEntity(ResultSet resultSet) throws SQLException
     {
+        Objects.requireNonNull(resultSet);
         StickerEntity entity = new StickerEntity();
         entity.setId(resultSet.getLong("id_sticker"));
         entity.setColor(Color.valueOf(resultSet.getString("color")));
@@ -24,12 +28,13 @@ public class StickerDAO extends _Generic<StickerEntity>
     @Override
     public StickerEntity create(StickerEntity obj)
     {
+        Objects.requireNonNull(obj);
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
                     "INSERT INTO Sticker(color, description) VALUES(?, ?);");
-            statement.setString(1, obj.getColor().toString());
-            statement.setString(2, obj.getDescription().toString());
+            statement.setString(1, StringUtil.required(obj.getColor().name()));
+            statement.setString(2, StringUtil.required(obj.getDescription().name()));
             statement.executeUpdate();
             return obj;
         } catch (SQLException e)
@@ -63,6 +68,7 @@ public class StickerDAO extends _Generic<StickerEntity>
     @Override
     public StickerEntity readById(long id)
     {
+        IDUtil.requireValid(id);
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
@@ -83,21 +89,20 @@ public class StickerDAO extends _Generic<StickerEntity>
     @Override
     public StickerEntity update(StickerEntity obj, long id)
     {
-        if (areValid(obj.getId(), id))
+        Objects.requireNonNull(obj);
+        IDUtil.requireValidAndIdentical(obj.getId(), id);
+        try
         {
-            try
-            {
-                PreparedStatement statement = this.connect.prepareStatement(
-                        "UPDATE Sticker SET color = ?, description = ? WHERE id_sticker = ?;");
-                statement.setString(1, obj.getColor().toString());
-                statement.setString(2, obj.getDescription().toString());
-                statement.setLong(3, id);
-                statement.executeUpdate();
-                return obj;
-            } catch (SQLException e)
-            {
-                e.printStackTrace();
-            }
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "UPDATE Sticker SET color = ?, description = ? WHERE id_sticker = ?;");
+            statement.setString(1, StringUtil.required(obj.getColor().name()));
+            statement.setString(2, StringUtil.required(obj.getDescription().name()));
+            statement.setLong(3, id);
+            statement.executeUpdate();
+            return obj;
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
         }
         return null;
     }
@@ -105,12 +110,14 @@ public class StickerDAO extends _Generic<StickerEntity>
     @Override
     public void delete(StickerEntity obj)
     {
+        Objects.requireNonNull(obj);
         this.deleteById(obj.getId());
     }
 
     @Override
     public void deleteById(long id)
     {
+        IDUtil.requireValid(id);
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
