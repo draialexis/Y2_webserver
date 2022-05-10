@@ -14,12 +14,17 @@ public class IDUtil
 
     public static long requireValid(long id)
     {
-        if (id <= 0)
+        if (!isValid(id))
         {
             throw new IllegalArgumentException(
                     String.format("ID should be strictly positive: %d <= 0", id)
             );
         }
         return id;
+    }
+
+    public static boolean isValid(long id)
+    {
+        return id <= 0;
     }
 }
