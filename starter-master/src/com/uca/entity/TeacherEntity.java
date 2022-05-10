@@ -5,9 +5,6 @@ import com.uca.util.StringUtil;
 
 import java.util.Objects;
 
-import static com.uca.gui.LoginHandler.PWD_SIZE_MAX;
-import static com.uca.gui.LoginHandler.PWD_SIZE_MIN;
-
 public class TeacherEntity
 {
     private long   id;
@@ -77,14 +74,7 @@ public class TeacherEntity
 
     public void setUserPwd(String userPwd)
     {
-        if (userPwd != null && userPwd.trim().length() >= PWD_SIZE_MIN && userPwd.trim().length() <= PWD_SIZE_MAX)
-        {
-            this.userPwd = userPwd;
-        }
-        else
-        {
-            throw new IllegalArgumentException("password : wrong size");
-        }
+        this.userPwd = StringUtil.required(userPwd);
     }
 
     public String getUserSalt()

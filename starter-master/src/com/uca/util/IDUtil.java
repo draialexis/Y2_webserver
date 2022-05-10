@@ -25,6 +25,6 @@ public class IDUtil
 
     public static boolean isValid(long id)
     {
-        return id <= 0;
+        return id > 0;
     }
 }
