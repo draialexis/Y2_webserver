@@ -19,7 +19,7 @@
             par Pr.<a href="/hidden/teachers/${award.getTeacher().getId()}">${award.getTeacher().getLastName()}</a>
             <br>
             <form action="/hidden/awards/delete/${award.getId()}" method="POST">
-                <button type="submit">SUPPRIMER</button>
+                <button type="submit">Supprimer</button>
             </form>
         </#if>
     </div>

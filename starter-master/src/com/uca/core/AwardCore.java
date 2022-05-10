@@ -24,6 +24,7 @@ public class AwardCore
 
     public static AwardEntity readById(long id)
     {
+        //todo check if null ??
         return new AwardDAO().readById(id);
     }
 

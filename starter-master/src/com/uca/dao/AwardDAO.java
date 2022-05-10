@@ -15,7 +15,7 @@ public class AwardDAO extends _Generic<AwardEntity>
 {
     @Override
     AwardEntity getFullEntity(ResultSet resultSet) throws SQLException
-    {
+    {//TODO check if null
         AwardEntity entity = new AwardEntity();
         entity.setId(resultSet.getLong("id_award"));
         entity.setTeacher(TeacherCore.readById(resultSet.getLong("id_teacher")));
