@@ -52,8 +52,10 @@ public class TeacherDAO extends _Generic<TeacherEntity>
                     "SELECT * FROM Teacher WHERE username = ?;");
             statement.setString(1, userName); // username is UNIQUE, no risk of amibuguity
             ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
-            return getFullEntity(resultSet);
+            if (resultSet.next())
+            {
+                return getFullEntity(resultSet);
+            }
         } catch (SQLException e)
         {
             e.printStackTrace();
@@ -92,7 +94,10 @@ public class TeacherDAO extends _Generic<TeacherEntity>
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
-            return getFullEntity(resultSet);
+            if (resultSet.next())
+            {
+                return getFullEntity(resultSet);
+            }
         } catch (SQLException e)
         {
             e.printStackTrace();

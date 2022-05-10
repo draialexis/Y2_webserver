@@ -99,7 +99,10 @@ public class AwardDAO extends _Generic<AwardEntity>
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
-            return getFullEntity(resultSet);
+            if (resultSet.next())
+            {
+                return getFullEntity(resultSet);
+            }
         } catch (SQLException e)
         {
             e.printStackTrace();
