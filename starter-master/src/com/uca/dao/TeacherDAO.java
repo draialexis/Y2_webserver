@@ -15,7 +15,6 @@ public class TeacherDAO extends _Generic<TeacherEntity>
     @Override
     TeacherEntity getFullEntity(ResultSet resultSet) throws SQLException
     {
-        Objects.requireNonNull(resultSet);
         TeacherEntity entity = new TeacherEntity();
         entity.setId(resultSet.getLong("id_teacher"));
         entity.setFirstName(resultSet.getString("firstname"));
@@ -29,7 +28,6 @@ public class TeacherDAO extends _Generic<TeacherEntity>
     @Override
     public TeacherEntity create(TeacherEntity obj)
     {
-        Objects.requireNonNull(obj);
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(

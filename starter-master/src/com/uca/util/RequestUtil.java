@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
+// thanks to https://stackoverflow.com/questions/29312048/how-to-get-data-from-form-with-spark-java
 public class RequestUtil
 {
     public static HashMap<String, String> getParamFromReqBody(String body)

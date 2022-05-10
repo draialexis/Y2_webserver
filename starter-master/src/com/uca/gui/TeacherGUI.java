@@ -27,7 +27,7 @@ public class TeacherGUI extends _BasicGUI
         }
         else
         {
-            if (4 > userPwd.length() || userPwd.length() > 16)
+            if (4 >= userPwd.length() || userPwd.length() >= 16)
             {
                 infoMsg = InfoMsg.CONTRAINTES_MOT_DE_PASSE_NON_RESPECTEES;
             }

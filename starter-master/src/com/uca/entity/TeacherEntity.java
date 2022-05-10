@@ -69,6 +69,7 @@ public class TeacherEntity
 
     public void setUserPwd(String userPwd)
     {
+        //todo add validation
         this.userPwd = userPwd;
     }
 
