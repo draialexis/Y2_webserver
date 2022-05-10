@@ -8,7 +8,7 @@ import java.util.Collection;
 
 public abstract class _Generic<T>
 {
-    Connection connect = _Connector.getInstance();
+    final Connection connect = _Connector.getInstance();
 
     boolean areValid(long id1, long id2)
     {
