@@ -33,7 +33,7 @@ public class Encryptor
 
     public static boolean verifyUserPassword(String providedPassword, String securedPassword, String salt)
     {
-        return securedPassword.equalsIgnoreCase(generateSecurePassword(providedPassword, salt));
+        return securedPassword.equals(generateSecurePassword(providedPassword, salt));
     }
 
     public static String generateSecurePassword(String password, String salt)
