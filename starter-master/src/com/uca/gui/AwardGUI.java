@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.uca.util.IDUtil.isValidId;
+import static com.uca.util.StringUtil.isValidShortString;
 import static com.uca.util.StringUtil.isValidString;
 
 public class AwardGUI extends _BasicGUI
@@ -30,9 +31,9 @@ public class AwardGUI extends _BasicGUI
         }
         else
         {
-            if (!isValidString(motive) || !isValidString(teacherUserName))
+            if (!isValidString(motive) || !isValidShortString(teacherUserName))
             {
-                infoMsg = InfoMsg.CHAMPS_VIDES_INTERDITS;
+                infoMsg = InfoMsg.CHAMPS_NON_POSTABLES;
             }
             else
             {

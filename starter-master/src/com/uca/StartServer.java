@@ -2,9 +2,13 @@ package com.uca;
 
 import com.uca.dao._Initializer;
 import com.uca.gui.*;
+import freemarker.template.TemplateException;
+import spark.Response;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 import static com.uca.util.RequestUtil.getParamFromReqBody;
 import static com.uca.util.RequestUtil.getParamUTF8;
@@ -36,9 +40,9 @@ public class StartServer
 
         get("/login", (req, res) -> LoginGUI.display(null));
 
-        get("/login/timeout", (req, res) -> LoginGUI.display(InfoMsg.SESSION_TERMINEE_AUTHENTIFICATION_REQUISE));
+        get("/login/timeout", (req, res) -> LoginGUI.display(InfoMsg.SESSION_TERMINEE_AUTHENTIFICATION_NECESSAIRE));
 
-        get("/login/redirected", (req, res) -> LoginGUI.display(InfoMsg.AUTHENTIFICATION_REQUISE));
+        get("/login/redirected", (req, res) -> LoginGUI.display(InfoMsg.AUTHENTIFICATION_NECESSAIRE));
 
         post("/login", LoginHandler::handleLoginPost);
 

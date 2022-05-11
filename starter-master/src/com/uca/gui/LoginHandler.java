@@ -11,7 +11,7 @@ import spark.Response;
 
 import java.io.IOException;
 
-import static com.uca.util.StringUtil.isValidString;
+import static com.uca.util.StringUtil.isValidShortString;
 
 public class LoginHandler
 {
@@ -63,7 +63,7 @@ public class LoginHandler
 
     public static boolean authenticate(String userName, String userPwd)
     {
-        if (!isValidString(userName) || !isValidString(userName))
+        if (!isValidShortString(userName) || !isValidShortString(userName))
         { // tried to log in without filling in the form
             return false;
         }

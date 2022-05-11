@@ -8,11 +8,10 @@ import freemarker.template.TemplateException;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static com.uca.util.IDUtil.isValidId;
-import static com.uca.util.StringUtil.isValidString;
+import static com.uca.util.StringUtil.isValidShortString;
 
 public class TeacherGUI extends _BasicGUI
 {
@@ -24,20 +23,20 @@ public class TeacherGUI extends _BasicGUI
             throws IOException, TemplateException
     {
         TeacherEntity teacher = new TeacherEntity();
-        if (!isValidString(firstName)
-            || !isValidString(lastName)
-            || !isValidString(userName)
-            || !isValidString(userPwd)
-            || !isValidString(userPwdValidation))
+        if (!isValidShortString(firstName)
+            || !isValidShortString(lastName)
+            || !isValidShortString(userName)
+            || !isValidShortString(userPwd)
+            || !isValidShortString(userPwdValidation))
         {
-            infoMsg = InfoMsg.CHAMPS_VIDES_INTERDITS;
+            infoMsg = InfoMsg.CHAMPS_NON_POSTABLES;
         }
         else
         {
             if (userPwd.length() < LoginHandler.UNHASHED_PWD_SIZE_MIN ||
                 userPwd.length() > LoginHandler.UNHASHED_PWD_SIZE_MAX)
             {
-                infoMsg = InfoMsg.TAILLE_MOT_DE_PASSE_NON_RESPECTEES;
+                infoMsg = InfoMsg.TAILLE_MOTS_DE_PASSE_NON_RESPECTEES;
             }
             else
             {

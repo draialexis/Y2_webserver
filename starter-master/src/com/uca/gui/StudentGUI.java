@@ -11,16 +11,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.uca.util.IDUtil.isValidId;
-import static com.uca.util.StringUtil.isValidString;
+import static com.uca.util.StringUtil.isValidShortString;
 
 public class StudentGUI extends _BasicGUI
 {
     public static String create(String firstName, String lastName)
             throws IOException, TemplateException
     {
-        if (!isValidString(firstName) || !isValidString(lastName))
+        if (!isValidShortString(firstName) || !isValidShortString(lastName))
         {
-            infoMsg = InfoMsg.CHAMPS_VIDES_INTERDITS;
+            infoMsg = InfoMsg.CHAMPS_NON_POSTABLES;
         }
         else
         {
@@ -63,9 +63,9 @@ public class StudentGUI extends _BasicGUI
         }
         else
         {
-            if (!isValidString(firstName) || !isValidString(lastName))
+            if (!isValidShortString(firstName) || !isValidShortString(lastName))
             {
-                infoMsg = InfoMsg.CHAMPS_VIDES_INTERDITS;
+                infoMsg = InfoMsg.CHAMPS_NON_POSTABLES;
             }
             else
             {

@@ -15,7 +15,7 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 import static com.uca.util.IDUtil.isValidId;
-import static com.uca.util.StringUtil.isValidString;
+import static com.uca.util.StringUtil.isValidShortString;
 
 public class StickerGUI extends _BasicGUI
 {
@@ -23,9 +23,9 @@ public class StickerGUI extends _BasicGUI
     public static String create(String colorString, String descriptionString)
             throws IOException, TemplateException
     {
-        if (!isValidString(colorString) || !isValidString(descriptionString))
+        if (!isValidShortString(colorString) || !isValidShortString(descriptionString))
         {
-            infoMsg = InfoMsg.CHAMPS_VIDES_INTERDITS;
+            infoMsg = InfoMsg.CHAMPS_NON_POSTABLES;
         }
         else
         {
@@ -88,9 +88,9 @@ public class StickerGUI extends _BasicGUI
     public static String update(long id, String color, String description)
             throws IOException, TemplateException
     {
-        if (!isValidString(color) || !isValidString(description))
+        if (!isValidShortString(color) || !isValidShortString(description))
         {
-            infoMsg = InfoMsg.CHAMPS_VIDES_INTERDITS;
+            infoMsg = InfoMsg.CHAMPS_NON_POSTABLES;
         }
         else
         {

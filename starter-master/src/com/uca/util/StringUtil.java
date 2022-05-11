@@ -24,6 +24,11 @@ public class StringUtil
         return string;
     }
 
+    public static boolean isValidShortString(String string)
+    {
+        return isValidString(string) && string.length() <= 50;
+    }
+
     public static boolean isValidString(String string)
     {
         return string != null && !string.isBlank();
