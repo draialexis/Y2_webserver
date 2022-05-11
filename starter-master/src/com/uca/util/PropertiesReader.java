@@ -7,6 +7,8 @@ import java.util.NoSuchElementException;
 import java.util.Properties;
 
 import static com.uca.util.StringUtil.required;
+import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
+import static spark.Spark.halt;
 
 public class PropertiesReader
 {
@@ -39,6 +41,7 @@ public class PropertiesReader
         } catch (Exception e)
         {
             e.printStackTrace();
+            halt(HTTP_INTERNAL_ERROR);
         } finally
         {
             if (this.inputStream != null)

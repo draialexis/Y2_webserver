@@ -18,6 +18,7 @@ public class _Connector
             } catch (SQLException e)
             {
                 e.printStackTrace();
+                throw new RuntimeException("could not get a JDBC connection");
             }
         }
         return connect;
