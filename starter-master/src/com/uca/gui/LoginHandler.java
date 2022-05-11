@@ -12,8 +12,6 @@ import spark.Response;
 import java.io.IOException;
 
 import static com.uca.util.StringUtil.isValidString;
-import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
-import static spark.Spark.halt;
 
 public class LoginHandler
 {
@@ -83,7 +81,6 @@ public class LoginHandler
         {
             pathSaved = req.pathInfo(); // saves the path to redirect right away after login
             res.redirect("/login/redirected");
-            halt(HTTP_UNAUTHORIZED);
         }
     }
 
@@ -97,7 +94,6 @@ public class LoginHandler
             } catch (ExpiredJwtException e)
             {
                 handleTimeout(res);
-                halt(HTTP_UNAUTHORIZED);
             }
         }
         return false;

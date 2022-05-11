@@ -44,16 +44,13 @@ public class StudentGUI extends _BasicGUI
 
     public static String readById(long id) throws IOException, TemplateException
     {
-        Map<String, Object> input    = new HashMap<>();
-        Template            template = _FreeMarkerInitializer.getContext().getTemplate("students/student.ftl");
         if (!isValidId(id))
         {
             infoMsg = InfoMsg.ID_INVALIDE;
         }
-        else
-        {
-            input.put("student", StudentCore.readById(id));
-        }
+        Map<String, Object> input    = new HashMap<>();
+        Template            template = _FreeMarkerInitializer.getContext().getTemplate("students/student.ftl");
+        input.put("student", StudentCore.readById(id));
         return render(template, input, new StringWriter());
     }
 

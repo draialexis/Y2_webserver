@@ -105,18 +105,14 @@ public class AwardGUI extends _BasicGUI
 
     public static String readById(boolean isAuthorized, long id) throws IOException, TemplateException
     {
-        Map<String, Object> input    = new HashMap<>();
-        Template            template = _FreeMarkerInitializer.getContext().getTemplate("awards/award.ftl");
-
         if (!isValidId(id))
         {
             infoMsg = InfoMsg.ID_INVALIDE;
         }
-        else
-        {
-            input.put("award", AwardCore.readById(id));
-            input.put("isAuthorized", isAuthorized);
-        }
+        Map<String, Object> input    = new HashMap<>();
+        Template            template = _FreeMarkerInitializer.getContext().getTemplate("awards/award.ftl");
+        input.put("award", AwardCore.readById(id));
+        input.put("isAuthorized", isAuthorized);
         return render(template, input, new StringWriter());
     }
 

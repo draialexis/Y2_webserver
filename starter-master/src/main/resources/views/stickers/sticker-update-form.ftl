@@ -1,4 +1,4 @@
-<#if colors?has_content && descriptions?has_content && stickers?has_content && sticker?has_content>
+<#if colors?has_content && descriptions?has_content && sticker?has_content>
     <h2>Modifier une gommette</h2>
     <fieldset>
         <legend>gommette</legend>
