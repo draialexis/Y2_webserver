@@ -29,7 +29,7 @@ public class TeacherEntity
 
     public long getId()
     {
-        return id;
+        return this.id;
     }
 
     public void setId(long id)
@@ -39,7 +39,7 @@ public class TeacherEntity
 
     public String getLastName()
     {
-        return lastName;
+        return this.lastName;
     }
 
     public void setLastName(String lastName)
@@ -49,7 +49,7 @@ public class TeacherEntity
 
     public String getFirstName()
     {
-        return firstName;
+        return this.firstName;
     }
 
     public void setFirstName(String firstName)
@@ -59,7 +59,7 @@ public class TeacherEntity
 
     public String getUserName()
     {
-        return userName;
+        return this.userName;
     }
 
     public void setUserName(String userName)
@@ -69,7 +69,7 @@ public class TeacherEntity
 
     public String getUserPwd()
     {
-        return userPwd;
+        return this.userPwd;
     }
 
     public void setUserPwd(String userPwd)
@@ -79,7 +79,7 @@ public class TeacherEntity
 
     public String getUserSalt()
     {
-        return userSalt;
+        return this.userSalt;
     }
 
     public void setUserSalt(String userSalt)
@@ -91,12 +91,12 @@ public class TeacherEntity
     public String toString()
     {
         return "TeacherEntity{" +
-               "id=" + id +
-               ", lastName='" + lastName + '\'' +
-               ", firstName='" + firstName + '\'' +
-               ", userName='" + userName + '\'' +
-               ", userPwd='" + userPwd + '\'' +
-               ", userSalt='" + userSalt + '\'' +
+               "id=" + this.id +
+               ", lastName='" + this.lastName + '\'' +
+               ", firstName='" + this.firstName + '\'' +
+               ", userName='" + this.userName + '\'' +
+               ", userPwd='" + this.userPwd + '\'' +
+               ", userSalt='" + this.userSalt + '\'' +
                '}';
     }
 }

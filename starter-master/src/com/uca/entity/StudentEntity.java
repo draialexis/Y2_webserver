@@ -23,7 +23,7 @@ public class StudentEntity
 
     public long getId()
     {
-        return id;
+        return this.id;
     }
 
     public void setId(long id)
@@ -33,7 +33,7 @@ public class StudentEntity
 
     public String getLastName()
     {
-        return lastName;
+        return this.lastName;
     }
 
     public void setLastName(String lastName)
@@ -43,7 +43,7 @@ public class StudentEntity
 
     public String getFirstName()
     {
-        return firstName;
+        return this.firstName;
     }
 
     public void setFirstName(String firstName)
@@ -55,9 +55,9 @@ public class StudentEntity
     public String toString()
     {
         return "StudentEntity{" +
-               "id=" + id +
-               ", lastName='" + lastName + '\'' +
-               ", firstName='" + firstName + '\'' +
+               "id=" + this.id +
+               ", lastName='" + this.lastName + '\'' +
+               ", firstName='" + this.firstName + '\'' +
                '}';
     }
 }

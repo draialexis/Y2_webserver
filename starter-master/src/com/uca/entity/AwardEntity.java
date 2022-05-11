@@ -17,7 +17,7 @@ public class AwardEntity
 
     public long getId()
     {
-        return id;
+        return this.id;
     }
 
     public void setId(long id)
@@ -27,7 +27,7 @@ public class AwardEntity
 
     public Date getAttributionDate()
     {
-        return (Date) attributionDate.clone();
+        return (Date) this.attributionDate.clone();
     }
 
     public void setAttributionDate(Date attributionDate)
@@ -37,7 +37,7 @@ public class AwardEntity
 
     public String getMotive()
     {
-        return motive;
+        return this.motive;
     }
 
     public void setMotive(String motive)
@@ -79,12 +79,12 @@ public class AwardEntity
     public String toString()
     {
         return "AwardEntity{" +
-               "id=" + id +
-               ", attributionDate=" + attributionDate +
-               ", motive='" + motive + '\'' +
-               ", teacher=" + teacher +
-               ", sticker=" + sticker +
-               ", student=" + student +
+               "id=" + this.id +
+               ", attributionDate=" + this.attributionDate +
+               ", motive='" + this.motive + '\'' +
+               ", teacher=" + this.teacher +
+               ", sticker=" + this.sticker +
+               ", student=" + this.student +
                '}';
     }
 }

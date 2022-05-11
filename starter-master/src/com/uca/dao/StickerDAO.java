@@ -56,7 +56,7 @@ public class StickerDAO extends _Generic<StickerEntity>
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next())
             {
-                entities.add(getFullEntity(resultSet));
+                entities.add(this.getFullEntity(resultSet));
             }
         } catch (SQLException e)
         {
@@ -77,7 +77,7 @@ public class StickerDAO extends _Generic<StickerEntity>
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next())
             {
-                return getFullEntity(resultSet);
+                return this.getFullEntity(resultSet);
             }
         } catch (SQLException e)
         {
@@ -141,7 +141,7 @@ public class StickerDAO extends _Generic<StickerEntity>
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next())
             {
-                return getFullEntity(resultSet) != null;
+                return this.getFullEntity(resultSet) != null;
             }
         } catch (SQLException e)
         {

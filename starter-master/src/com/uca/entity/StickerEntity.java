@@ -24,7 +24,7 @@ public final class StickerEntity
 
     public long getId()
     {
-        return id;
+        return this.id;
     }
 
     public void setId(long id)
@@ -34,7 +34,7 @@ public final class StickerEntity
 
     public Color getColor()
     {
-        return color;
+        return this.color;
     }
 
     public void setColor(Color color)
@@ -44,7 +44,7 @@ public final class StickerEntity
 
     public Description getDescription()
     {
-        return description;
+        return this.description;
     }
 
     public void setDescription(Description description)
@@ -55,25 +55,25 @@ public final class StickerEntity
     @Override
     public int hashCode()
     {
-        return Objects.hash(color, description);
+        return Objects.hash(this.color, this.description);
     }
 
     @Override
     public boolean equals(Object o)
     {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || this.getClass() != o.getClass()) return false;
         StickerEntity that = (StickerEntity) o;
-        return color == that.color && description == that.description;
+        return this.color == that.color && this.description == that.description;
     }
 
     @Override
     public String toString()
     {
         return "StickerEntity{" +
-               "id=" + id +
-               ", color=" + color +
-               ", description='" + description + '\'' +
+               "id=" + this.id +
+               ", color=" + this.color +
+               ", description='" + this.description + '\'' +
                '}';
     }
 }

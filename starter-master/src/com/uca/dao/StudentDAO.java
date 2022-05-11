@@ -54,7 +54,7 @@ public class StudentDAO extends _Generic<StudentEntity>
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next())
             {
-                entities.add(getFullEntity(resultSet));
+                entities.add(this.getFullEntity(resultSet));
             }
         } catch (SQLException e)
         {
@@ -75,7 +75,7 @@ public class StudentDAO extends _Generic<StudentEntity>
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next())
             {
-                return getFullEntity(resultSet);
+                return this.getFullEntity(resultSet);
             }
         } catch (SQLException e)
         {

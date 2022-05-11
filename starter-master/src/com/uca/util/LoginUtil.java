@@ -15,9 +15,9 @@ import static com.uca.util.StringUtil.isValidShortString;
 
 public class LoginUtil
 {
-    private static String pathSaved = null;
-    private static String token     = null;
-    private static String userName  = null;
+    private static String pathSaved;
+    private static String token;
+    private static String userName;
 
     public static final int UNHASHED_PWD_SIZE_MAX = 16;
     public static final int UNHASHED_PWD_SIZE_MIN = 4;

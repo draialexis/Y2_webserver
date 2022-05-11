@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public abstract class _BasicGUI
 {
-    static InfoMsg infoMsg = null;
+    static InfoMsg infoMsg;
 
     static void useAndResetStatus(Map<String, Object> input)
     {

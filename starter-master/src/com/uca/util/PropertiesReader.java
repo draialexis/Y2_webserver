@@ -21,15 +21,15 @@ public class PropertiesReader
         {
             Properties properties = new Properties();
 
-            inputStream = getClass().getClassLoader().getResourceAsStream(FILEPATH);
+            this.inputStream = this.getClass().getClassLoader().getResourceAsStream(FILEPATH);
 
-            if (inputStream == null)
+            if (this.inputStream == null)
             {
                 throw new FileNotFoundException(String.format("%s : no such file was found...", FILEPATH));
             }
             else
             {
-                properties.load(inputStream);
+                properties.load(this.inputStream);
                 property = properties.getProperty(propertyName);
                 if (property == null)
                 {
@@ -41,9 +41,9 @@ public class PropertiesReader
             e.printStackTrace();
         } finally
         {
-            if (inputStream != null)
+            if (this.inputStream != null)
             {
-                inputStream.close();
+                this.inputStream.close();
             }
         }
         return property;

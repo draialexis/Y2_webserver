@@ -59,7 +59,7 @@ public class TeacherDAO extends _Generic<TeacherEntity>
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next())
             {
-                return getFullEntity(resultSet);
+                return this.getFullEntity(resultSet);
             }
         } catch (SQLException e)
         {
@@ -80,7 +80,7 @@ public class TeacherDAO extends _Generic<TeacherEntity>
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next())
             {
-                entities.add(getFullEntity(resultSet));
+                entities.add(this.getFullEntity(resultSet));
             }
         } catch (SQLException e)
         {
@@ -101,7 +101,7 @@ public class TeacherDAO extends _Generic<TeacherEntity>
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next())
             {
-                return getFullEntity(resultSet);
+                return this.getFullEntity(resultSet);
             }
         } catch (SQLException e)
         {
