@@ -39,8 +39,11 @@ public class _Initializer
                     "   color VARCHAR(50) NOT NULL," +
                     "   description VARCHAR(50) NOT NULL," +
                     "   CONSTRAINT PK_Sticker PRIMARY KEY(id_sticker)," +
-                    "   CONSTRAINT AK_Sticker unique(color, description)" + // unique combinations, no repeats
+                    "   CONSTRAINT AK_Sticker UNIQUE(color, description)" + // unique combinations, no repeats
                     ");" +
+                    "CREATE UNIQUE INDEX idx_combo ON Sticker(color, description);" +
+                    // we will check for this combo's unicity from time to time and this table
+                    // ...will be queried from way more often than written to, so this extra index should help
                     "DROP TABLE IF EXISTS Teacher CASCADE;" +
                     // temporary, would be removed when using a real DB for prod
 
@@ -54,6 +57,9 @@ public class _Initializer
                     "   CONSTRAINT PK_Teacher PRIMARY KEY(id_teacher)," +
                     "   CONSTRAINT AK_Teacher UNIQUE(username)" +
                     ");" +
+                    "CREATE UNIQUE INDEX idx_username ON Teacher(username);" +
+                    // username being unique, and sometimes used to query the DB, we want to make it faster
+                    // ... especially given that querying strings is slower
                     "DROP TABLE IF EXISTS Award;" +
                     // temporary, would be removed when using a real DB for prod
 
@@ -67,10 +73,12 @@ public class _Initializer
                     "   CONSTRAINT PK_Award PRIMARY KEY(id_award)," +
                     "   CONSTRAINT FK_Award_Teacher FOREIGN KEY(id_teacher) REFERENCES Teacher(id_teacher)," +
                     // teachers cannot get deleted at the moment. if that changes, TeacherDAO.delete...() method(s)
-                    // will need to deal with updating the corresponding values in the Award table
+                    // ...will need to deal with updating the corresponding values in the Award table
                     "   CONSTRAINT FK_Award_Sticker FOREIGN KEY(id_sticker) REFERENCES Sticker(id_sticker) ON DELETE CASCADE," +
                     "   CONSTRAINT FK_Award_Student FOREIGN KEY(id_student) REFERENCES Student(id_student) ON DELETE CASCADE" +
-                    ");"
+                    ");" +
+                    "CREATE INDEX idx_attribution_date ON Award(attribution_date);"
+                    // we will often sort them by date, and award will probably be the fastest-growing population in DB
             );
 
             statement.executeUpdate();
