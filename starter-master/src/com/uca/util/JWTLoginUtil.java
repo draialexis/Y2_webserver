@@ -27,7 +27,7 @@ public class JWTLoginUtil
         Date               now                = new Date(MilliNow);
         Date               exp                = new Date(MilliNow + MS_IN_HOUR);
 
-        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(propReader.getEncodedKey());
+        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(propReader.getProperty("encoded-key"));
         Key    signingKey        = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
         JwtBuilder builder = Jwts.builder().setId(UUID.randomUUID().toString())
@@ -42,7 +42,7 @@ public class JWTLoginUtil
     public static Claims checkToken(String jwt) throws IOException
     {
         return Jwts.parserBuilder()
-                   .setSigningKey(DatatypeConverter.parseBase64Binary(propReader.getEncodedKey()))
+                   .setSigningKey(DatatypeConverter.parseBase64Binary(propReader.getProperty("encoded-key")))
                    .build()
                    .parseClaimsJws(jwt).getBody();
     }

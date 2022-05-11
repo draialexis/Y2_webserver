@@ -90,7 +90,7 @@ public class TeacherGUI extends _BasicGUI
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("teachers/teacher.ftl");
         TeacherEntity       teacher  = TeacherCore.readById(id);
-        if (Objects.isNull(teacher))
+        if (teacher == null)
         {
             throw new NoSuchElementException(InfoMsg.RESSOURCE_N_EXISTE_PAS.name());
         }

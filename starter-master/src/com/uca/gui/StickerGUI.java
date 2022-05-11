@@ -70,7 +70,7 @@ public class StickerGUI extends _BasicGUI
 
         StickerEntity sticker = StickerCore.readById(id);
 
-        if (Objects.isNull(sticker))
+        if (sticker == null)
         {
             throw new NoSuchElementException(InfoMsg.RESSOURCE_N_EXISTE_PAS.name());
         }
