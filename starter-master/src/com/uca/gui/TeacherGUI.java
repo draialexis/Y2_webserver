@@ -67,11 +67,16 @@ public class TeacherGUI extends _BasicGUI
         return readAll();
     }
 
+    //TODO test this again
     public static String readAll() throws IOException, TemplateException
     {
-        Map<String, Object> input    = new HashMap<>();
-        Template            template = _FreeMarkerInitializer.getContext().getTemplate("teachers/teachers.ftl");
-
+        Map<String, Object>      input    = new HashMap<>();
+        Template                 template = _FreeMarkerInitializer.getContext().getTemplate("teachers/teachers.ftl");
+        ArrayList<TeacherEntity> teachers = TeacherCore.readAll();
+        if (teachers.isEmpty())
+        {
+            throw new NoSuchElementException(InfoMsg.PAS_D_ENSEIGNANTS_CONTACTEZ_ADMIN.name());
+        }
         input.put("teachers", TeacherCore.readAll());
         return render(template, input, new StringWriter());
     }
@@ -80,11 +85,16 @@ public class TeacherGUI extends _BasicGUI
     {
         if (!isValidId(id))
         {
-            infoMsg = InfoMsg.ID_INVALIDE;
+            throw new IllegalArgumentException(InfoMsg.ID_INVALIDE.name());
         }
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("teachers/teacher.ftl");
-        input.put("teacher", TeacherCore.readById(id));
+        TeacherEntity       teacher  = TeacherCore.readById(id);
+        if (Objects.isNull(teacher))
+        {
+            throw new NoSuchElementException(InfoMsg.RESSOURCE_N_EXISTE_PAS.name());
+        }
+        input.put("teacher", teacher);
         return render(template, input, new StringWriter());
     }
 }

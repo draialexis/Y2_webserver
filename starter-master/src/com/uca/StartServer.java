@@ -18,7 +18,43 @@ import static spark.Spark.*;
 
 public class StartServer
 {
-    public static final int PORT = 8081;
+    private static final int PORT      = 8081;
+    private static final int NULL_CODE = 0;
+
+    private static int code = NULL_CODE;
+
+    private static int useAndResetCode()
+    {
+        int out = code;
+        nullifyCode();
+        return out;
+    }
+
+    private static void nullifyCode()
+    {
+        code = NULL_CODE;
+    }
+
+    private static String manageExceptions(Exception e, Response res) throws TemplateException, IOException
+    {
+        Objects.requireNonNull(e);
+        Class<? extends Exception> eClass = e.getClass();
+        if (eClass == IllegalArgumentException.class
+            || eClass == NumberFormatException.class)
+        {
+            code = HTTP_BAD_REQUEST;
+        }
+        if (eClass == NoSuchElementException.class)
+        {
+            code = HTTP_NOT_FOUND;
+        }
+        if (code > 0)
+        {
+            res.status(code);
+            return ErrorGUI.display(useAndResetCode(), e.toString());
+        }
+        return ErrorGUI.displayUnknown();
+    }
 
     public static void main(String[] args)
     {
@@ -61,10 +97,26 @@ public class StartServer
                                           getParamUTF8(params, "userpwd-validation"));
              });
 
-        get("/hidden/teachers", (req, res) -> TeacherGUI.readAll());
+        get("/hidden/teachers", (req, res) -> {
+            try
+            {
+                return TeacherGUI.readAll();
+            } catch (Exception e)
+            {
+                return manageExceptions(e, res);
+            }
+        });
 
         get("/hidden/teachers/:id_teacher",
-            (req, res) -> TeacherGUI.readById(Long.parseLong(req.params(":id_teacher"))));
+            (req, res) -> {
+                try
+                {
+                    return TeacherGUI.readById(Long.parseLong(req.params(":id_teacher")));
+                } catch (Exception e)
+                {
+                    return manageExceptions(e, res);
+                }
+            });
 
         //===============CRUD students===============
         post("/hidden/students", (req, res) -> {
@@ -108,22 +160,7 @@ public class StartServer
                     return StickerGUI.readById(LoginHandler.isLoggedIn(res), Long.parseLong(req.params(":id_sticker")));
                 } catch (Exception e)
                 {
-                    int code = 0;
-                    if (e.getClass() == IllegalArgumentException.class
-                        || e.getClass() == NumberFormatException.class)
-                    {
-                        code = HTTP_BAD_REQUEST;
-                    }
-                    if (e.getClass() == NoSuchElementException.class)
-                    {
-                        code = HTTP_NOT_FOUND;
-                    }
-                    if (code > 0)
-                    {
-                        res.status(code);
-                        return ErrorGUI.display(code, e.toString());
-                    }
-                    return ErrorGUI.displayUnknown();
+                    return manageExceptions(e, res);
                 }
             });
 
