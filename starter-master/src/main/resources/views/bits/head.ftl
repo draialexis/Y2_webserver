@@ -16,6 +16,15 @@
             font-weight: bolder;
             color: darkblue;
         }
+
+        .warning {
+            font-weight: bold;
+            color: darkred;
+        }
+
+        .small {
+            font-size: smaller;
+        }
     </style>
     <title>StickerMania</title>
 </head>

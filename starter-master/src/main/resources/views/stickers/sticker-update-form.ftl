@@ -34,12 +34,17 @@
                 </#list>
             </select>
             <br>
-
+            <p class="warning small">
+                (!): cette gommette serait modifi&eacute;e r&eacute;troactivement dans toutes les attributions
+                existantes
+                <br>avez-vous envisag&eacute; de
+                <a href="/stickers">cr&eacute;er une nouvelle gommette</a>&nbsp;?
+            </p>
             <button type="submit">Modifier</button>
         </form>
     </fieldset>
 <#else>
     <p class="info-msg">
-        ID mal lu, ou absence de COLOR et/ou de DESCRIPTION et/ou de gommettes dans le mod&egrave;le
+        Absence de COLOR et/ou de DESCRIPTION et/ou de gommettes dans le mod&egrave;le
     </p>
 </#if>
