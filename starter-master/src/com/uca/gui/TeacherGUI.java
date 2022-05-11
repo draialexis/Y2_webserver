@@ -3,12 +3,16 @@ package com.uca.gui;
 import com.uca.core.TeacherCore;
 import com.uca.entity.TeacherEntity;
 import com.uca.util.Encryptor;
+import com.uca.util.LoginUtil;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.NoSuchElementException;
 
 import static com.uca.util.IDUtil.isValidId;
 import static com.uca.util.StringUtil.isValidShortString;
@@ -33,8 +37,8 @@ public class TeacherGUI extends _BasicGUI
         }
         else
         {
-            if (userPwd.length() < LoginHandler.UNHASHED_PWD_SIZE_MIN ||
-                userPwd.length() > LoginHandler.UNHASHED_PWD_SIZE_MAX)
+            if (userPwd.length() < LoginUtil.UNHASHED_PWD_SIZE_MIN ||
+                userPwd.length() > LoginUtil.UNHASHED_PWD_SIZE_MAX)
             {
                 infoMsg = InfoMsg.TAILLE_MOTS_DE_PASSE_NON_RESPECTEES;
             }
@@ -55,7 +59,7 @@ public class TeacherGUI extends _BasicGUI
                         teacher.setFirstName(firstName);
                         teacher.setLastName(lastName);
                         teacher.setUserName(userName);
-                        teacher.setUserSalt(Encryptor.generateSalt(LoginHandler.SALT_SIZE));
+                        teacher.setUserSalt(Encryptor.generateSalt(LoginUtil.SALT_SIZE));
                         teacher.setUserPwd(Encryptor.generateSecurePassword(userPwd, teacher.getUserSalt()));
                         infoMsg = TeacherCore.create(teacher) != null
                                   ? InfoMsg.AJOUT_SUCCES

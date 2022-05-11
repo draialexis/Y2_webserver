@@ -12,7 +12,6 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.Objects;
 
 import static com.uca.util.IDUtil.isValidId;
 import static com.uca.util.StringUtil.isValidShortString;

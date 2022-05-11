@@ -1,9 +1,9 @@
-package com.uca.gui;
+package com.uca.util;
 
 import com.uca.core.TeacherCore;
 import com.uca.entity.TeacherEntity;
-import com.uca.util.Encryptor;
-import com.uca.util.JWTLoginUtil;
+import com.uca.gui.InfoMsg;
+import com.uca.gui.LoginGUI;
 import freemarker.template.TemplateException;
 import io.jsonwebtoken.ExpiredJwtException;
 import spark.Request;
@@ -13,7 +13,7 @@ import java.io.IOException;
 
 import static com.uca.util.StringUtil.isValidShortString;
 
-public class LoginHandler
+public class LoginUtil
 {
     private static String pathSaved = null;
     private static String token     = null;
@@ -22,6 +22,25 @@ public class LoginHandler
     public static final int UNHASHED_PWD_SIZE_MAX = 16;
     public static final int UNHASHED_PWD_SIZE_MIN = 4;
     public static final int SALT_SIZE             = 32;
+
+    private static String useAndResetPath()
+    {
+        String out = pathSaved;
+        pathSaved = null;
+        return out;
+    }
+
+    private static void handleTimeout(Response res)
+    {
+        disconnect();
+        res.redirect("/login/timeout");
+    }
+
+    private static void disconnect()
+    {
+        userName = null;
+        token = null;
+    }
 
     public static String getUserName()
     {
@@ -39,7 +58,7 @@ public class LoginHandler
 
         token = JWTLoginUtil.makeToken(userName);
         // if user was redirected here, they are sent back to their original destination -- else, to index
-        res.redirect(pathSaved != null ? pathSaved : "/");
+        res.redirect(pathSaved == null ? "/" : useAndResetPath());
         return null;
     }
 
@@ -47,18 +66,6 @@ public class LoginHandler
     {
         disconnect();
         return LoginGUI.display(InfoMsg.DECONNEXION_SUCCES);
-    }
-
-    public static void handleTimeout(Response res)
-    {
-        disconnect();
-        res.redirect("/login/timeout");
-    }
-
-    public static void disconnect()
-    {
-        userName = null;
-        token = null;
     }
 
     public static boolean authenticate(String userName, String userPwd)

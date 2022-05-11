@@ -2,6 +2,7 @@ package com.uca;
 
 import com.uca.dao._Initializer;
 import com.uca.gui.*;
+import com.uca.util.LoginUtil;
 import freemarker.template.TemplateException;
 import spark.Response;
 
@@ -18,21 +19,15 @@ import static spark.Spark.*;
 
 public class StartServer
 {
-    private static final int PORT      = 8081;
-    private static final int NULL_CODE = 0;
+    private static final int PORT = 8081;
 
-    private static int code = NULL_CODE;
+    private static int code;
 
     private static int useAndResetCode()
     {
         int out = code;
-        nullifyCode();
+        code = 0;
         return out;
-    }
-
-    private static void nullifyCode()
-    {
-        code = NULL_CODE;
     }
 
     private static String manageExceptions(Exception e, Response res) throws TemplateException, IOException
@@ -64,7 +59,7 @@ public class StartServer
 
         _Initializer.Init();
 
-        before("/hidden/*", LoginHandler::ensureUserIsLoggedIn);
+        before("/hidden/*", LoginUtil::ensureUserIsLoggedIn);
 
         internalServerError("<html><body>" +
                             "<h1>500</h1>" +
@@ -80,9 +75,9 @@ public class StartServer
 
         get("/login/redirected", (req, res) -> LoginGUI.display(InfoMsg.AUTHENTIFICATION_NECESSAIRE));
 
-        post("/login", LoginHandler::handleLoginPost);
+        post("/login", LoginUtil::handleLoginPost);
 
-        get("/logout", (req, res) -> LoginHandler.handleLogout());
+        get("/logout", (req, res) -> LoginUtil.handleLogout());
 
         get("/hidden/signup", (req, res) -> SignUpGUI.display());
 
@@ -151,13 +146,13 @@ public class StartServer
 
         });
 
-        get("/stickers", (req, res) -> StickerGUI.readAll(LoginHandler.isLoggedIn(res)));
+        get("/stickers", (req, res) -> StickerGUI.readAll(LoginUtil.isLoggedIn(res)));
 
         get("/stickers/:id_sticker",
             (req, res) -> {
                 try
                 {
-                    return StickerGUI.readById(LoginHandler.isLoggedIn(res), Long.parseLong(req.params(":id_sticker")));
+                    return StickerGUI.readById(LoginUtil.isLoggedIn(res), Long.parseLong(req.params(":id_sticker")));
                 } catch (Exception e)
                 {
                     return manageExceptions(e, res);
@@ -180,19 +175,19 @@ public class StartServer
             HashMap<String, String> params = getParamFromReqBody(req.body());
             return AwardGUI.create(
                     getParamUTF8(params, "motive"),
-                    LoginHandler.getUserName(),
+                    LoginUtil.getUserName(),
                     Long.parseLong(getParamUTF8(params, "student-id")),
                     Long.parseLong(getParamUTF8(params, "sticker-id")));
         });
 
-        get("/awards", (req, res) -> AwardGUI.readAll(LoginHandler.isLoggedIn(res)));
+        get("/awards", (req, res) -> AwardGUI.readAll(LoginUtil.isLoggedIn(res)));
 
         get("/awards/student/:id_student",
-            (req, res) -> AwardGUI.readByStudentId(LoginHandler.isLoggedIn(res),
+            (req, res) -> AwardGUI.readByStudentId(LoginUtil.isLoggedIn(res),
                                                    Long.parseLong(req.params(":id_student"))));
 
         get("/awards/id/:id_award",
-            (req, res) -> AwardGUI.readById(LoginHandler.isLoggedIn(res), Long.parseLong(req.params(":id_award"))));
+            (req, res) -> AwardGUI.readById(LoginUtil.isLoggedIn(res), Long.parseLong(req.params(":id_award"))));
 
         post("/hidden/awards/delete/:id_award",
              (req, res) -> AwardGUI.deleteById(Long.parseLong(req.params(":id_award"))));
