@@ -47,7 +47,7 @@ public class StickerGUI extends _BasicGUI
         return readAll(true);
     }
 
-    public static String readAll(boolean isAuthorized) throws IOException, TemplateException
+    public static String readAll(boolean isAuthorized) throws IOException, TemplateException, NoSuchElementException
     {
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("stickers/stickers.ftl");

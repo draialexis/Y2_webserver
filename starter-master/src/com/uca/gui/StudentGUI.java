@@ -69,7 +69,7 @@ public class StudentGUI extends _BasicGUI
     }
 
     public static String update(long id, String firstName, String lastName)
-            throws IOException, TemplateException, IllegalArgumentException
+            throws IOException, TemplateException
     {
         if (!isValidId(id))
         {

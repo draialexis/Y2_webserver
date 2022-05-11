@@ -70,11 +70,6 @@ public class StartServer
 
         before("/hidden/*", LoginUtil::ensureUserIsLoggedIn);
 
-        internalServerError("<html><body>" +
-                            "<h1>500</h1>" +
-                            "<h2>Uh oh... erreur interne du serveur, cela ne devrait pas arriver</h2>" +
-                            "</body></html>");
-
         //===============Auth & Index===============
         get("/", (req, res) -> IndexGUI.display());
 

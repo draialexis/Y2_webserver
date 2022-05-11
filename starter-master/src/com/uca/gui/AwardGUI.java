@@ -55,7 +55,7 @@ public class AwardGUI extends _BasicGUI
     }
 
     /**
-     * displays several or all awards, depending on {@code studentId}
+     * displays several - or all - awards, depending on {@code studentId}
      *
      * @param isAuthorized whether the user is authorized to access the resource
      * @param studentId    a student id (will trigger a reading <em>by student</em> if > 0)
@@ -108,19 +108,20 @@ public class AwardGUI extends _BasicGUI
     }
 
     public static String readByStudentId(boolean isAuthorized, long studentId)
-            throws IOException, TemplateException
+            throws IOException, TemplateException, NoSuchElementException, IllegalArgumentException
     {
         isByStudent = true;
         return readMany(isAuthorized, studentId);
     }
 
-    public static String readAll(boolean isAuthorized) throws IOException, TemplateException
+    public static String readAll(boolean isAuthorized) throws IOException, TemplateException, NoSuchElementException
     {
         isByStudent = false;
         return readMany(isAuthorized, 0);
     }
 
-    public static String readById(boolean isAuthorized, long id) throws IOException, TemplateException
+    public static String readById(boolean isAuthorized, long id)
+            throws IOException, TemplateException, IllegalArgumentException, NoSuchElementException
     {
         if (!isValidId(id))
         {
