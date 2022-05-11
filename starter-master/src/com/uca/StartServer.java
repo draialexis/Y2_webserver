@@ -6,15 +6,16 @@ import com.uca.util.LoginUtil;
 import freemarker.template.TemplateException;
 import spark.Response;
 
+import javax.naming.OperationNotSupportedException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
 import static com.uca.util.RequestUtil.getParamFromReqBody;
 import static com.uca.util.RequestUtil.getParamUTF8;
-import static java.net.HttpURLConnection.HTTP_BAD_REQUEST;
-import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
+import static java.net.HttpURLConnection.*;
 import static spark.Spark.*;
 
 public class StartServer
@@ -42,6 +43,14 @@ public class StartServer
         if (eClass == NoSuchElementException.class)
         {
             code = HTTP_NOT_FOUND;
+        }
+        if (eClass == OperationNotSupportedException.class)
+        {
+            code = HTTP_BAD_METHOD;
+        }
+        if (eClass == SQLException.class)
+        {
+            code = HTTP_INTERNAL_ERROR;
         }
         if (code > 0)
         {
@@ -121,10 +130,26 @@ public class StartServer
 
         });
 
-        get("/hidden/students", (req, res) -> StudentGUI.readAll());
+        get("/hidden/students", (req, res) -> {
+            try
+            {
+                return StudentGUI.readAll();
+            } catch (Exception e)
+            {
+                return manageExceptions(e, res);
+            }
+        });
 
         get("/hidden/students/:id_student",
-            (req, res) -> StudentGUI.readById(Long.parseLong(req.params(":id_student"))));
+            (req, res) -> {
+                try
+                {
+                    return StudentGUI.readById(Long.parseLong(req.params(":id_student")));
+                } catch (Exception e)
+                {
+                    return manageExceptions(e, res);
+                }
+            });
 
         post("/hidden/students/:id_student",
              (req, res) -> {
@@ -138,6 +163,13 @@ public class StartServer
         post("/hidden/students/delete/:id_student",
              (req, res) -> StudentGUI.deleteById(Long.parseLong(req.params(":id_student"))));
 
+        // NOT ALLOWED
+        get("/hidden/students/delete/:id_student",
+            (req, res) -> manageExceptions(
+                    new OperationNotSupportedException(InfoMsg.INADEQUATE_HTTP_VERB.name()),
+                    res)
+        );
+
         //===============CRUD stickers===============
         post("/hidden/stickers", (req, res) -> {
             HashMap<String, String> params = getParamFromReqBody(req.body());
@@ -146,7 +178,22 @@ public class StartServer
 
         });
 
-        get("/stickers", (req, res) -> StickerGUI.readAll(LoginUtil.isLoggedIn(res)));
+        // NOT SUPPORTED
+        get("/hidden/stickers",
+            (req, res) -> manageExceptions(
+                    new OperationNotSupportedException(InfoMsg.WRONG_URL__NOT_HIDDEN.name()),
+                    res)
+        );
+
+        get("/stickers", (req, res) -> {
+            try
+            {
+                return StickerGUI.readAll(LoginUtil.isLoggedIn(res));
+            } catch (Exception e)
+            {
+                return manageExceptions(e, res);
+            }
+        });
 
         get("/stickers/:id_sticker",
             (req, res) -> {
@@ -170,6 +217,13 @@ public class StartServer
         post("/hidden/stickers/delete/:id_sticker",
              (req, res) -> StickerGUI.deleteById(Long.parseLong(req.params(":id_sticker"))));
 
+        // NOT ALLOWED
+        get("/hidden/stickers/delete/:id_sticker",
+            (req, res) -> manageExceptions(
+                    new OperationNotSupportedException(InfoMsg.INADEQUATE_HTTP_VERB.name()),
+                    res)
+        );
+
         //===============CR*D awards===============
         post("/hidden/awards", (req, res) -> {
             HashMap<String, String> params = getParamFromReqBody(req.body());
@@ -180,16 +234,54 @@ public class StartServer
                     Long.parseLong(getParamUTF8(params, "sticker-id")));
         });
 
-        get("/awards", (req, res) -> AwardGUI.readAll(LoginUtil.isLoggedIn(res)));
+        // NOT SUPPORTED
+        get("/hidden/awards",
+            (req, res) -> manageExceptions(
+                    new OperationNotSupportedException(InfoMsg.WRONG_URL__NOT_HIDDEN.name()),
+                    res)
+        );
+
+        get("/awards", (req, res) -> {
+            try
+            {
+                return AwardGUI.readAll(LoginUtil.isLoggedIn(res));
+            } catch (Exception e)
+            {
+                return manageExceptions(e, res);
+            }
+        });
 
         get("/awards/student/:id_student",
-            (req, res) -> AwardGUI.readByStudentId(LoginUtil.isLoggedIn(res),
-                                                   Long.parseLong(req.params(":id_student"))));
+            (req, res) -> {
+                try
+                {
+                    return AwardGUI.readByStudentId(LoginUtil.isLoggedIn(res),
+                                                    Long.parseLong(req.params(":id_student")));
+                } catch (Exception e)
+                {
+                    return manageExceptions(e, res);
+                }
+            });
 
         get("/awards/id/:id_award",
-            (req, res) -> AwardGUI.readById(LoginUtil.isLoggedIn(res), Long.parseLong(req.params(":id_award"))));
+            (req, res) -> {
+                try
+                {
+                    return AwardGUI.readById(LoginUtil.isLoggedIn(res), Long.parseLong(req.params(":id_award")));
+                } catch (Exception e)
+                {
+                    return manageExceptions(e, res);
+                }
+            });
 
         post("/hidden/awards/delete/:id_award",
              (req, res) -> AwardGUI.deleteById(Long.parseLong(req.params(":id_award"))));
+
+        // NOT ALLOWED
+        get("/hidden/awards/delete/:id_award",
+            (req, res) -> manageExceptions(
+                    new OperationNotSupportedException(InfoMsg.INADEQUATE_HTTP_VERB.name()),
+                    res)
+        );
     }
 }

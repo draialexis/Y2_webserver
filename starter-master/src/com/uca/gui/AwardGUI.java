@@ -5,14 +5,19 @@ import com.uca.core.StickerCore;
 import com.uca.core.StudentCore;
 import com.uca.core.TeacherCore;
 import com.uca.entity.AwardEntity;
+import com.uca.entity.StickerEntity;
+import com.uca.entity.StudentEntity;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.sql.Date;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import static com.uca.util.IDUtil.isValidId;
 import static com.uca.util.StringUtil.isValidShortString;
@@ -55,11 +60,9 @@ public class AwardGUI extends _BasicGUI
      * @param isAuthorized whether the user is authorized to access the resource
      * @param studentId    a student id (will trigger a reading <em>by student</em> if > 0)
      * @return a view that displays said awards
-     * @throws IOException
-     * @throws TemplateException
      */
     private static String readMany(boolean isAuthorized, long studentId)
-            throws IOException, TemplateException
+            throws IOException, TemplateException, NoSuchElementException, IllegalArgumentException
     {
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("awards/awards.ftl");
@@ -73,19 +76,32 @@ public class AwardGUI extends _BasicGUI
         {
             if (!isValidId(studentId))
             {
-                infoMsg = InfoMsg.ID_INVALIDE;
-                isByStudent = false;
-                return readMany(isAuthorized, studentId);
+                throw new IllegalArgumentException(InfoMsg.ID_INVALIDE.name());
             }
             else
             {
-                input.put("awards", AwardCore.readByStudentId(studentId));
+                ArrayList<AwardEntity> awards = AwardCore.readByStudentId(studentId);
+                if (awards.isEmpty())
+                {
+                    throw new NoSuchElementException(InfoMsg.RESSOURCE_N_EXISTE_PAS.name());
+                }
+                input.put("awards", awards);
             }
         }
         if (isAuthorized)
         {
-            input.put("students", StudentCore.readAll());
-            input.put("stickers", StickerCore.readAll());
+            ArrayList<StudentEntity> students = StudentCore.readAll();
+            if (students.isEmpty())
+            {
+                throw new NoSuchElementException(InfoMsg.RESSOURCE_N_EXISTE_PAS.name());
+            }
+            input.put("students", students);
+            ArrayList<StickerEntity> stickers = StickerCore.readAll();
+            if (stickers.isEmpty())
+            {
+                throw new NoSuchElementException(InfoMsg.RESSOURCE_N_EXISTE_PAS.name());
+            }
+            input.put("stickers", stickers);
         }
         input.put("isAuthorized", isAuthorized);
         return render(template, input, new StringWriter());
@@ -108,11 +124,18 @@ public class AwardGUI extends _BasicGUI
     {
         if (!isValidId(id))
         {
-            infoMsg = InfoMsg.ID_INVALIDE;
+            throw new IllegalArgumentException(InfoMsg.ID_INVALIDE.name());
         }
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("awards/award.ftl");
-        input.put("award", AwardCore.readById(id));
+
+        AwardEntity award = AwardCore.readById(id);
+
+        if (award == null)
+        {
+            throw new NoSuchElementException(InfoMsg.RESSOURCE_N_EXISTE_PAS.name());
+        }
+        input.put("award", award);
         input.put("isAuthorized", isAuthorized);
         return render(template, input, new StringWriter());
     }

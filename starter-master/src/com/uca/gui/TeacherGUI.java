@@ -72,11 +72,12 @@ public class TeacherGUI extends _BasicGUI
     }
 
     //TODO test this again
-    public static String readAll() throws IOException, TemplateException
+    public static String readAll()
+            throws IOException, TemplateException, NoSuchElementException
     {
         Map<String, Object>      input    = new HashMap<>();
         Template                 template = _FreeMarkerInitializer.getContext().getTemplate("teachers/teachers.ftl");
-        ArrayList<TeacherEntity> teachers = TeacherCore.readAll();
+        ArrayList<TeacherEntity>  teachers = TeacherCore.readAll();
         if (teachers.isEmpty())
         {
             throw new NoSuchElementException(InfoMsg.PAS_D_ENSEIGNANTS_CONTACTEZ_ADMIN.name());
@@ -85,7 +86,8 @@ public class TeacherGUI extends _BasicGUI
         return render(template, input, new StringWriter());
     }
 
-    public static String readById(long id) throws IOException, TemplateException
+    public static String readById(long id)
+            throws IOException, TemplateException, NoSuchElementException, IllegalArgumentException
     {
         if (!isValidId(id))
         {

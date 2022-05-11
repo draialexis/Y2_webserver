@@ -7,8 +7,10 @@ import freemarker.template.TemplateException;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import static com.uca.util.IDUtil.isValidId;
 import static com.uca.util.StringUtil.isValidShortString;
@@ -33,29 +35,41 @@ public class StudentGUI extends _BasicGUI
         return readAll();
     }
 
-    public static String readAll() throws IOException, TemplateException
+    public static String readAll() throws IOException, TemplateException, NoSuchElementException
     {
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("students/students.ftl");
 
-        input.put("students", StudentCore.readAll());
+        ArrayList<StudentEntity> students = StudentCore.readAll();
+        if (students.isEmpty())
+        {
+            throw new NoSuchElementException(InfoMsg.RESSOURCE_N_EXISTE_PAS.name());
+        }
+        input.put("students", students);
         return render(template, input, new StringWriter());
     }
 
-    public static String readById(long id) throws IOException, TemplateException
+    public static String readById(long id)
+            throws IOException, TemplateException, IllegalArgumentException, NoSuchElementException
     {
         if (!isValidId(id))
         {
-            infoMsg = InfoMsg.ID_INVALIDE;
+            throw new IllegalArgumentException(InfoMsg.ID_INVALIDE.name());
         }
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("students/student.ftl");
-        input.put("student", StudentCore.readById(id));
+
+        ArrayList<StudentEntity> students = StudentCore.readAll();
+        if (students.isEmpty())
+        {
+            throw new NoSuchElementException(InfoMsg.RESSOURCE_N_EXISTE_PAS.name());
+        }
+        input.put("students", students);
         return render(template, input, new StringWriter());
     }
 
     public static String update(long id, String firstName, String lastName)
-            throws IOException, TemplateException
+            throws IOException, TemplateException, IllegalArgumentException
     {
         if (!isValidId(id))
         {
