@@ -9,9 +9,10 @@ import freemarker.template.TemplateException;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 
 import static com.uca.util.IDUtil.isValidId;
 import static com.uca.util.StringUtil.isValidString;
@@ -60,20 +61,26 @@ public class StickerGUI extends _BasicGUI
 
     public static String readById(boolean isAuthorized, long id) throws IOException, TemplateException
     {
+        if (!isValidId(id))
+        {
+            throw new IllegalArgumentException(InfoMsg.ID_INVALIDE.name());
+        }
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("stickers/sticker.ftl");
 
-        if (!isValidId(id))
+        StickerEntity sticker = StickerCore.readById(id);
+
+        if (Objects.isNull(sticker))
         {
-            infoMsg = InfoMsg.ID_INVALIDE;
+            throw new NoSuchElementException(InfoMsg.RESSOURCE_N_EXISTE_PAS.name());
         }
-        else
+
+        input.put("sticker", sticker);
+        if (isAuthorized)
         {
-            input.put("sticker", StickerCore.readById(id));
+            input.put("colors", Color.values());
+            input.put("descriptions", Description.values());
         }
-        input.put("colors", Color.values());
-        input.put("descriptions", Description.values());
-        input.put("stickers", StickerCore.readAll());
         input.put("isAuthorized", isAuthorized);
         return render(template, input, new StringWriter());
     }
@@ -90,7 +97,6 @@ public class StickerGUI extends _BasicGUI
             if (!isValidId(id))
             {
                 infoMsg = InfoMsg.ID_INVALIDE;
-                return readAll(true);
             }
             else
             {
@@ -104,7 +110,6 @@ public class StickerGUI extends _BasicGUI
         }
         // we assume that the user was only able to access this function because it was authorized
         return readById(true, id);
-
     }
 
     public static String deleteById(long id) throws TemplateException, IOException

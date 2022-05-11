@@ -11,6 +11,7 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.uca.util.IDUtil.isValidId;
 import static com.uca.util.StringUtil.isValidString;
 
 public class TeacherGUI extends _BasicGUI
@@ -78,9 +79,12 @@ public class TeacherGUI extends _BasicGUI
 
     public static String readById(long id) throws IOException, TemplateException
     {
+        if (!isValidId(id))
+        {
+            infoMsg = InfoMsg.ID_INVALIDE;
+        }
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("teachers/teacher.ftl");
-
         input.put("teacher", TeacherCore.readById(id));
         return render(template, input, new StringWriter());
     }

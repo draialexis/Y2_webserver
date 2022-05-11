@@ -4,9 +4,12 @@ import com.uca.dao._Initializer;
 import com.uca.gui.*;
 
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 
 import static com.uca.util.RequestUtil.getParamFromReqBody;
 import static com.uca.util.RequestUtil.getParamUTF8;
+import static java.net.HttpURLConnection.HTTP_BAD_REQUEST;
+import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static spark.Spark.*;
 
 public class StartServer
@@ -22,6 +25,11 @@ public class StartServer
         _Initializer.Init();
 
         before("/hidden/*", LoginHandler::ensureUserIsLoggedIn);
+
+        internalServerError("<html><body>" +
+                            "<h1>500</h1>" +
+                            "<h2>Uh oh... erreur interne du serveur, cela ne devrait pas arriver</h2>" +
+                            "</body></html>");
 
         //===============Auth & Index===============
         get("/", (req, res) -> IndexGUI.display());
@@ -90,7 +98,30 @@ public class StartServer
         get("/stickers", (req, res) -> StickerGUI.readAll(LoginHandler.isLoggedIn(res)));
 
         get("/stickers/:id_sticker",
-            (req, res) -> StickerGUI.readById(LoginHandler.isLoggedIn(res), Long.parseLong(req.params(":id_sticker"))));
+            (req, res) -> {
+                try
+                {
+                    return StickerGUI.readById(LoginHandler.isLoggedIn(res), Long.parseLong(req.params(":id_sticker")));
+                } catch (Exception e)
+                {
+                    int code = 0;
+                    if (e.getClass() == IllegalArgumentException.class
+                        || e.getClass() == NumberFormatException.class)
+                    {
+                        code = HTTP_BAD_REQUEST;
+                    }
+                    if (e.getClass() == NoSuchElementException.class)
+                    {
+                        code = HTTP_NOT_FOUND;
+                    }
+                    if (code > 0)
+                    {
+                        res.status(code);
+                        return ErrorGUI.display(code, e.toString());
+                    }
+                    return ErrorGUI.displayUnknown();
+                }
+            });
 
         post("/hidden/stickers/:id_sticker",
              (req, res) -> {
