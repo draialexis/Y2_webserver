@@ -14,6 +14,7 @@
                 </#list>
             </select>
             <br>
+
             <label for="sticker-id">gommette</label>
             <br>
             <select name="sticker-id" id="sticker-id" required>
@@ -26,10 +27,12 @@
                 </#list>
             </select>
             <br>
+
             <label for="motive">motif</label>
             <br>
             <textarea name="motive" id="motive" cols="30" rows="10"></textarea>
             <br>
+
             <button type="submit">Enregistrer</button>
         </form>
     </fieldset>

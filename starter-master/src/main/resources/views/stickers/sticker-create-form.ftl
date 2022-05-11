@@ -12,6 +12,8 @@
                     </option>
                 </#list>
             </select>
+            <br>
+
             <label for="description">description</label>
             <br>
             <select name="description" id="description" required>
@@ -22,6 +24,7 @@
                 </#list>
             </select>
             <br>
+
             <button type="submit">Enregistrer</button>
         </form>
     </fieldset>

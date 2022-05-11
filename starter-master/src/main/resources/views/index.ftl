@@ -5,6 +5,7 @@
 <body xmlns="http://www.w3.org/1999/html">
 
 <#include "bits/navbar.ftl">
+<#include "bits/status.ftl">
 
 </body>
 

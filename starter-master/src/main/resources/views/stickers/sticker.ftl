@@ -4,6 +4,7 @@
 <#include "../bits/head.ftl">
 <body xmlns="http://www.w3.org/1999/html">
 <#include "../bits/navbar.ftl">
+<#include "../bits/status.ftl">
 
 <#if isAuthorized>
     <#include "sticker-update-form.ftl">
@@ -17,8 +18,6 @@
             <button type="submit">Supprimer</button>
         </form>
     </#if>
-<#else>
-    <p class="info-msg">ID mal lu ou absence de la ressource</p>
 </#if>
 
 </body>

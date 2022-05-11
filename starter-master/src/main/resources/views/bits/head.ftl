@@ -1,4 +1,4 @@
 <head>
-    <#include "style.html">
+    <link rel="stylesheet" href="css/style.css">
     <title>StickerMania</title>
 </head>

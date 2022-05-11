@@ -8,11 +8,13 @@
             <input type="text" id="lastname" name="lastname" maxlength="50"
                    value="${student.getLastName()}" required>
             <br>
+
             <label for="firstname">pr&eacute;nom</label>
             <br>
             <input type="text" id="firstname" name="firstname" maxlength="50"
                    value="${student.getFirstName()}" required>
             <br>
+
             <button type="submit">Modifier</button>
         </form>
     </fieldset>
