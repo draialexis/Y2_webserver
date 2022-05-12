@@ -294,3 +294,4 @@ public class StartServer
         );
     }
 }
+// TODO STOP SHOWING 404 when a table is just empty, if the address is valid the address is valid
