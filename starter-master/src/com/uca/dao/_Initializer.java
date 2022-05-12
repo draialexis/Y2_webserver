@@ -1,11 +1,13 @@
 package com.uca.dao;
 
+import com.uca.StartServer;
 import com.uca.core.AwardCore;
 import com.uca.core.StickerCore;
 import com.uca.core.StudentCore;
 import com.uca.core.TeacherCore;
 import com.uca.entity.Color;
 import com.uca.entity.Description;
+import com.uca.util.PropertiesReader;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -146,21 +148,12 @@ public class _Initializer
             statement.setDate(14, getSQLDateRelativeToToday(-7));
             statement.setString(15, "a aid&eacute; un camarade &agrave; faire tourner Gradle sur son poste");
             statement.executeUpdate();
-            //TODO remove
-            System.out.println("teachers");
-            System.out.println(TeacherCore.readAll());
-            System.out.println("stickers");
-            System.out.println(StickerCore.readAll());
-            System.out.println("students");
-            System.out.println(StudentCore.readAll());
-            System.out.println("awards");
-            System.out.println(AwardCore.readAll());
-            System.out.println(AwardCore.readById(1));
-            System.out.println(AwardCore.readById(2));
-            System.out.println(AwardCore.readById(3));
-            System.out.println(AwardCore.readByStudentId(1));
-            System.out.println(AwardCore.readByStudentId(2));
-            System.out.println(AwardCore.readByStudentId(3));
+
+            System.out.println("~~~~~~~~~~" +
+                               "\nHello! Please open a browser at: " +
+                               "\nlocalhost:" + Integer.parseInt(new PropertiesReader().getProperty("port")) +
+                               "\n~~~~~~~~~~");
+
         } catch (Exception e)
         {
             e.printStackTrace();

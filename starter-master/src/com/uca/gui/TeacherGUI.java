@@ -71,7 +71,6 @@ public class TeacherGUI extends _BasicGUI
         return readAll();
     }
 
-    //TODO test this again
     public static String readAll()
             throws IOException, TemplateException, NoSuchElementException
     {

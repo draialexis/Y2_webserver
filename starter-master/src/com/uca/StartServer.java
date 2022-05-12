@@ -3,6 +3,7 @@ package com.uca;
 import com.uca.dao._Initializer;
 import com.uca.gui.*;
 import com.uca.util.LoginUtil;
+import com.uca.util.PropertiesReader;
 import freemarker.template.TemplateException;
 import spark.Response;
 
@@ -20,7 +21,20 @@ import static spark.Spark.*;
 
 public class StartServer
 {
-    private static final int PORT = 8081;
+
+    private static final int portInUse;
+
+    static
+    {
+        try
+        {
+            portInUse = Integer.parseInt(new PropertiesReader().getProperty("port"));
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException("could not read port number in configs");
+        }
+    }
 
     private static int code;
 
@@ -64,7 +78,7 @@ public class StartServer
     {
         //Configure Spark
         staticFiles.location("/static/");
-        port(PORT);
+        port(portInUse);
 
         _Initializer.Init();
 
