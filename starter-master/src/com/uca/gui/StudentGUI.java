@@ -59,12 +59,12 @@ public class StudentGUI extends _BasicGUI
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("students/student.ftl");
 
-        ArrayList<StudentEntity> students = StudentCore.readAll();
-        if (students.isEmpty())
+        StudentEntity student = StudentCore.readById(id);
+        if (student == null)
         {
             throw new NoSuchElementException(InfoMsg.RESSOURCE_N_EXISTE_PAS.name());
         }
-        input.put("students", students);
+        input.put("student", student);
         return render(template, input, new StringWriter());
     }
 
