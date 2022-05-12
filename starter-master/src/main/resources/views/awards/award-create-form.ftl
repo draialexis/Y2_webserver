@@ -30,7 +30,7 @@
 
             <label for="motive">motif</label>
             <br>
-            <textarea name="motive" id="motive" cols="30" rows="10"></textarea>
+            <textarea name="motive" id="motive" cols="30" rows="10" required></textarea>
             <br>
 
             <button type="submit">Enregistrer</button>
