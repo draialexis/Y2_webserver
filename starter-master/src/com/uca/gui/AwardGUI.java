@@ -5,15 +5,12 @@ import com.uca.core.StickerCore;
 import com.uca.core.StudentCore;
 import com.uca.core.TeacherCore;
 import com.uca.entity.AwardEntity;
-import com.uca.entity.StickerEntity;
-import com.uca.entity.StudentEntity;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -27,11 +24,11 @@ public class AwardGUI extends _BasicGUI
     private static boolean isByStudent;
 
     public static String create(String motive, String teacherUserName, long studentId, long stickerId)
-            throws IOException, TemplateException
+            throws IOException, TemplateException, IllegalArgumentException
     {
         if (!isValidId(stickerId) || !isValidId(studentId))
         {
-            infoMsg = InfoMsg.ID_INVALIDE;
+            throw new IllegalArgumentException(InfoMsg.ID_INVALIDE.name());
         }
         else
         {
@@ -79,28 +76,13 @@ public class AwardGUI extends _BasicGUI
             }
             else
             {
-                ArrayList<AwardEntity> awards = AwardCore.readByStudentId(studentId);
-                if (awards.isEmpty())
-                {
-                    throw new NoSuchElementException(InfoMsg.RESSOURCE_N_EXISTE_PAS.name());
-                }
-                input.put("awards", awards);
+                input.put("awards", AwardCore.readByStudentId(studentId));
             }
         }
         if (isAuthorized)
         {
-            ArrayList<StudentEntity> students = StudentCore.readAll();
-            if (students.isEmpty())
-            {
-                throw new NoSuchElementException(InfoMsg.RESSOURCE_N_EXISTE_PAS.name());
-            }
-            input.put("students", students);
-            ArrayList<StickerEntity> stickers = StickerCore.readAll();
-            if (stickers.isEmpty())
-            {
-                throw new NoSuchElementException(InfoMsg.RESSOURCE_N_EXISTE_PAS.name());
-            }
-            input.put("stickers", stickers);
+            input.put("students", StudentCore.readAll());
+            input.put("stickers", StickerCore.readAll());
         }
         input.put("isAuthorized", isAuthorized);
         return render(template, input, new StringWriter());

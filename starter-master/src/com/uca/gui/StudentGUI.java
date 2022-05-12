@@ -7,7 +7,6 @@ import freemarker.template.TemplateException;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -40,12 +39,7 @@ public class StudentGUI extends _BasicGUI
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("students/students.ftl");
 
-        ArrayList<StudentEntity> students = StudentCore.readAll();
-        if (students.isEmpty())
-        {
-            throw new NoSuchElementException(InfoMsg.RESSOURCE_N_EXISTE_PAS.name());
-        }
-        input.put("students", students);
+        input.put("students", StudentCore.readAll());
         return render(template, input, new StringWriter());
     }
 
@@ -73,7 +67,7 @@ public class StudentGUI extends _BasicGUI
     {
         if (!isValidId(id))
         {
-            infoMsg = InfoMsg.ID_INVALIDE;
+            throw new IllegalArgumentException(InfoMsg.ID_INVALIDE.name());
         }
         else
         {

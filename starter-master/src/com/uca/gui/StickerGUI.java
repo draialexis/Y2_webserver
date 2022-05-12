@@ -9,7 +9,6 @@ import freemarker.template.TemplateException;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -47,17 +46,12 @@ public class StickerGUI extends _BasicGUI
         return readAll(true);
     }
 
-    public static String readAll(boolean isAuthorized) throws IOException, TemplateException, NoSuchElementException
+    public static String readAll(boolean isAuthorized) throws IOException, TemplateException
     {
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("stickers/stickers.ftl");
 
-        ArrayList<StickerEntity> stickers = StickerCore.readAll();
-        if (stickers.isEmpty())
-        {
-            throw new NoSuchElementException(InfoMsg.RESSOURCE_N_EXISTE_PAS.name());
-        }
-        input.put("stickers", stickers);
+        input.put("stickers", StickerCore.readAll());
         input.put("colors", Color.values());
         input.put("descriptions", Description.values());
         input.put("isAuthorized", isAuthorized);
@@ -102,7 +96,7 @@ public class StickerGUI extends _BasicGUI
         {
             if (!isValidId(id))
             {
-                infoMsg = InfoMsg.ID_INVALIDE;
+                throw new IllegalArgumentException(InfoMsg.ID_INVALIDE.name());
             }
             else
             {
