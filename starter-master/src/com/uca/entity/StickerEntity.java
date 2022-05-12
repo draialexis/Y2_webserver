@@ -4,8 +4,7 @@ import com.uca.util.IDUtil;
 
 import java.util.Objects;
 
-//final because we overrode equals() and hash()
-public final class StickerEntity
+public class StickerEntity
 {
     private long        id;
     private Color       color;
@@ -50,21 +49,6 @@ public final class StickerEntity
     public void setDescription(Description description)
     {
         this.description = description;
-    }
-
-    @Override
-    public int hashCode()
-    {
-        return Objects.hash(this.color, this.description);
-    }
-
-    @Override
-    public boolean equals(Object o)
-    {
-        if (this == o) return true;
-        if (o == null || this.getClass() != o.getClass()) return false;
-        StickerEntity that = (StickerEntity) o;
-        return this.color == that.color && this.description == that.description;
     }
 
     @Override
