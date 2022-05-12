@@ -3,7 +3,6 @@ package com.uca.gui;
 import com.uca.core.TeacherCore;
 import com.uca.entity.TeacherEntity;
 import com.uca.util.Encryptor;
-import com.uca.util.LoginUtil;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -19,6 +18,10 @@ import static com.uca.util.StringUtil.isValidShortString;
 
 public class TeacherGUI extends _BasicGUI
 {
+    private static final int UNHASHED_PWD_SIZE_MAX = 16;
+    private static final int UNHASHED_PWD_SIZE_MIN = 4;
+    private static final int SALT_SIZE             = 32;
+
     public static String create(String firstName,
                                 String lastName,
                                 String userName,
@@ -37,8 +40,8 @@ public class TeacherGUI extends _BasicGUI
         }
         else
         {
-            if (userPwd.length() < LoginUtil.UNHASHED_PWD_SIZE_MIN ||
-                userPwd.length() > LoginUtil.UNHASHED_PWD_SIZE_MAX)
+            if (userPwd.length() < UNHASHED_PWD_SIZE_MIN ||
+                userPwd.length() > UNHASHED_PWD_SIZE_MAX)
             {
                 infoMsg = InfoMsg.TAILLE_MOTS_DE_PASSE_NON_RESPECTEES;
             }
@@ -59,7 +62,7 @@ public class TeacherGUI extends _BasicGUI
                         teacher.setFirstName(firstName);
                         teacher.setLastName(lastName);
                         teacher.setUserName(userName);
-                        teacher.setUserSalt(Encryptor.generateSalt(LoginUtil.SALT_SIZE));
+                        teacher.setUserSalt(Encryptor.generateSalt(SALT_SIZE));
                         teacher.setUserPwd(Encryptor.generateSecurePassword(userPwd, teacher.getUserSalt()));
                         infoMsg = TeacherCore.create(teacher) != null
                                   ? InfoMsg.AJOUT_SUCCES
@@ -76,12 +79,12 @@ public class TeacherGUI extends _BasicGUI
     {
         Map<String, Object>      input    = new HashMap<>();
         Template                 template = _FreeMarkerInitializer.getContext().getTemplate("teachers/teachers.ftl");
-        ArrayList<TeacherEntity>  teachers = TeacherCore.readAll();
+        ArrayList<TeacherEntity> teachers = TeacherCore.readAll();
         if (teachers.isEmpty())
         {
             throw new NoSuchElementException(InfoMsg.PAS_D_ENSEIGNANTS_CONTACTEZ_ADMIN.name());
         }
-        input.put("teachers", TeacherCore.readAll());
+        input.put("teachers", teachers);
         return render(template, input, new StringWriter());
     }
 

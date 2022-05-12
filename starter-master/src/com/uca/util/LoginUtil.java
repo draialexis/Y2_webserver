@@ -15,60 +15,77 @@ import static com.uca.util.StringUtil.isValidShortString;
 
 public class LoginUtil
 {
-    private static String pathSaved;
-    private static String token;
-    private static String userName;
+    public static final  int SEC_IN_MIN     = 60;
+    public static final  int SEC_IN_HOUR    = SEC_IN_MIN * 60;
+    private static final int COOKIE_MAX_AGE = SEC_IN_HOUR;
 
-    public static final int UNHASHED_PWD_SIZE_MAX = 16;
-    public static final int UNHASHED_PWD_SIZE_MIN = 4;
-    public static final int SALT_SIZE             = 32;
-
-    private static String useAndResetPath()
+    private static String getSavedPath(Request req)
     {
-        String out = pathSaved;
-        pathSaved = null;
-        return out;
+        return req.cookie("saved-path");
     }
 
-    private static void handleTimeout(Response res)
+    private static void setSavedPath(Response res, String savedPath)
     {
-        disconnect();
+        res.cookie("saved-path", savedPath, COOKIE_MAX_AGE);
+    }
+
+    private static String getToken(Request req)
+    {
+        return req.cookie("token");
+    }
+
+    private static void setToken(Response res, String token)
+    {
+        res.cookie("token", token, COOKIE_MAX_AGE);
+    }
+
+    public static String getUserName(Request req)
+    {
+        return req.cookie("username");
+    }
+
+    private static void setUserName(Response res, String userName)
+    {
+        res.cookie("username", userName, COOKIE_MAX_AGE);
+    }
+
+    private static void disconnect(Response res)
+    {
+        res.removeCookie("username");
+        res.removeCookie("token");
+        res.removeCookie("saved-path");
+    }
+
+    private static void handleTimeout(Request req, Response res)
+    {
+        disconnect(res);
+        setSavedPath(res, req.pathInfo());
         res.redirect("/login/timeout");
     }
 
-    private static void disconnect()
+    public static String handleLogout(Response res) throws TemplateException, IOException
     {
-        userName = null;
-        token = null;
-    }
-
-    public static String getUserName()
-    {
-        return userName;
+        disconnect(res);
+        return LoginGUI.display(InfoMsg.DECONNEXION_SUCCES);
     }
 
     public static String handleLoginPost(Request req, Response res) throws TemplateException, IOException
     {
-        userName = req.queryParams("username");
+        String savedPath = getSavedPath(req);
+        String userName = req.queryParams("username");
         if (!authenticate(userName, req.queryParams("userpwd")))
         {
-            userName = null;
             return LoginGUI.display(InfoMsg.ECHEC_AUTHENTIFICATION);
         }
 
-        token = JWTLoginUtil.makeToken(userName);
+        setToken(res, JWTLoginUtil.makeToken(req.queryParams("username")));
+        setUserName(res, userName);
         // if user was redirected here, they are sent back to their original destination -- else, to index
-        res.redirect(pathSaved == null ? "/" : useAndResetPath());
+        res.redirect(savedPath == null ? "/" : savedPath);
         return null;
     }
 
-    public static String handleLogout() throws TemplateException, IOException
-    {
-        disconnect();
-        return LoginGUI.display(InfoMsg.DECONNEXION_SUCCES);
-    }
-
-    public static boolean authenticate(String userName, String userPwd)
+    private static boolean authenticate(String userName, String userPwd)
     {
         if (!isValidShortString(userName) || !isValidShortString(userName))
         { // tried to log in without filling in the form
@@ -82,17 +99,19 @@ public class LoginUtil
         return Encryptor.verifyUserPassword(userPwd, user.getUserPwd(), user.getUserSalt());
     }
 
-    public static void ensureUserIsLoggedIn(Request req, Response res) throws IOException
+    public static void isLoggedInOrElseRedirect(Request req, Response res) throws IOException
     {
-        if (!isLoggedIn(res))
+        if (!isLoggedIn(req, res))
         {
-            pathSaved = req.pathInfo(); // saves the path to redirect right away after login
+            setSavedPath(res, req.pathInfo()); // saves the path to redirect right away after login
             res.redirect("/login/redirected");
         }
     }
 
-    public static boolean isLoggedIn(Response res) throws IOException
+    public static boolean isLoggedIn(Request req, Response res) throws IOException
     {
+        String token    = getToken(req);
+        String userName = getUserName(req);
         if (token != null && userName != null)
         {
             try
@@ -100,9 +119,10 @@ public class LoginUtil
                 return JWTLoginUtil.checkToken(token).get("sub", String.class).equals(userName);
             } catch (ExpiredJwtException e)
             {
-                handleTimeout(res);
+                handleTimeout(req, res);
             }
         }
         return false;
     }
 }
+//todo fix redirects..?
