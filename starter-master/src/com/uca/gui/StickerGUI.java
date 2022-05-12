@@ -91,10 +91,10 @@ public class StickerGUI extends _BasicGUI
         return render(template, input, new StringWriter());
     }
 
-    public static String update(long id, String color, String description)
+    public static String update(long id, String colorString, String descriptionString)
             throws IOException, TemplateException
     {
-        if (!isValidShortString(color) || !isValidShortString(description))
+        if (!isValidShortString(colorString) || !isValidShortString(descriptionString))
         {
             infoMsg = InfoMsg.CHAMPS_NON_POSTABLES;
         }
@@ -106,12 +106,21 @@ public class StickerGUI extends _BasicGUI
             }
             else
             {
-                StickerEntity sticker = new StickerEntity();
-                sticker.setId(id);
-                sticker.setColor(Color.valueOf(color));
-                sticker.setDescription(Description.valueOf(description));
-                infoMsg = StickerCore.update(sticker, id) != null ? InfoMsg.MODIFICATION_SUCCES
-                                                                  : InfoMsg.MODIFICATION_ECHEC;
+                Color       color       = Color.valueOf(colorString);
+                Description description = Description.valueOf(descriptionString);
+                if (StickerCore.comboExists(color, description))
+                {
+                    infoMsg = InfoMsg.COMBINAISON_EXISTE_DEJA;
+                }
+                else
+                {
+                    StickerEntity sticker = new StickerEntity();
+                    sticker.setId(id);
+                    sticker.setColor(color);
+                    sticker.setDescription(description);
+                    infoMsg = StickerCore.update(sticker, id) != null ? InfoMsg.MODIFICATION_SUCCES
+                                                                      : InfoMsg.MODIFICATION_ECHEC;
+                }
             }
         }
         // we assume that the user was only able to access this function because it was authorized
