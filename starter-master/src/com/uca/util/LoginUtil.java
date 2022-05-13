@@ -21,12 +21,12 @@ public class LoginUtil
 
     private static String getSavedPath(Request req)
     {
-        return req.cookie("saved-path");
+        return req.cookie("pathinfo");
     }
 
     private static void setSavedPath(Response res, String savedPath)
     {
-        res.cookie("saved-path", savedPath, COOKIE_MAX_AGE);
+        res.cookie("/login", "pathinfo", savedPath, COOKIE_MAX_AGE, false);
     }
 
     private static String getToken(Request req)
@@ -36,7 +36,7 @@ public class LoginUtil
 
     private static void setToken(Response res, String token)
     {
-        res.cookie("token", token, COOKIE_MAX_AGE);
+        res.cookie("/", "token", token, COOKIE_MAX_AGE, false);
     }
 
     public static String getUserName(Request req)
@@ -46,14 +46,14 @@ public class LoginUtil
 
     private static void setUserName(Response res, String userName)
     {
-        res.cookie("username", userName, COOKIE_MAX_AGE);
+        res.cookie("/", "username", userName, COOKIE_MAX_AGE, false);
     }
 
     private static void disconnect(Response res)
     {
         res.removeCookie("username");
         res.removeCookie("token");
-        res.removeCookie("saved-path");
+        res.removeCookie("pathinfo");
     }
 
     private static void handleTimeout(Request req, Response res)
@@ -72,6 +72,7 @@ public class LoginUtil
     public static String handleLoginPost(Request req, Response res) throws TemplateException, IOException
     {
         String savedPath = getSavedPath(req);
+        res.removeCookie("/login", "pathinfo");
         String userName = req.queryParams("username");
         if (!authenticate(userName, req.queryParams("userpwd")))
         {
@@ -125,4 +126,3 @@ public class LoginUtil
         return false;
     }
 }
-//todo fix redirects..?

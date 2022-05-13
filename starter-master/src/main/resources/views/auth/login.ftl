@@ -17,6 +17,11 @@
     <br>
 
     <button type="submit">S'identifier</button>
+    <p>
+        En vous identifiant, ce programme va cr&eacute;er des cookies de session sur votre ordinateur. Vous pouvez les
+        effacer en vous <a href="/logout">d&eacute;connectant</a>, ou les laisser expirer en une heure (apr&egrave;s
+        quoi votre navigateur devrait les purger automatiquement).
+    </p>
 </form>
 
 </body>
