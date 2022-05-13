@@ -73,7 +73,7 @@ public class StartServer
             res.status(code);
             return ErrorGUI.display(useAndResetCode(), e.toString());
         }
-        return ErrorGUI.displayUnknown();
+        return ErrorGUI.displayUnknown(e.toString());
     }
 
     public static void main(String[] args)
