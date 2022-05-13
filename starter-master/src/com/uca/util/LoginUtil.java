@@ -15,8 +15,8 @@ import static com.uca.util.StringUtil.isValidShortString;
 
 public class LoginUtil
 {
-    public static final  int SEC_IN_MIN     = 60;
-    public static final  int SEC_IN_HOUR    = SEC_IN_MIN * 60;
+    private static final int SEC_IN_MIN     = 60;
+    private static final int SEC_IN_HOUR    = SEC_IN_MIN * 60;
     private static final int COOKIE_MAX_AGE = SEC_IN_HOUR;
 
     private static String getSavedPath(Request req)
