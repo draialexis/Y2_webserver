@@ -62,7 +62,9 @@ public class StartServer
         {
             code = HTTP_BAD_METHOD;
         }
-        if (eClass == SQLException.class)
+        if (eClass == SQLException.class
+            || eClass == TemplateException.class
+            || eClass == IOException.class)
         {
             code = HTTP_INTERNAL_ERROR;
         }
