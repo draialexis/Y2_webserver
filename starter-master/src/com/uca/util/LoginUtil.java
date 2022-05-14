@@ -84,7 +84,8 @@ public class LoginUtil
         setUserName(res, userName);
         // if user was redirected here, they are sent back to their original destination -- else, to index
         res.redirect(savedPath == null ? "/" : savedPath);
-        return null;
+
+        return null; // never reached...
     }
 
     private static boolean authenticate(String userName, String userPwd)
