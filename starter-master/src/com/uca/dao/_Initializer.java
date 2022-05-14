@@ -133,15 +133,15 @@ public class _Initializer
             statement.setDate(4, getSQLDateRelativeToToday(-5));
             statement.setString(5, "a cod&eacute; avec ses lunettes de soleil");
             statement.setLong(6, 2);
-            statement.setLong(7, 3);
+            statement.setLong(7, 1);
             statement.setLong(8, 1);
             statement.setDate(9, getSQLDateRelativeToToday(-9));
-            statement.setString(10, "a aid&eacute; &agrave; ranger les chaises");
+            statement.setString(10, "a aid&eacute; un camarade &agrave; faire tourner Gradle sur son poste");
             statement.setLong(11, 1);
-            statement.setLong(12, 1);
+            statement.setLong(12, 3);
             statement.setLong(13, 2);
             statement.setDate(14, getSQLDateRelativeToToday(-7));
-            statement.setString(15, "a aid&eacute; un camarade &agrave; faire tourner Gradle sur son poste");
+            statement.setString(15, "a aid&eacute; &agrave; ranger les chaises");
             statement.executeUpdate();
 
             System.out.println("~~~~~~~~~~" +

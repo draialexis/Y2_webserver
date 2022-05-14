@@ -37,6 +37,7 @@ public class LoginUtil
     private static void setToken(Response res, String token)
     {
         res.cookie("/", "token", token, COOKIE_MAX_AGE, false);
+        // "secure" is set to false because of localhost testing
     }
 
     public static String getUserName(Request req)
@@ -105,7 +106,7 @@ public class LoginUtil
         if (!isLoggedIn(req, res))
         {
             setSavedPath(res, req.pathInfo()); // saves the path to redirect right away after login
-            res.redirect("/login/redirected");
+            res.redirect("/login/redirect");
         }
     }
 

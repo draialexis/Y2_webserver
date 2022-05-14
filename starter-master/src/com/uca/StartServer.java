@@ -93,7 +93,7 @@ public class StartServer
 
         get("/login/timeout", (req, res) -> LoginGUI.display(InfoMsg.SESSION_TERMINEE_AUTHENTIFICATION_NECESSAIRE));
 
-        get("/login/redirected", (req, res) -> LoginGUI.display(InfoMsg.AUTHENTIFICATION_NECESSAIRE));
+        get("/login/redirect", (req, res) -> LoginGUI.display(InfoMsg.AUTHENTIFICATION_NECESSAIRE));
 
         get("/hidden/signup", (req, res) -> SignUpGUI.display());
 
