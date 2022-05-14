@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-import static com.uca.util.IDUtil.isValidId;
+import static com.uca.util.IDUtil.requireValid;
 import static com.uca.util.StringUtil.isValidShortString;
 
 public class StudentGUI extends _BasicGUI
@@ -46,10 +46,7 @@ public class StudentGUI extends _BasicGUI
     public static String readById(long id)
             throws IOException, TemplateException, IllegalArgumentException, NoSuchElementException
     {
-        if (!isValidId(id))
-        {
-            throw new IllegalArgumentException(InfoMsg.ID_INVALIDE.name());
-        }
+        requireValid(id);
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("students/student.ftl");
 
@@ -63,13 +60,9 @@ public class StudentGUI extends _BasicGUI
     }
 
     public static String update(long id, String firstName, String lastName)
-            throws IOException, TemplateException
+            throws IOException, TemplateException, IllegalArgumentException
     {
-        if (!isValidId(id))
-        {
-            throw new IllegalArgumentException(InfoMsg.ID_INVALIDE.name());
-        }
-        else
+        requireValid(id);
         {
             if (!isValidShortString(firstName) || !isValidShortString(lastName))
             {
@@ -90,14 +83,8 @@ public class StudentGUI extends _BasicGUI
 
     public static String deleteById(long id) throws TemplateException, IOException
     {
-        if (!isValidId(id))
-        {
-            infoMsg = InfoMsg.ID_INVALIDE;
-        }
-        else
-        {
-            StudentCore.deleteById(id);
-        }
+        requireValid(id);
+        StudentCore.deleteById(id);
         return readAll();
     }
 }

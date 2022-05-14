@@ -49,12 +49,12 @@ public class StartServer
     {
         Objects.requireNonNull(e);
         Class<? extends Exception> eClass = e.getClass();
-        if (eClass == IllegalArgumentException.class
-            || eClass == NumberFormatException.class)
+        if (eClass == NumberFormatException.class)
         {
             code = HTTP_BAD_REQUEST;
         }
-        if (eClass == NoSuchElementException.class)
+        if (eClass == NoSuchElementException.class
+            || eClass == IllegalArgumentException.class) // for invalid IDs...
         {
             code = HTTP_NOT_FOUND;
         }

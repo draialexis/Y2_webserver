@@ -16,13 +16,12 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 import static com.uca.util.IDUtil.isValidId;
+import static com.uca.util.IDUtil.requireValid;
 import static com.uca.util.StringUtil.isValidShortString;
 import static com.uca.util.StringUtil.isValidString;
 
 public class AwardGUI extends _BasicGUI
 {
-    private static boolean isByStudent;
-
     public static String create(String motive, String teacherUserName, long studentId, long stickerId)
             throws IOException, TemplateException, IllegalArgumentException
     {
@@ -57,7 +56,7 @@ public class AwardGUI extends _BasicGUI
      * @param studentId    a student id (will trigger a reading <em>by student</em> if > 0)
      * @return a view that displays said awards
      */
-    private static String readMany(boolean isAuthorized, long studentId)
+    private static String readMany(boolean isAuthorized, long studentId, boolean isByStudent)
             throws IOException, TemplateException, NoSuchElementException, IllegalArgumentException
     {
         Map<String, Object> input    = new HashMap<>();
@@ -70,15 +69,10 @@ public class AwardGUI extends _BasicGUI
         }
         else
         {
-            if (!isValidId(studentId))
-            {
-                throw new IllegalArgumentException(InfoMsg.ID_INVALIDE.name());
-            }
-            else
-            {
-                input.put("awards", AwardCore.readByStudentId(studentId));
-            }
+            requireValid(studentId);
+            input.put("awards", AwardCore.readByStudentId(studentId));
         }
+
         if (isAuthorized)
         {
             input.put("students", StudentCore.readAll());
@@ -91,23 +85,18 @@ public class AwardGUI extends _BasicGUI
     public static String readByStudentId(boolean isAuthorized, long studentId)
             throws IOException, TemplateException, NoSuchElementException, IllegalArgumentException
     {
-        isByStudent = true;
-        return readMany(isAuthorized, studentId);
+        return readMany(isAuthorized, studentId, true);
     }
 
     public static String readAll(boolean isAuthorized) throws IOException, TemplateException, NoSuchElementException
     {
-        isByStudent = false;
-        return readMany(isAuthorized, 0);
+        return readMany(isAuthorized, 0, false);
     }
 
     public static String readById(boolean isAuthorized, long id)
             throws IOException, TemplateException, IllegalArgumentException, NoSuchElementException
     {
-        if (!isValidId(id))
-        {
-            throw new IllegalArgumentException(InfoMsg.ID_INVALIDE.name());
-        }
+        requireValid(id);
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("awards/award.ftl");
 
@@ -122,18 +111,11 @@ public class AwardGUI extends _BasicGUI
         return render(template, input, new StringWriter());
     }
 
-    public static String deleteById(long id) throws IOException, TemplateException
+    public static String deleteById(long id) throws IOException, TemplateException, IllegalArgumentException
     {
-        if (!isValidId(id))
-        {
-            infoMsg = InfoMsg.ID_INVALIDE;
-        }
-        else
-        {
-            AwardCore.deleteById(id);
-        }
+        requireValid(id);
+        AwardCore.deleteById(id);
         // we assume that the user was only able to access this function because it was authorized
-        isByStudent = false;
-        return readMany(true, 0);
+        return readMany(true, 0, false);
     }
 }

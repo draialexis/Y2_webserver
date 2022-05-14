@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-import static com.uca.util.IDUtil.isValidId;
+import static com.uca.util.IDUtil.requireValid;
 import static com.uca.util.StringUtil.isValidShortString;
 
 public class TeacherGUI extends _BasicGUI
@@ -91,10 +91,7 @@ public class TeacherGUI extends _BasicGUI
     public static String readById(long id)
             throws IOException, TemplateException, NoSuchElementException, IllegalArgumentException
     {
-        if (!isValidId(id))
-        {
-            throw new IllegalArgumentException(InfoMsg.ID_INVALIDE.name());
-        }
+        requireValid(id);
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("teachers/teacher.ftl");
         TeacherEntity       teacher  = TeacherCore.readById(id);

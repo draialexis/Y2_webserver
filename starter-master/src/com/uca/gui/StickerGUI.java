@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-import static com.uca.util.IDUtil.isValidId;
+import static com.uca.util.IDUtil.requireValid;
 import static com.uca.util.StringUtil.isValidShortString;
 
 public class StickerGUI extends _BasicGUI
@@ -61,10 +61,7 @@ public class StickerGUI extends _BasicGUI
     public static String readById(boolean isAuthorized, long id)
             throws IOException, TemplateException, NoSuchElementException, IllegalArgumentException
     {
-        if (!isValidId(id))
-        {
-            throw new IllegalArgumentException(InfoMsg.ID_INVALIDE.name());
-        }
+        requireValid(id);
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("stickers/sticker.ftl");
 
@@ -86,51 +83,39 @@ public class StickerGUI extends _BasicGUI
     }
 
     public static String update(long id, String colorString, String descriptionString)
-            throws IOException, TemplateException
+            throws IOException, TemplateException, IllegalArgumentException
     {
+        requireValid(id);
         if (!isValidShortString(colorString) || !isValidShortString(descriptionString))
         {
             infoMsg = InfoMsg.CHAMPS_NON_POSTABLES;
         }
         else
         {
-            if (!isValidId(id))
+            Color       color       = Color.valueOf(colorString);
+            Description description = Description.valueOf(descriptionString);
+            if (StickerCore.comboExists(color, description))
             {
-                throw new IllegalArgumentException(InfoMsg.ID_INVALIDE.name());
+                infoMsg = InfoMsg.COMBINAISON_EXISTE_DEJA;
             }
             else
             {
-                Color       color       = Color.valueOf(colorString);
-                Description description = Description.valueOf(descriptionString);
-                if (StickerCore.comboExists(color, description))
-                {
-                    infoMsg = InfoMsg.COMBINAISON_EXISTE_DEJA;
-                }
-                else
-                {
-                    StickerEntity sticker = new StickerEntity();
-                    sticker.setId(id);
-                    sticker.setColor(color);
-                    sticker.setDescription(description);
-                    infoMsg = StickerCore.update(sticker, id) != null ? InfoMsg.MODIFICATION_SUCCES
-                                                                      : InfoMsg.MODIFICATION_ECHEC;
-                }
+                StickerEntity sticker = new StickerEntity();
+                sticker.setId(id);
+                sticker.setColor(color);
+                sticker.setDescription(description);
+                infoMsg = StickerCore.update(sticker, id) != null ? InfoMsg.MODIFICATION_SUCCES
+                                                                  : InfoMsg.MODIFICATION_ECHEC;
             }
         }
         // we assume that the user was only able to access this function because it was authorized
         return readById(true, id);
     }
 
-    public static String deleteById(long id) throws TemplateException, IOException
+    public static String deleteById(long id) throws TemplateException, IOException, IllegalArgumentException
     {
-        if (!isValidId(id))
-        {
-            infoMsg = InfoMsg.ID_INVALIDE;
-        }
-        else
-        {
-            StickerCore.deleteById(id);
-        }
+        requireValid(id);
+        StickerCore.deleteById(id);
         // we assume that the user was only able to access this function because it was authorized
         return readAll(true);
     }
