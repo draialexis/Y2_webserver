@@ -4,19 +4,15 @@ import com.uca.dao._Initializer;
 import com.uca.gui.*;
 import com.uca.util.LoginUtil;
 import com.uca.util.PropertiesReader;
-import freemarker.template.TemplateException;
-import spark.Response;
 
-import javax.naming.OperationNotSupportedException;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
-import java.util.Objects;
 
 import static com.uca.util.RequestUtil.getParamFromReqBody;
 import static com.uca.util.RequestUtil.getParamUTF8;
-import static java.net.HttpURLConnection.*;
+import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
+import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static spark.Spark.*;
 
 public class StartServer
@@ -47,8 +43,7 @@ public class StartServer
         before("/hidden/*", LoginUtil::isLoggedInOrElseRedirect);
 
         exception(Exception.class, (e, req, res) -> {
-            int code = 0;
-            Objects.requireNonNull(e);
+            e.printStackTrace();
             Class<? extends Exception> eClass = e.getClass();
             if (
                     eClass == NoSuchElementException.class
@@ -56,15 +51,7 @@ public class StartServer
                     || eClass == NumberFormatException.class // for invalid IDs...
             )
             {
-                code = HTTP_NOT_FOUND;
-            }
-            if (eClass == OperationNotSupportedException.class)
-            {
-                code = HTTP_BAD_METHOD;
-            }
-            if (code > 0)
-            {
-                res.status(code);
+                res.status(HTTP_NOT_FOUND);
             }
             else
             {
@@ -83,17 +70,9 @@ public class StartServer
 
         get("/hidden/signup", (req, res) -> SignUpGUI.display());
 
-        post("/login", (req, res) -> {
+        post("/login", LoginUtil::handleLoginPost);
 
-            return LoginUtil.handleLoginPost(req, res);
-
-        });
-
-        get("/logout", (req, res) -> {
-
-            return LoginUtil.handleLogout(res);
-
-        });
+        get("/logout", (req, res) -> LoginUtil.handleLogout(res));
 
         //===============CR** teachers===============
         post("/hidden/signup",
@@ -134,13 +113,6 @@ public class StartServer
         post("/hidden/students/delete/:id_student",
              (req, res) -> StudentGUI.deleteById(Long.parseLong(req.params(":id_student"))));
 
-        //        // NOT ALLOWED
-        //        get("/hidden/students/delete/:id_student",
-        //            (req, res) -> manageExceptions(
-        //                    new OperationNotSupportedException(InfoMsg.INADEQUATE_HTTP_VERB.name()),
-        //                    res)
-        //        );
-
         //===============CRUD stickers===============
         post("/hidden/stickers", (req, res) -> {
             HashMap<String, String> params = getParamFromReqBody(req.body());
@@ -167,13 +139,6 @@ public class StartServer
         post("/hidden/stickers/delete/:id_sticker",
              (req, res) -> StickerGUI.deleteById(Long.parseLong(req.params(":id_sticker"))));
 
-        // NOT ALLOWED
-        //        get("/hidden/stickers/delete/:id_sticker",
-        //            (req, res) -> manageExceptions(
-        //                    new OperationNotSupportedException(InfoMsg.INADEQUATE_HTTP_VERB.name()),
-        //                    res)
-        //        );
-
         //===============CR*D awards===============
         post("/hidden/awards", (req, res) -> {
             HashMap<String, String> params = getParamFromReqBody(req.body());
@@ -183,14 +148,6 @@ public class StartServer
                     Long.parseLong(getParamUTF8(params, "student-id")),
                     Long.parseLong(getParamUTF8(params, "sticker-id")));
         });
-
-        // NOT SUPPORTED
-        //        get("/hidden/awards",
-        //            (req, res) -> manageExceptions(
-        //                    new OperationNotSupportedException(InfoMsg.WRONG_URL__NOT_HIDDEN.name()),
-        //                    res)
-        //        );
-        //TODO implement
 
         get("/awards", (req, res) -> AwardGUI.readAll(LoginUtil.isLoggedIn(req, res)));
 
@@ -203,12 +160,5 @@ public class StartServer
 
         post("/hidden/awards/delete/:id_award",
              (req, res) -> AwardGUI.deleteById(Long.parseLong(req.params(":id_award"))));
-
-        // NOT ALLOWED
-        //        get("/hidden/awards/delete/:id_award",
-        //            (req, res) -> manageExceptions(
-        //                    new OperationNotSupportedException(InfoMsg.INADEQUATE_HTTP_VERB.name()),
-        //                    res)
-        //        );
     }
 }
