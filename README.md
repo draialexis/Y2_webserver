@@ -24,4 +24,4 @@ or [here in pdf](https://github.com/draialexis/Y2_webserver/files/8473212/TP_Ver
 
 ## URIs
 
-[uris_4_2.pdf](https://github.com/draialexis/Y2_webserver/files/8692585/URIs.pdf)
+[uris_4_3.pdf](https://github.com/draialexis/Y2_webserver/files/8695618/URIs.1.pdf)
