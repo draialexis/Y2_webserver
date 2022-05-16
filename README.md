@@ -9,11 +9,17 @@ settings - more research and tuning would be required in order to clear this up.
 
 ## Running the app (on a UNIX system)
 
+### on a UNIX system
+
 `cd starter-master`
 
 `./gradlew run`
 
-Then follow instructions in terminal by entering `localhost:{XXXX}` in a browser.
+### on a Windows system
+
+`cd starter-master`
+
+`./gradlew.bat run`
 
 ## Project instructions
 
@@ -21,6 +27,7 @@ Right [here](https://unicorn.artheriom.fr/#/techno-ws-l2)
 or [here in pdf](https://github.com/draialexis/Y2_webserver/files/8473212/TP_Version_Imprimable_au_07_03_22.pdf)
 
 ## Report, annex (URIs + Figures)
+
 [report.pdf](https://github.com/draialexis/Y2_webserver/files/8701701/REPORT.3.pdf)
 
 [annex.pdf](https://github.com/draialexis/Y2_webserver/files/8701702/ANNEX.1.pdf)
