@@ -5,7 +5,7 @@
 <#include "../bits/navbar.ftl">
 <#include "../bits/status.ftl">
 
-<form method="POST" action="/hidden/signup">
+<form method="POST" action="/hidden/teachers">
     <label for="firstname">pr&eacute;nom</label>
     <br>
     <input type="text" id="firstname" name="firstname" maxlength="50" required>
