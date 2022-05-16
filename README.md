@@ -21,6 +21,7 @@ Right [here](https://unicorn.artheriom.fr/#/techno-ws-l2)
 or [here in pdf](https://github.com/draialexis/Y2_webserver/files/8473212/TP_Version_Imprimable_au_07_03_22.pdf)
 
 ## Report, annex (URIs + Figures)
-[REPORT.pdf](https://github.com/draialexis/Y2_webserver/files/8701001/REPORT.1.pdf)
+[report.pdf](https://github.com/draialexis/Y2_webserver/files/8701701/REPORT.3.pdf)
 
-[ANNEX.pdf](https://github.com/draialexis/Y2_webserver/files/8700982/ANNEX.pdf)
+[annex.pdf](https://github.com/draialexis/Y2_webserver/files/8701702/ANNEX.1.pdf)
+
