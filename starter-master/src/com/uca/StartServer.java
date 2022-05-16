@@ -181,7 +181,7 @@ public class StartServer
         post("/hidden/awards/delete/:id_award",
              (req, res) -> AwardGUI.deleteById(Long.parseLong(req.params(":id_award"))));
 
-//        delete("/hidden/awards/:id_award",
-//               (req, res) -> AwardGUI.deleteById(Long.parseLong(req.params(":id_award"))));
+        //        delete("/hidden/awards/:id_award",
+        //               (req, res) -> AwardGUI.deleteById(Long.parseLong(req.params(":id_award"))));
     }
 }
