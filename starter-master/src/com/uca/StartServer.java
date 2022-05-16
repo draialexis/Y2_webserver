@@ -78,8 +78,8 @@ public class StartServer
         post("/hidden/signup",
              (req, res) -> {
                  HashMap<String, String> params = getParamFromReqBody(req.body());
-                 return TeacherGUI.create(getParamUTF8(params, "firstname"),
-                                          getParamUTF8(params, "lastname"),
+                 return TeacherGUI.create(getParamUTF8(params, "lastname"),
+                                          getParamUTF8(params, "firstname"),
                                           getParamUTF8(params, "username"),
                                           getParamUTF8(params, "userpwd"),
                                           getParamUTF8(params, "userpwd-validation"));
@@ -120,9 +120,7 @@ public class StartServer
                                      getParamUTF8(params, "description"));
         });
 
-        get("/stickers", (req, res) -> {
-            return StickerGUI.readAll(LoginUtil.isLoggedIn(req, res));
-        });
+        get("/stickers", (req, res) -> StickerGUI.readAll(LoginUtil.isLoggedIn(req, res)));
 
         get("/stickers/:id_sticker",
             (req, res) -> StickerGUI.readById(LoginUtil.isLoggedIn(req, res),

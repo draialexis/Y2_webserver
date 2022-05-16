@@ -16,7 +16,7 @@ import static com.uca.util.StringUtil.isValidShortString;
 
 public class StudentGUI extends _BasicGUI
 {
-    public static String create(String firstName, String lastName)
+    public static String create(String lastName, String firstName)
             throws IOException, TemplateException
     {
         if (!isValidShortString(firstName) || !isValidShortString(lastName))
@@ -59,7 +59,7 @@ public class StudentGUI extends _BasicGUI
         return render(template, input, new StringWriter());
     }
 
-    public static String update(long id, String firstName, String lastName)
+    public static String update(long id, String lastName, String firstName)
             throws IOException, TemplateException, IllegalArgumentException
     {
         requireValid(id);

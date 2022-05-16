@@ -22,8 +22,8 @@ public class TeacherGUI extends _BasicGUI
     private static final int UNHASHED_PWD_SIZE_MIN = 4;
     private static final int SALT_SIZE             = 32;
 
-    public static String create(String firstName,
-                                String lastName,
+    public static String create(String lastName,
+                                String firstName,
                                 String userName,
                                 String userPwd,
                                 String userPwdValidation)
