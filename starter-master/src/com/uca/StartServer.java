@@ -110,8 +110,19 @@ public class StartServer
                                           getParamUTF8(params, "firstname"));
              });
 
+        //        put("/hidden/students/:id_student",
+        //             (req, res) -> {
+        //                 HashMap<String, String> params = getParamFromReqBody(req.body());
+        //                 return StudentGUI.update(Long.parseLong(req.params(":id_student")),
+        //                                          getParamUTF8(params, "lastname"),
+        //                                          getParamUTF8(params, "firstname"));
+        //             });
+
         post("/hidden/students/delete/:id_student",
              (req, res) -> StudentGUI.deleteById(Long.parseLong(req.params(":id_student"))));
+
+        //        delete("/hidden/students/:id_student",
+        //             (req, res) -> StudentGUI.deleteById(Long.parseLong(req.params(":id_student"))));
 
         //===============CRUD stickers===============
         post("/hidden/stickers", (req, res) -> {
@@ -134,8 +145,19 @@ public class StartServer
                                           getParamUTF8(params, "description"));
              });
 
+        //        put("/hidden/stickers/:id_sticker",
+        //             (req, res) -> {
+        //                 HashMap<String, String> params = getParamFromReqBody(req.body());
+        //                 return StickerGUI.update(Long.parseLong(req.params(":id_sticker")),
+        //                                          getParamUTF8(params, "color"),
+        //                                          getParamUTF8(params, "description"));
+        //             });
+
         post("/hidden/stickers/delete/:id_sticker",
              (req, res) -> StickerGUI.deleteById(Long.parseLong(req.params(":id_sticker"))));
+
+        //        delete("/hidden/stickers/:id_sticker",
+        //             (req, res) -> StickerGUI.deleteById(Long.parseLong(req.params(":id_sticker"))));
 
         //===============CR*D awards===============
         post("/hidden/awards", (req, res) -> {
@@ -158,5 +180,8 @@ public class StartServer
 
         post("/hidden/awards/delete/:id_award",
              (req, res) -> AwardGUI.deleteById(Long.parseLong(req.params(":id_award"))));
+
+//        delete("/hidden/awards/:id_award",
+//               (req, res) -> AwardGUI.deleteById(Long.parseLong(req.params(":id_award"))));
     }
 }
