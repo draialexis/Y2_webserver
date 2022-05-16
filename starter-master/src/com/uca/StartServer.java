@@ -5,6 +5,7 @@ import com.uca.gui.*;
 import com.uca.util.LoginUtil;
 import com.uca.util.PropertiesReader;
 
+import javax.naming.OperationNotSupportedException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
@@ -12,6 +13,7 @@ import java.util.NoSuchElementException;
 import static com.uca.util.RequestUtil.getParamFromReqBody;
 import static com.uca.util.RequestUtil.getParamUTF8;
 import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
+import static java.net.HttpURLConnection.HTTP_BAD_METHOD;
 import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static spark.Spark.*;
 
@@ -55,7 +57,14 @@ public class StartServer
             }
             else
             {
-                res.status(HTTP_INTERNAL_ERROR);
+                if (eClass == OperationNotSupportedException.class)
+                {
+                    res.status(HTTP_BAD_METHOD);
+                }
+                else
+                {
+                    res.status(HTTP_INTERNAL_ERROR);
+                }
             }
         });
 
