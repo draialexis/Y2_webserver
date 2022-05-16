@@ -51,7 +51,7 @@ public class Encryptor
             return skf.generateSecret(spec).getEncoded();
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e)
         {
-            throw new AssertionError("erreur pendant le hashage : " + e.getMessage(), e);
+            throw new AssertionError("hashing error : " + e.getMessage(), e);
         } finally
         {
             spec.clearPassword();
