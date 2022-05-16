@@ -13,9 +13,7 @@ settings - more research and tuning would be required in order to clear this up.
 
 `./gradlew run`
 
-Then enter `localhost:8081/` in a browser.
-
-You may have to ignore an SLF4J warning message, so don't worry too much if you see red in your terminal.
+Then follow instructions in terminal by entering `localhost:{XXXX}` in a browser.
 
 ## Project instructions
 
