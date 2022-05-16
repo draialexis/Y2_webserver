@@ -111,6 +111,7 @@ public class StartServer
         get("/hidden/students/:id_student",
             (req, res) -> StudentGUI.readById(Long.parseLong(req.params(":id_student"))));
 
+        // TODO remove and replace with PUT below
         post("/hidden/students/:id_student",
              (req, res) -> {
                  HashMap<String, String> params = getParamFromReqBody(req.body());
@@ -119,19 +120,24 @@ public class StartServer
                                           getParamUTF8(params, "firstname"));
              });
 
-        //        put("/hidden/students/:id_student",
-        //             (req, res) -> {
-        //                 HashMap<String, String> params = getParamFromReqBody(req.body());
-        //                 return StudentGUI.update(Long.parseLong(req.params(":id_student")),
-        //                                          getParamUTF8(params, "lastname"),
-        //                                          getParamUTF8(params, "firstname"));
-        //             });
+/*
+        put("/hidden/students/:id_student",
+            (req, res) -> {
+                HashMap<String, String> params = getParamFromReqBody(req.body());
+                return StudentGUI.update(Long.parseLong(req.params(":id_student")),
+                                         getParamUTF8(params, "lastname"),
+                                         getParamUTF8(params, "firstname"));
+            });
+*/
 
+        // TODO remove and replace with DELETE below
         post("/hidden/students/delete/:id_student",
              (req, res) -> StudentGUI.deleteById(Long.parseLong(req.params(":id_student"))));
 
-        //        delete("/hidden/students/:id_student",
-        //             (req, res) -> StudentGUI.deleteById(Long.parseLong(req.params(":id_student"))));
+/*
+        delete("/hidden/students/:id_student",
+               (req, res) -> StudentGUI.deleteById(Long.parseLong(req.params(":id_student"))));
+*/
 
         //===============CRUD stickers===============
         post("/hidden/stickers", (req, res) -> {
@@ -146,6 +152,7 @@ public class StartServer
             (req, res) -> StickerGUI.readById(LoginUtil.isLoggedIn(req, res),
                                               Long.parseLong(req.params(":id_sticker"))));
 
+        // TODO remove and replace with PUT below
         post("/hidden/stickers/:id_sticker",
              (req, res) -> {
                  HashMap<String, String> params = getParamFromReqBody(req.body());
@@ -154,22 +161,29 @@ public class StartServer
                                           getParamUTF8(params, "description"));
              });
 
-        //        put("/hidden/stickers/:id_sticker",
-        //             (req, res) -> {
-        //                 HashMap<String, String> params = getParamFromReqBody(req.body());
-        //                 return StickerGUI.update(Long.parseLong(req.params(":id_sticker")),
-        //                                          getParamUTF8(params, "color"),
-        //                                          getParamUTF8(params, "description"));
-        //             });
+/*
+        put("/hidden/stickers/:id_sticker",
+            (req, res) -> {
+                HashMap<String, String> params = getParamFromReqBody(req.body());
+                return StickerGUI.update(Long.parseLong(req.params(":id_sticker")),
+                                         getParamUTF8(params, "color"),
+                                         getParamUTF8(params, "description"));
+            });
+*/
 
+        // TODO remove and replace with DELETE below
         post("/hidden/stickers/delete/:id_sticker",
              (req, res) -> StickerGUI.deleteById(Long.parseLong(req.params(":id_sticker"))));
 
-        //        delete("/hidden/stickers/:id_sticker",
-        //             (req, res) -> StickerGUI.deleteById(Long.parseLong(req.params(":id_sticker"))));
+/*
+        delete("/hidden/stickers/:id_sticker",
+               (req, res) -> StickerGUI.deleteById(Long.parseLong(req.params(":id_sticker"))));
+*/
 
         //===============CR*D awards===============
-        post("/hidden/awards", (req, res) -> {
+        post("/hidden/awards", (req, res) ->
+
+        {
             HashMap<String, String> params = getParamFromReqBody(req.body());
             return AwardGUI.create(
                     getParamUTF8(params, "motive"),
@@ -187,10 +201,13 @@ public class StartServer
         get("/awards/id/:id_award",
             (req, res) -> AwardGUI.readById(LoginUtil.isLoggedIn(req, res), Long.parseLong(req.params(":id_award"))));
 
+        // TODO remove and replace with DELETE below
         post("/hidden/awards/delete/:id_award",
              (req, res) -> AwardGUI.deleteById(Long.parseLong(req.params(":id_award"))));
 
-        //        delete("/hidden/awards/:id_award",
-        //               (req, res) -> AwardGUI.deleteById(Long.parseLong(req.params(":id_award"))));
+/*
+        delete("/hidden/awards/:id_award",
+               (req, res) -> AwardGUI.deleteById(Long.parseLong(req.params(":id_award"))));
+*/
     }
 }
