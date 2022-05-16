@@ -15,46 +15,49 @@ import static com.uca.util.StringUtil.isValidShortString;
 
 public class LoginUtil
 {
-    private static final int SEC_IN_MIN     = 60;
-    private static final int SEC_IN_HOUR    = SEC_IN_MIN * 60;
-    private static final int COOKIE_MAX_AGE = SEC_IN_HOUR;
+    private static final int    SEC_IN_MIN           = 60;
+    private static final int    SEC_IN_HOUR          = SEC_IN_MIN * 60;
+    private static final int    COOKIE_MAX_AGE       = SEC_IN_HOUR;
+    private static final String COOKIE_PATH_NAME     = "pathinfo";
+    private static final String COOKIE_TOKEN_NAME    = "token";
+    private static final String COOKIE_USERNAME_NAME = "username";
 
     private static String getSavedPath(Request req)
     {
-        return req.cookie("pathinfo");
+        return req.cookie(COOKIE_PATH_NAME);
     }
 
     private static void setSavedPath(Response res, String savedPath)
     {
-        res.cookie("/login", "pathinfo", savedPath, COOKIE_MAX_AGE, false);
+        res.cookie("/login", COOKIE_PATH_NAME, savedPath, COOKIE_MAX_AGE, false);
     }
 
     private static String getToken(Request req)
     {
-        return req.cookie("token");
+        return req.cookie(COOKIE_TOKEN_NAME);
     }
 
     private static void setToken(Response res, String token)
     {
-        res.cookie("/", "token", token, COOKIE_MAX_AGE, false);
+        res.cookie("/", COOKIE_TOKEN_NAME, token, COOKIE_MAX_AGE, false);
         // "secure" is set to false because of localhost testing
     }
 
     public static String getUserName(Request req)
     {
-        return req.cookie("username");
+        return req.cookie(COOKIE_USERNAME_NAME);
     }
 
     private static void setUserName(Response res, String userName)
     {
-        res.cookie("/", "username", userName, COOKIE_MAX_AGE, false);
+        res.cookie("/", COOKIE_USERNAME_NAME, userName, COOKIE_MAX_AGE, false);
     }
 
     private static void disconnect(Response res)
     {
-        res.removeCookie("username");
-        res.removeCookie("token");
-        res.removeCookie("pathinfo");
+        res.removeCookie(COOKIE_USERNAME_NAME);
+        res.removeCookie(COOKIE_TOKEN_NAME);
+        res.removeCookie(COOKIE_PATH_NAME);
     }
 
     private static void handleTimeout(Request req, Response res)
@@ -73,14 +76,14 @@ public class LoginUtil
     public static String handleLoginPost(Request req, Response res) throws TemplateException, IOException
     {
         String savedPath = getSavedPath(req);
-        res.removeCookie("/login", "pathinfo");
-        String userName = req.queryParams("username");
+        res.removeCookie("/login", COOKIE_PATH_NAME);
+        String userName = req.queryParams(COOKIE_USERNAME_NAME);
         if (!authenticate(userName, req.queryParams("userpwd")))
         {
             return LoginGUI.display(InfoMsg.ECHEC_AUTHENTIFICATION);
         }
 
-        setToken(res, JWTLoginUtil.makeToken(req.queryParams("username")));
+        setToken(res, JWTLoginUtil.makeToken(req.queryParams(COOKIE_USERNAME_NAME)));
         setUserName(res, userName);
         // if user was redirected here, they are sent back to their original destination -- else, to index
         res.redirect(savedPath == null ? "/" : savedPath);
