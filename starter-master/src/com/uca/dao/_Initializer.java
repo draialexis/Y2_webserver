@@ -38,9 +38,6 @@ public class _Initializer
                     "   CONSTRAINT PK_Sticker PRIMARY KEY(id_sticker)," +
                     "   CONSTRAINT AK_Sticker UNIQUE(color, description)" + // unique combinations, no repeats
                     ");" +
-                    "CREATE UNIQUE INDEX idx_combo ON Sticker(color, description);" +
-                    // we will check for this combo's unicity from time to time and this table
-                    // ...will be queried from way more often than written to, so this extra index should help
                     "DROP TABLE IF EXISTS Teacher CASCADE;" +
                     // temporary, would be removed when using a real DB for prod
 
@@ -54,9 +51,6 @@ public class _Initializer
                     "   CONSTRAINT PK_Teacher PRIMARY KEY(id_teacher)," +
                     "   CONSTRAINT AK_Teacher UNIQUE(username)" +
                     ");" +
-                    "CREATE UNIQUE INDEX idx_username ON Teacher(username);" +
-                    // username being unique, and sometimes used to query the DB, we want to make it faster
-                    // ... especially given that querying strings is slower
                     "DROP TABLE IF EXISTS Award;" +
                     // temporary, would be removed when using a real DB for prod
 
