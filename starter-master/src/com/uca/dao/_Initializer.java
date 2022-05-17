@@ -20,7 +20,7 @@ public class _Initializer
             PreparedStatement statement;
             statement = connection.prepareStatement(
                     "DROP TABLE IF EXISTS Student CASCADE;" +
-                    // temporary, would be removed when using a real DB for prod
+                    // TODO temporary, remove when using a real DB for prod
 
                     "CREATE TABLE IF NOT EXISTS Student(" +
                     "   id_student BIGINT AUTO_INCREMENT," +
@@ -28,8 +28,9 @@ public class _Initializer
                     "   firstname VARCHAR(50) NOT NULL," +
                     "   CONSTRAINT PK_Student PRIMARY KEY(id_student)" +
                     ");" +
+
                     "DROP TABLE IF EXISTS Sticker CASCADE;" +
-                    // temporary, would be removed when using a real DB for prod
+                    // TODO temporary, remove when using a real DB for prod
 
                     "CREATE TABLE IF NOT EXISTS Sticker(" +
                     "   id_sticker BIGINT AUTO_INCREMENT," +
@@ -38,8 +39,9 @@ public class _Initializer
                     "   CONSTRAINT PK_Sticker PRIMARY KEY(id_sticker)," +
                     "   CONSTRAINT AK_Sticker UNIQUE(color, description)" + // unique combinations, no repeats
                     ");" +
+
                     "DROP TABLE IF EXISTS Teacher CASCADE;" +
-                    // temporary, would be removed when using a real DB for prod
+                    // TODO temporary, remove when using a real DB for prod
 
                     "CREATE TABLE IF NOT EXISTS Teacher(" +
                     "   id_teacher BIGINT AUTO_INCREMENT," +
@@ -51,8 +53,9 @@ public class _Initializer
                     "   CONSTRAINT PK_Teacher PRIMARY KEY(id_teacher)," +
                     "   CONSTRAINT AK_Teacher UNIQUE(username)" +
                     ");" +
+
                     "DROP TABLE IF EXISTS Award;" +
-                    // temporary, would be removed when using a real DB for prod
+                    // TODO temporary, remove when using a real DB for prod
 
                     "CREATE TABLE IF NOT EXISTS Award(" +
                     "   id_award BIGINT AUTO_INCREMENT," +
@@ -71,7 +74,6 @@ public class _Initializer
                     "CREATE INDEX idx_attribution_date ON Award(attribution_date);"
                     // we will often sort them by date, and award will probably be the fastest-growing population in DB
             );
-
             statement.executeUpdate();
 
             statement = connection.prepareStatement(
@@ -115,6 +117,7 @@ public class _Initializer
             statement.setString(5, "Drai");
             statement.setString(6, "Alexis");
             statement.executeUpdate();
+            // TODO temporary rows in Student, remove when using a real DB for prod
 
             statement = connection.prepareStatement(
                     "INSERT INTO Award(id_teacher, id_sticker, id_student, attribution_date, motive) " +
@@ -137,12 +140,12 @@ public class _Initializer
             statement.setDate(14, getSQLDateRelativeToToday(-7));
             statement.setString(15, "a aid&eacute; &agrave; ranger les chaises");
             statement.executeUpdate();
+            // TODO temporary rows in Award, remove when using a real DB for prod
 
             System.out.println("~~~~~~~~~~" +
                                "\nHello! Please open a browser at: " +
                                "\nlocalhost:" + Integer.parseInt(new PropertiesReader().getProperty("port")) +
                                "\n~~~~~~~~~~");
-
         } catch (Exception e)
         {
             e.printStackTrace();
