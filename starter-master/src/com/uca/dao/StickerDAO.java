@@ -3,7 +3,6 @@ package com.uca.dao;
 import com.uca.entity.Color;
 import com.uca.entity.Description;
 import com.uca.entity.StickerEntity;
-import com.uca.util.StringUtil;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +11,7 @@ import java.util.ArrayList;
 
 import static com.uca.util.IDUtil.requireValidAndIdenticalIds;
 import static com.uca.util.IDUtil.requireValidId;
+import static com.uca.util.StringUtil.requiredShortString;
 import static java.util.Objects.requireNonNull;
 
 public class StickerDAO extends _Generic<StickerEntity>
@@ -35,8 +35,8 @@ public class StickerDAO extends _Generic<StickerEntity>
         {
             PreparedStatement statement = this.connect.prepareStatement(
                     "INSERT INTO Sticker(color, description) VALUES(?, ?);");
-            statement.setString(1, StringUtil.requiredOfSize(requireNonNull(obj.getColor()).name()));
-            statement.setString(2, StringUtil.requiredOfSize(requireNonNull(obj.getDescription()).name()));
+            statement.setString(1, requiredShortString(requireNonNull(obj.getColor()).name()));
+            statement.setString(2, requiredShortString(requireNonNull(obj.getDescription()).name()));
             statement.executeUpdate();
             return obj;
         } catch (SQLException e)
@@ -97,8 +97,8 @@ public class StickerDAO extends _Generic<StickerEntity>
         {
             PreparedStatement statement = this.connect.prepareStatement(
                     "UPDATE Sticker SET color = ?, description = ? WHERE id_sticker = ?;");
-            statement.setString(1, StringUtil.requiredOfSize(requireNonNull(obj.getColor()).name()));
-            statement.setString(2, StringUtil.requiredOfSize(requireNonNull(obj.getDescription()).name()));
+            statement.setString(1, requiredShortString(requireNonNull(obj.getColor()).name()));
+            statement.setString(2, requiredShortString(requireNonNull(obj.getDescription()).name()));
             statement.setLong(3, id);
             statement.executeUpdate();
             return obj;
@@ -134,8 +134,8 @@ public class StickerDAO extends _Generic<StickerEntity>
 
     public boolean comboExists(Color color, Description description)
     {
-        String colorString       = StringUtil.requiredOfSize(requireNonNull(color).name());
-        String descriptionString = StringUtil.requiredOfSize(requireNonNull(description).name());
+        String colorString       = requiredShortString(requireNonNull(color).name());
+        String descriptionString = requiredShortString(requireNonNull(description).name());
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(

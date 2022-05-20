@@ -13,9 +13,16 @@ public class StringUtil
         return string;
     }
 
-    public static String requiredOfSize(String string)
+    /**
+     * size is set by {@link StringUtil}.{@link #VARCHAR_SIZE}
+     * <br>a string is valid and 'short' if it exists, is not empty, is not blank, and is not longer than max
+     *
+     * @param string string to validate
+     * @return said string, if valid
+     */
+    public static String requiredShortString(String string)
     {
-        if (requiredString(string).length() > VARCHAR_SIZE)
+        if (!isValidShortString(string))
         {
             throw new IllegalArgumentException(
                     String.format("this string should not be larger than %d characters", VARCHAR_SIZE)
@@ -26,7 +33,7 @@ public class StringUtil
 
     public static boolean isValidShortString(String string)
     {
-        return isValidString(string) && string.length() <= 50;
+        return isValidString(string) && string.length() <= VARCHAR_SIZE;
     }
 
     public static boolean isValidString(String string)

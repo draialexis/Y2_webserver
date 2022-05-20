@@ -1,7 +1,6 @@
 package com.uca.dao;
 
 import com.uca.entity.TeacherEntity;
-import com.uca.util.StringUtil;
 
 import javax.naming.OperationNotSupportedException;
 import java.sql.PreparedStatement;
@@ -10,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static com.uca.util.IDUtil.requireValidId;
+import static com.uca.util.StringUtil.requiredShortString;
 import static java.util.Objects.requireNonNull;
 
 public class TeacherDAO extends _Generic<TeacherEntity>
@@ -36,11 +36,11 @@ public class TeacherDAO extends _Generic<TeacherEntity>
         {
             PreparedStatement statement = this.connect.prepareStatement(
                     "INSERT INTO Teacher(firstname, lastname, username, userpwd, usersalt) VALUES(?, ?, ?, ?, ?);");
-            statement.setString(1, StringUtil.requiredOfSize(obj.getFirstName()));
-            statement.setString(2, StringUtil.requiredOfSize(obj.getLastName()));
-            statement.setString(3, StringUtil.requiredOfSize(obj.getUserName()));
-            statement.setString(4, StringUtil.requiredOfSize(obj.getUserPwd()));
-            statement.setString(5, StringUtil.requiredOfSize(obj.getUserSalt()));
+            statement.setString(1, requiredShortString(obj.getFirstName()));
+            statement.setString(2, requiredShortString(obj.getLastName()));
+            statement.setString(3, requiredShortString(obj.getUserName()));
+            statement.setString(4, requiredShortString(obj.getUserPwd()));
+            statement.setString(5, requiredShortString(obj.getUserSalt()));
             statement.executeUpdate();
             return obj;
         } catch (SQLException e)
@@ -52,7 +52,7 @@ public class TeacherDAO extends _Generic<TeacherEntity>
 
     public TeacherEntity readByUserName(String userName)
     {
-        StringUtil.requiredOfSize(userName);
+        requiredShortString(userName);
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(

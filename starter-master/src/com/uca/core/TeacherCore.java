@@ -2,11 +2,11 @@ package com.uca.core;
 
 import com.uca.dao.TeacherDAO;
 import com.uca.entity.TeacherEntity;
-import com.uca.util.StringUtil;
 
 import java.util.ArrayList;
 
 import static com.uca.util.IDUtil.requireValidId;
+import static com.uca.util.StringUtil.requiredShortString;
 import static java.util.Objects.requireNonNull;
 
 public class TeacherCore
@@ -24,7 +24,7 @@ public class TeacherCore
 
     public static TeacherEntity readByUserName(String userName)
     {
-        StringUtil.requiredOfSize(userName);
+        requiredShortString(userName);
         return new TeacherDAO().readByUserName(userName);
     }
 

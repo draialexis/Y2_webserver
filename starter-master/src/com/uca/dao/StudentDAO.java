@@ -1,7 +1,6 @@
 package com.uca.dao;
 
 import com.uca.entity.StudentEntity;
-import com.uca.util.StringUtil;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,6 +9,7 @@ import java.util.ArrayList;
 
 import static com.uca.util.IDUtil.requireValidAndIdenticalIds;
 import static com.uca.util.IDUtil.requireValidId;
+import static com.uca.util.StringUtil.requiredShortString;
 import static java.util.Objects.requireNonNull;
 
 public class StudentDAO extends _Generic<StudentEntity>
@@ -33,8 +33,8 @@ public class StudentDAO extends _Generic<StudentEntity>
         {
             PreparedStatement statement = this.connect.prepareStatement(
                     "INSERT INTO Student(lastname, firstname) VALUES(?, ?);");
-            statement.setString(1, StringUtil.requiredOfSize(obj.getLastName()));
-            statement.setString(2, StringUtil.requiredOfSize(obj.getFirstName()));
+            statement.setString(1, requiredShortString(obj.getLastName()));
+            statement.setString(2, requiredShortString(obj.getFirstName()));
             statement.executeUpdate();
             return obj;
         } catch (SQLException e)
@@ -95,8 +95,8 @@ public class StudentDAO extends _Generic<StudentEntity>
         {
             PreparedStatement statement = this.connect.prepareStatement(
                     "UPDATE Student SET lastname = ?, firstname = ? WHERE id_student = ?;");
-            statement.setString(1, StringUtil.requiredOfSize(obj.getFirstName()));
-            statement.setString(2, StringUtil.requiredOfSize(obj.getLastName()));
+            statement.setString(1, requiredShortString(obj.getFirstName()));
+            statement.setString(2, requiredShortString(obj.getLastName()));
             statement.setLong(3, id);
             statement.executeUpdate();
             return obj;

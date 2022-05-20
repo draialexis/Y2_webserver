@@ -1,8 +1,7 @@
 package com.uca.entity;
 
-import com.uca.util.StringUtil;
-
 import static com.uca.util.IDUtil.requireValidId;
+import static com.uca.util.StringUtil.requiredShortString;
 import static java.util.Objects.requireNonNull;
 
 public class StudentEntity
@@ -38,7 +37,7 @@ public class StudentEntity
 
     public void setLastName(String lastName)
     {
-        this.lastName = StringUtil.requiredOfSize(lastName);
+        this.lastName = requiredShortString(lastName);
     }
 
     public String getFirstName()
@@ -48,7 +47,7 @@ public class StudentEntity
 
     public void setFirstName(String firstName)
     {
-        this.firstName = StringUtil.requiredOfSize(firstName);
+        this.firstName = requiredShortString(firstName);
     }
 
     @Override

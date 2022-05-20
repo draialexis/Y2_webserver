@@ -10,7 +10,7 @@ import java.util.Base64;
 import java.util.Random;
 
 import static com.uca.util.StringUtil.isValidShortString;
-import static com.uca.util.StringUtil.requiredOfSize;
+import static com.uca.util.StringUtil.requiredShortString;
 
 public class Encryptor
 {
@@ -31,7 +31,7 @@ public class Encryptor
         {
             salt.append(CHARS.charAt(RANDOM.nextInt(CHARS_LENGTH)));
         }
-        return requiredOfSize(String.valueOf(salt));
+        return requiredShortString(String.valueOf(salt));
     }
 
     public static boolean verifyUserPassword(String providedPassword, String securedPassword, String salt)
