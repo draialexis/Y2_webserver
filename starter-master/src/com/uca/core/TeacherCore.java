@@ -6,13 +6,14 @@ import com.uca.util.IDUtil;
 import com.uca.util.StringUtil;
 
 import java.util.ArrayList;
-import java.util.Objects;
+
+import static java.util.Objects.requireNonNull;
 
 public class TeacherCore
 {
     public static TeacherEntity create(TeacherEntity obj)
     {
-        Objects.requireNonNull(obj);
+        requireNonNull(obj);
         return new TeacherDAO().create(obj);
     }
 

@@ -9,7 +9,8 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.Random;
 
-import static com.uca.util.StringUtil.*;
+import static com.uca.util.StringUtil.isValidShortString;
+import static com.uca.util.StringUtil.requiredOfSize;
 
 public class Encryptor
 {

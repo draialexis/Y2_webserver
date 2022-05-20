@@ -9,14 +9,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Objects;
+
+import static java.util.Objects.requireNonNull;
 
 public class TeacherDAO extends _Generic<TeacherEntity>
 {
     @Override
     TeacherEntity getFullEntity(ResultSet resultSet) throws SQLException
     {
-        Objects.requireNonNull(resultSet);
+        requireNonNull(resultSet);
         TeacherEntity entity = new TeacherEntity();
         entity.setId(resultSet.getLong("id_teacher"));
         entity.setFirstName(resultSet.getString("firstname"));
@@ -30,6 +31,7 @@ public class TeacherDAO extends _Generic<TeacherEntity>
     @Override
     public TeacherEntity create(TeacherEntity obj)
     {
+        requireNonNull(obj);
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
@@ -125,6 +127,7 @@ public class TeacherDAO extends _Generic<TeacherEntity>
     @Override
     public void delete(TeacherEntity obj) throws OperationNotSupportedException
     {
+        requireNonNull(obj);
         this.deleteById(obj.getId());
     }
 

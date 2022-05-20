@@ -5,13 +5,14 @@ import com.uca.entity.AwardEntity;
 import com.uca.util.IDUtil;
 
 import java.util.ArrayList;
-import java.util.Objects;
+
+import static java.util.Objects.requireNonNull;
 
 public class AwardCore
 {
     public static AwardEntity create(AwardEntity obj)
     {
-        Objects.requireNonNull(obj);
+        requireNonNull(obj);
         return new AwardDAO().create(obj);
     }
 

@@ -8,14 +8,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Objects;
+
+import static java.util.Objects.requireNonNull;
 
 public class StudentDAO extends _Generic<StudentEntity>
 {
     @Override
     StudentEntity getFullEntity(ResultSet resultSet) throws SQLException
     {
-        Objects.requireNonNull(resultSet);
+        requireNonNull(resultSet);
         StudentEntity entity = new StudentEntity();
         entity.setId(resultSet.getLong("id_student"));
         entity.setFirstName(resultSet.getString("firstname"));
@@ -26,7 +27,7 @@ public class StudentDAO extends _Generic<StudentEntity>
     @Override
     public StudentEntity create(StudentEntity obj)
     {
-        Objects.requireNonNull(obj);
+        requireNonNull(obj);
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
@@ -87,7 +88,7 @@ public class StudentDAO extends _Generic<StudentEntity>
     @Override
     public StudentEntity update(StudentEntity obj, long id)
     {
-        Objects.requireNonNull(obj);
+        requireNonNull(obj);
         IDUtil.requireValidAndIdentical(obj.getId(), id);
         try
         {
@@ -108,7 +109,7 @@ public class StudentDAO extends _Generic<StudentEntity>
     @Override
     public void delete(StudentEntity obj)
     {
-        Objects.requireNonNull(obj);
+        requireNonNull(obj);
         this.deleteById(obj.getId());
     }
 

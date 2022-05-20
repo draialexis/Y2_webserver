@@ -3,7 +3,7 @@ package com.uca.entity;
 import com.uca.util.IDUtil;
 import com.uca.util.StringUtil;
 
-import java.util.Objects;
+import static java.util.Objects.requireNonNull;
 
 public class TeacherEntity
 {
@@ -18,7 +18,7 @@ public class TeacherEntity
 
     TeacherEntity(TeacherEntity other)
     {
-        Objects.requireNonNull(other);
+        requireNonNull(other);
         this.id = other.id;
         this.lastName = other.lastName;
         this.firstName = other.firstName;

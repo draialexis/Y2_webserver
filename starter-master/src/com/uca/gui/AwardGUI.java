@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-import static com.uca.util.IDUtil.isValidId;
+import static com.uca.util.IDUtil.notIsValidId;
 import static com.uca.util.IDUtil.requireValid;
 import static com.uca.util.StringUtil.isValidShortString;
 import static com.uca.util.StringUtil.isValidString;
@@ -25,7 +25,7 @@ public class AwardGUI extends _BasicGUI
     public static String create(String motive, String teacherUserName, long studentId, long stickerId)
             throws IOException, TemplateException, IllegalArgumentException
     {
-        if (!isValidId(stickerId) || !isValidId(studentId))
+        if (notIsValidId(stickerId) || notIsValidId(studentId))
         {
             throw new IllegalArgumentException(InfoMsg.ID_INVALIDE.name());
         }

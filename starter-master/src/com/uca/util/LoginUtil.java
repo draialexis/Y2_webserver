@@ -12,6 +12,8 @@ import spark.Response;
 import java.io.IOException;
 
 import static com.uca.util.StringUtil.isValidShortString;
+import static com.uca.util.StringUtil.required;
+import static java.util.Objects.requireNonNull;
 
 public class LoginUtil
 {
@@ -24,37 +26,47 @@ public class LoginUtil
 
     private static String getSavedPath(Request req)
     {
+        requireNonNull(req);
         return req.cookie(COOKIE_PATH_NAME);
     }
 
     private static void setSavedPath(Response res, String savedPath)
     {
+        requireNonNull(res);
+        required(savedPath);
         res.cookie("/login", COOKIE_PATH_NAME, savedPath, COOKIE_MAX_AGE, false);
     }
 
     private static String getToken(Request req)
     {
+        requireNonNull(req);
         return req.cookie(COOKIE_TOKEN_NAME);
     }
 
     private static void setToken(Response res, String token)
     {
+        requireNonNull(res);
+        required(token);
         res.cookie("/", COOKIE_TOKEN_NAME, token, COOKIE_MAX_AGE, false);
         // "secure" is set to false because of localhost testing
     }
 
     public static String getUserName(Request req)
     {
+        requireNonNull(req);
         return req.cookie(COOKIE_USERNAME_NAME);
     }
 
     private static void setUserName(Response res, String userName)
     {
+        requireNonNull(res);
+        required(userName);
         res.cookie("/", COOKIE_USERNAME_NAME, userName, COOKIE_MAX_AGE, false);
     }
 
     private static void disconnect(Response res)
     {
+        requireNonNull(res);
         res.removeCookie(COOKIE_USERNAME_NAME);
         res.removeCookie(COOKIE_TOKEN_NAME);
         res.removeCookie(COOKIE_PATH_NAME);
@@ -62,6 +74,8 @@ public class LoginUtil
 
     private static void handleTimeout(Request req, Response res)
     {
+        requireNonNull(req);
+        requireNonNull(res);
         disconnect(res);
         setSavedPath(res, req.pathInfo());
         res.redirect("/login/timeout");
@@ -69,12 +83,15 @@ public class LoginUtil
 
     public static String handleLogout(Response res) throws TemplateException, IOException
     {
+        requireNonNull(res);
         disconnect(res);
         return LoginGUI.display(InfoMsg.DECONNEXION_SUCCES);
     }
 
     public static String handleLoginPost(Request req, Response res) throws TemplateException, IOException
     {
+        requireNonNull(req);
+        requireNonNull(res);
         String savedPath = getSavedPath(req);
         res.removeCookie("/login", COOKIE_PATH_NAME);
         String userName = req.queryParams(COOKIE_USERNAME_NAME);
@@ -107,6 +124,8 @@ public class LoginUtil
 
     public static void isLoggedInOrElseRedirect(Request req, Response res) throws IOException
     {
+        requireNonNull(req);
+        requireNonNull(res);
         if (!isLoggedIn(req, res))
         {
             setSavedPath(res, req.pathInfo()); // saves the path to redirect right away after login
@@ -116,6 +135,8 @@ public class LoginUtil
 
     public static boolean isLoggedIn(Request req, Response res) throws IOException
     {
+        requireNonNull(req);
+        requireNonNull(res);
         String token    = getToken(req);
         String userName = getUserName(req);
         if (token != null && userName != null)

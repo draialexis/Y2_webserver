@@ -2,7 +2,7 @@ package com.uca.entity;
 
 import com.uca.util.IDUtil;
 
-import java.util.Objects;
+import static java.util.Objects.requireNonNull;
 
 public class StickerEntity
 {
@@ -15,7 +15,7 @@ public class StickerEntity
     // copy constructor (https://www.baeldung.com/java-constructors#copy)
     StickerEntity(StickerEntity other)
     {
-        Objects.requireNonNull(other);
+        requireNonNull(other);
         this.id = other.id;
         this.color = other.color;
         this.description = other.description;

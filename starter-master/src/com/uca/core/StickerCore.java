@@ -7,13 +7,14 @@ import com.uca.entity.StickerEntity;
 import com.uca.util.IDUtil;
 
 import java.util.ArrayList;
-import java.util.Objects;
+
+import static java.util.Objects.requireNonNull;
 
 public class StickerCore
 {
     public static StickerEntity create(StickerEntity obj)
     {
-        Objects.requireNonNull(obj);
+        requireNonNull(obj);
         return new StickerDAO().create(obj);
     }
 
@@ -30,7 +31,7 @@ public class StickerCore
 
     public static StickerEntity update(StickerEntity obj, long id)
     {
-        Objects.requireNonNull(obj);
+        requireNonNull(obj);
         IDUtil.requireValid(id);
         return new StickerDAO().update(obj, id);
     }

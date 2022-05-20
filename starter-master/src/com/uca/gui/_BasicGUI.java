@@ -6,7 +6,8 @@ import freemarker.template.TemplateException;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
-import java.util.Objects;
+
+import static java.util.Objects.requireNonNull;
 
 public abstract class _BasicGUI
 {
@@ -14,7 +15,7 @@ public abstract class _BasicGUI
 
     static void useAndResetStatus(Map<String, Object> input)
     {
-        Objects.requireNonNull(input);
+        requireNonNull(input);
         input.put("status", infoMsg);
         infoMsg = null;
     }
@@ -23,7 +24,8 @@ public abstract class _BasicGUI
             throws TemplateException, IOException
     {
         useAndResetStatus(input);
-        Objects.requireNonNull(output);
+        requireNonNull(output);
+        requireNonNull(template);
         template.setOutputEncoding("UTF-8");
         template.process(input, output);
         return output.toString();
