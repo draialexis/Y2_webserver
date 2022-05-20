@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static com.uca.util.IDUtil.requireValidAndIdenticalIds;
+import static com.uca.util.IDUtil.checkIfValidAndIdenticalIds;
 import static com.uca.util.IDUtil.requireValidId;
 import static com.uca.util.StringUtil.requiredShortString;
 import static java.util.Objects.requireNonNull;
@@ -90,7 +90,7 @@ public class StudentDAO extends _Generic<StudentEntity>
     public StudentEntity update(StudentEntity obj, long id)
     {
         requireNonNull(obj);
-        requireValidAndIdenticalIds(obj.getId(), id);
+        checkIfValidAndIdenticalIds(obj.getId(), id);
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
