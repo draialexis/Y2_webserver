@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.util.NoSuchElementException;
 import java.util.Properties;
 
-import static com.uca.util.StringUtil.required;
+import static com.uca.util.StringUtil.requiredString;
 import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
 import static spark.Spark.halt;
 
@@ -18,7 +18,7 @@ public class PropertiesReader
     public String getProperty(String propertyName) throws IOException
     {
         String property = null;
-        required(propertyName);
+        requiredString(propertyName);
         try
         {
             Properties properties = new Properties();

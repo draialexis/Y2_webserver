@@ -4,7 +4,6 @@ import com.uca.core.StickerCore;
 import com.uca.core.StudentCore;
 import com.uca.core.TeacherCore;
 import com.uca.entity.AwardEntity;
-import com.uca.util.StringUtil;
 
 import javax.naming.OperationNotSupportedException;
 import java.sql.PreparedStatement;
@@ -14,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import static com.uca.util.IDUtil.requireValidId;
+import static com.uca.util.StringUtil.requiredString;
 import static java.util.Objects.requireNonNull;
 
 public class AwardDAO extends _Generic<AwardEntity>
@@ -50,7 +50,7 @@ public class AwardDAO extends _Generic<AwardEntity>
                 statement.setLong(3, requireValidId(obj.getTeacher().getId()));
             }
             statement.setDate(1, requireNonNull(obj.getAttributionDate()));
-            statement.setString(2, StringUtil.required(obj.getMotive()));
+            statement.setString(2, requiredString(obj.getMotive()));
             statement.setLong(4, requireValidId(requireNonNull(obj.getSticker()).getId()));
             statement.setLong(5, requireValidId(requireNonNull(obj.getStudent()).getId()));
             statement.executeUpdate();

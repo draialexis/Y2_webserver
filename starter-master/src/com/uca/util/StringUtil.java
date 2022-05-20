@@ -4,7 +4,7 @@ public class StringUtil
 {
     public static final int VARCHAR_SIZE = 50;
 
-    public static String required(String string)
+    public static String requiredString(String string)
     {
         if (!isValidString(string))
         {
@@ -15,7 +15,7 @@ public class StringUtil
 
     public static String requiredOfSize(String string)
     {
-        if (required(string).length() > VARCHAR_SIZE)
+        if (requiredString(string).length() > VARCHAR_SIZE)
         {
             throw new IllegalArgumentException(
                     String.format("this string should not be larger than %d characters", VARCHAR_SIZE)

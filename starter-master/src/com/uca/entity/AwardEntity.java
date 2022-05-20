@@ -1,10 +1,9 @@
 package com.uca.entity;
 
-import com.uca.util.StringUtil;
-
 import java.sql.Date;
 
 import static com.uca.util.IDUtil.requireValidId;
+import static com.uca.util.StringUtil.requiredString;
 import static java.util.Objects.requireNonNull;
 
 public class AwardEntity
@@ -43,7 +42,7 @@ public class AwardEntity
 
     public void setMotive(String motive)
     {
-        this.motive = StringUtil.required(motive);
+        this.motive = requiredString(motive);
     }
 
     public TeacherEntity getTeacher()

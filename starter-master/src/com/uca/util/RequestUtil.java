@@ -5,7 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.uca.util.StringUtil.required;
+import static com.uca.util.StringUtil.requiredString;
 import static java.util.Objects.requireNonNull;
 
 // thanks to https://stackoverflow.com/questions/29312048/how-to-get-data-from-form-with-spark-java
@@ -13,7 +13,7 @@ public class RequestUtil
 {
     public static HashMap<String, String> getParamFromReqBody(String body)
     {
-        required(body);
+        requiredString(body);
         HashMap<String, String> params = new HashMap<>();
         for (String s : body.split("&"))
         {
@@ -26,7 +26,7 @@ public class RequestUtil
     public static String getParamUTF8(Map<String, String> params, String param)
     {
         requireNonNull(params);
-        required(param);
+        requiredString(param);
         String encoded = params.get(param);
         return URLDecoder.decode(encoded, StandardCharsets.UTF_8);
     }

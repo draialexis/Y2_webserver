@@ -12,7 +12,7 @@ import spark.Response;
 import java.io.IOException;
 
 import static com.uca.util.StringUtil.isValidShortString;
-import static com.uca.util.StringUtil.required;
+import static com.uca.util.StringUtil.requiredString;
 import static java.util.Objects.requireNonNull;
 
 public class LoginUtil
@@ -33,7 +33,7 @@ public class LoginUtil
     private static void setSavedPath(Response res, String savedPath)
     {
         requireNonNull(res);
-        required(savedPath);
+        requiredString(savedPath);
         res.cookie("/login", COOKIE_PATH_NAME, savedPath, COOKIE_MAX_AGE, false);
     }
 
@@ -46,7 +46,7 @@ public class LoginUtil
     private static void setToken(Response res, String token)
     {
         requireNonNull(res);
-        required(token);
+        requiredString(token);
         res.cookie("/", COOKIE_TOKEN_NAME, token, COOKIE_MAX_AGE, false);
         // "secure" is set to false because of localhost testing
     }
@@ -60,7 +60,7 @@ public class LoginUtil
     private static void setUserName(Response res, String userName)
     {
         requireNonNull(res);
-        required(userName);
+        requiredString(userName);
         res.cookie("/", COOKIE_USERNAME_NAME, userName, COOKIE_MAX_AGE, false);
     }
 
