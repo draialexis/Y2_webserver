@@ -2,7 +2,7 @@ package com.uca.util;
 
 public class IDUtil
 {
-    public static void requireValidAndIdenticalId(long id1, long id2)
+    public static void requireValidAndIdenticalIds(long id1, long id2)
     {
         if (requireValidId(id1) != id2)
         {
