@@ -31,19 +31,26 @@ public class AwardGUI extends _BasicGUI
         }
         else
         {
-            if (!isValidString(motive) || !isValidShortString(teacherUserName))
+            if (!isValidString(motive))
             {
                 infoMsg = InfoMsg.CHAMPS_NON_POSTABLES;
             }
             else
             {
-                AwardEntity award = new AwardEntity();
-                award.setAttributionDate(new Date(new java.util.Date().getTime()));
-                award.setMotive(motive);
-                award.setTeacher(TeacherCore.readByUserName(teacherUserName));
-                award.setStudent(StudentCore.readById(studentId));
-                award.setSticker(StickerCore.readById(stickerId));
-                infoMsg = AwardCore.create(award) != null ? InfoMsg.AJOUT_SUCCES : InfoMsg.AJOUT_ECHEC;
+                if (!isValidShortString(teacherUserName))
+                {
+                    throw new IllegalArgumentException(InfoMsg.UTILISATEUR_INTROUVABLE.name());
+                }
+                else
+                {
+                    AwardEntity award = new AwardEntity();
+                    award.setAttributionDate(new Date(new java.util.Date().getTime()));
+                    award.setMotive(motive);
+                    award.setTeacher(TeacherCore.readByUserName(teacherUserName));
+                    award.setStudent(StudentCore.readById(studentId));
+                    award.setSticker(StickerCore.readById(stickerId));
+                    infoMsg = AwardCore.create(award) != null ? InfoMsg.AJOUT_SUCCES : InfoMsg.AJOUT_ECHEC;
+                }
             }
         }
         return readAll(true);
