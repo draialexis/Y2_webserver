@@ -57,10 +57,11 @@ public class AwardGUI extends _BasicGUI
     }
 
     /**
-     * displays several - or all - awards, depending on {@code studentId}
+     * displays several - or all - awards, depending on {@code isByStudent} and {@code studentId}
      *
      * @param isAuthorized whether the user is authorized to access the resource
-     * @param studentId    a student id (will trigger a reading <em>by student</em> if > 0)
+     * @param studentId    a student id (unimportant if reading for all students, but must be >0 otherwise)
+     * @param isByStudent  whether this reading is by student of for all students
      * @return a view that displays said awards
      */
     private static String readMany(boolean isAuthorized, long studentId, boolean isByStudent)
