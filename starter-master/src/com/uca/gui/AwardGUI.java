@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 import static com.uca.util.IDUtil.notIsValidId;
-import static com.uca.util.IDUtil.requireValid;
+import static com.uca.util.IDUtil.requireValidId;
 import static com.uca.util.StringUtil.isValidShortString;
 import static com.uca.util.StringUtil.isValidString;
 
@@ -69,7 +69,7 @@ public class AwardGUI extends _BasicGUI
         }
         else
         {
-            requireValid(studentId);
+            requireValidId(studentId);
             input.put("awards", AwardCore.readByStudentId(studentId));
         }
 
@@ -96,7 +96,7 @@ public class AwardGUI extends _BasicGUI
     public static String readById(boolean isAuthorized, long id)
             throws IOException, TemplateException, IllegalArgumentException, NoSuchElementException
     {
-        requireValid(id);
+        requireValidId(id);
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("awards/award.ftl");
 
@@ -113,7 +113,7 @@ public class AwardGUI extends _BasicGUI
 
     public static String deleteById(long id) throws IOException, TemplateException, IllegalArgumentException
     {
-        requireValid(id);
+        requireValidId(id);
         AwardCore.deleteById(id);
         // we assume that the user was only able to access this function because it was authorized
         return readMany(true, 0, false);

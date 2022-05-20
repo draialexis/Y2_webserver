@@ -2,11 +2,11 @@ package com.uca.core;
 
 import com.uca.dao.TeacherDAO;
 import com.uca.entity.TeacherEntity;
-import com.uca.util.IDUtil;
 import com.uca.util.StringUtil;
 
 import java.util.ArrayList;
 
+import static com.uca.util.IDUtil.requireValidId;
 import static java.util.Objects.requireNonNull;
 
 public class TeacherCore
@@ -30,7 +30,7 @@ public class TeacherCore
 
     public static TeacherEntity readById(long id)
     {
-        IDUtil.requireValid(id);
+        requireValidId(id);
         return new TeacherDAO().readById(id);
     }
 }

@@ -1,7 +1,6 @@
 package com.uca.entity;
 
-import com.uca.util.IDUtil;
-
+import static com.uca.util.IDUtil.requireValidId;
 import static java.util.Objects.requireNonNull;
 
 public class StickerEntity
@@ -28,7 +27,7 @@ public class StickerEntity
 
     public void setId(long id)
     {
-        this.id = IDUtil.requireValid(id);
+        this.id = requireValidId(id);
     }
 
     public Color getColor()

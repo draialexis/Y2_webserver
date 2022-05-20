@@ -1,7 +1,6 @@
 package com.uca.dao;
 
 import com.uca.entity.TeacherEntity;
-import com.uca.util.IDUtil;
 import com.uca.util.StringUtil;
 
 import javax.naming.OperationNotSupportedException;
@@ -10,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import static com.uca.util.IDUtil.requireValidId;
 import static java.util.Objects.requireNonNull;
 
 public class TeacherDAO extends _Generic<TeacherEntity>
@@ -94,7 +94,7 @@ public class TeacherDAO extends _Generic<TeacherEntity>
     @Override
     public TeacherEntity readById(long id)
     {
-        IDUtil.requireValid(id);
+        requireValidId(id);
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(

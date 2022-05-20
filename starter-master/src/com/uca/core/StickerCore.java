@@ -4,10 +4,10 @@ import com.uca.dao.StickerDAO;
 import com.uca.entity.Color;
 import com.uca.entity.Description;
 import com.uca.entity.StickerEntity;
-import com.uca.util.IDUtil;
 
 import java.util.ArrayList;
 
+import static com.uca.util.IDUtil.requireValidId;
 import static java.util.Objects.requireNonNull;
 
 public class StickerCore
@@ -25,20 +25,20 @@ public class StickerCore
 
     public static StickerEntity readById(long id)
     {
-        IDUtil.requireValid(id);
+        requireValidId(id);
         return new StickerDAO().readById(id);
     }
 
     public static StickerEntity update(StickerEntity obj, long id)
     {
         requireNonNull(obj);
-        IDUtil.requireValid(id);
+        requireValidId(id);
         return new StickerDAO().update(obj, id);
     }
 
     public static void deleteById(long id)
     {
-        IDUtil.requireValid(id);
+        requireValidId(id);
         new StickerDAO().deleteById(id);
     }
 

@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import static com.uca.util.IDUtil.requireValidId;
 import static java.util.Objects.requireNonNull;
 
 public class StudentDAO extends _Generic<StudentEntity>
@@ -67,7 +68,7 @@ public class StudentDAO extends _Generic<StudentEntity>
     @Override
     public StudentEntity readById(long id)
     {
-        IDUtil.requireValid(id);
+        requireValidId(id);
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
@@ -89,7 +90,7 @@ public class StudentDAO extends _Generic<StudentEntity>
     public StudentEntity update(StudentEntity obj, long id)
     {
         requireNonNull(obj);
-        IDUtil.requireValidAndIdentical(obj.getId(), id);
+        IDUtil.requireValidAndIdenticalId(obj.getId(), id);
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
@@ -116,7 +117,7 @@ public class StudentDAO extends _Generic<StudentEntity>
     @Override
     public void deleteById(long id)
     {
-        IDUtil.requireValid(id);
+        requireValidId(id);
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(

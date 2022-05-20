@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import static com.uca.util.IDUtil.requireValidId;
 import static java.util.Objects.requireNonNull;
 
 public class StickerDAO extends _Generic<StickerEntity>
@@ -69,7 +70,7 @@ public class StickerDAO extends _Generic<StickerEntity>
     @Override
     public StickerEntity readById(long id)
     {
-        IDUtil.requireValid(id);
+        requireValidId(id);
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
@@ -91,7 +92,7 @@ public class StickerDAO extends _Generic<StickerEntity>
     public StickerEntity update(StickerEntity obj, long id)
     {
         requireNonNull(obj);
-        IDUtil.requireValidAndIdentical(obj.getId(), id);
+        IDUtil.requireValidAndIdenticalId(obj.getId(), id);
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(
@@ -118,7 +119,7 @@ public class StickerDAO extends _Generic<StickerEntity>
     @Override
     public void deleteById(long id)
     {
-        IDUtil.requireValid(id);
+        requireValidId(id);
         try
         {
             PreparedStatement statement = this.connect.prepareStatement(

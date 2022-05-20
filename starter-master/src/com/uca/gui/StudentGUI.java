@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-import static com.uca.util.IDUtil.requireValid;
+import static com.uca.util.IDUtil.requireValidId;
 import static com.uca.util.StringUtil.isValidShortString;
 
 public class StudentGUI extends _BasicGUI
@@ -46,7 +46,7 @@ public class StudentGUI extends _BasicGUI
     public static String readById(long id)
             throws IOException, TemplateException, IllegalArgumentException, NoSuchElementException
     {
-        requireValid(id);
+        requireValidId(id);
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("students/student.ftl");
 
@@ -62,7 +62,7 @@ public class StudentGUI extends _BasicGUI
     public static String update(long id, String lastName, String firstName)
             throws IOException, TemplateException, IllegalArgumentException
     {
-        requireValid(id);
+        requireValidId(id);
         {
             if (!isValidShortString(firstName) || !isValidShortString(lastName))
             {
@@ -83,7 +83,7 @@ public class StudentGUI extends _BasicGUI
 
     public static String deleteById(long id) throws TemplateException, IOException
     {
-        requireValid(id);
+        requireValidId(id);
         StudentCore.deleteById(id);
         return readAll();
     }

@@ -2,10 +2,10 @@ package com.uca.core;
 
 import com.uca.dao.StudentDAO;
 import com.uca.entity.StudentEntity;
-import com.uca.util.IDUtil;
 
 import java.util.ArrayList;
 
+import static com.uca.util.IDUtil.requireValidId;
 import static java.util.Objects.requireNonNull;
 
 public class StudentCore
@@ -23,20 +23,20 @@ public class StudentCore
 
     public static StudentEntity readById(long id)
     {
-        IDUtil.requireValid(id);
+        requireValidId(id);
         return new StudentDAO().readById(id);
     }
 
     public static StudentEntity update(StudentEntity obj, long id)
     {
         requireNonNull(obj);
-        IDUtil.requireValid(id);
+        requireValidId(id);
         return new StudentDAO().update(obj, id);
     }
 
     public static void deleteById(long id)
     {
-        IDUtil.requireValid(id);
+        requireValidId(id);
         new StudentDAO().deleteById(id);
     }
 }

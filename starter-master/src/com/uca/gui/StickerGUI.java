@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-import static com.uca.util.IDUtil.requireValid;
+import static com.uca.util.IDUtil.requireValidId;
 import static com.uca.util.StringUtil.isValidShortString;
 
 public class StickerGUI extends _BasicGUI
@@ -61,7 +61,7 @@ public class StickerGUI extends _BasicGUI
     public static String readById(boolean isAuthorized, long id)
             throws IOException, TemplateException, NoSuchElementException, IllegalArgumentException
     {
-        requireValid(id);
+        requireValidId(id);
         Map<String, Object> input    = new HashMap<>();
         Template            template = _FreeMarkerInitializer.getContext().getTemplate("stickers/sticker.ftl");
 
@@ -85,7 +85,7 @@ public class StickerGUI extends _BasicGUI
     public static String update(long id, String colorString, String descriptionString)
             throws IOException, TemplateException, IllegalArgumentException
     {
-        requireValid(id);
+        requireValidId(id);
         if (!isValidShortString(colorString) || !isValidShortString(descriptionString))
         {
             infoMsg = InfoMsg.CHAMPS_NON_POSTABLES;
@@ -114,7 +114,7 @@ public class StickerGUI extends _BasicGUI
 
     public static String deleteById(long id) throws TemplateException, IOException, IllegalArgumentException
     {
-        requireValid(id);
+        requireValidId(id);
         StickerCore.deleteById(id);
         // we assume that the user was only able to access this function because it was authorized
         return readAll(true);

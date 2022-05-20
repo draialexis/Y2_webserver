@@ -2,15 +2,15 @@ package com.uca.util;
 
 public class IDUtil
 {
-    public static void requireValidAndIdentical(long id1, long id2)
+    public static void requireValidAndIdenticalId(long id1, long id2)
     {
-        if (requireValid(id1) != id2)
+        if (requireValidId(id1) != id2)
         {
             throw new IllegalArgumentException(String.format("IDs should be identical: (%d != %d)", id1, id2));
         }
     }
 
-    public static long requireValid(long id)
+    public static long requireValidId(long id)
     {
         if (notIsValidId(id))
         {
