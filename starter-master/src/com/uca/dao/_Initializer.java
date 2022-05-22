@@ -1,7 +1,5 @@
 package com.uca.dao;
 
-import com.uca.entity.Color;
-import com.uca.entity.Description;
 import com.uca.util.PropertiesReader;
 
 import java.sql.Connection;
