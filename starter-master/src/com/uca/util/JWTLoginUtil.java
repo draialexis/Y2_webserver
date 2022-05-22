@@ -12,12 +12,13 @@ import java.security.Key;
 import java.util.Date;
 import java.util.UUID;
 
-import static com.uca.util.DateUtil.MS_IN_HOUR;
-
 // inspired by https://developer.okta.com/blog/2018/10/31/jwts-with-java
 // and artheriom    ** mouth noises / bad audio -- warning ** (https://www.youtube.com/channel/UC2UoE_uuP7MiiwvaWbrxx0A)
 public class JWTLoginUtil
 {
+    private static final long             MS_IN_SEC  = 1000;
+    private static final long             MS_IN_MIN  = MS_IN_SEC * 60;
+    private static final long             MS_IN_HOUR = MS_IN_MIN * 60;
     private static final PropertiesReader propReader = new PropertiesReader();
 
     public static String makeToken(String subject) throws IOException
