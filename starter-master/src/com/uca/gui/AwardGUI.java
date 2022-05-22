@@ -123,6 +123,7 @@ public class AwardGUI extends _BasicGUI
     {
         requireValidId(id);
         AwardCore.deleteById(id);
+        infoMsg = InfoMsg.SUPPRESSION_SUCCES;
         // we assume that the user was only able to access this function because it was authorized
         return readMany(true, 0, false);
     }

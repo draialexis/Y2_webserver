@@ -85,6 +85,7 @@ public class StudentGUI extends _BasicGUI
     {
         requireValidId(id);
         StudentCore.deleteById(id);
+        infoMsg = InfoMsg.SUPPRESSION_SUCCES;
         return readAll();
     }
 }

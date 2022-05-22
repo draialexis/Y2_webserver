@@ -116,6 +116,7 @@ public class StickerGUI extends _BasicGUI
     {
         requireValidId(id);
         StickerCore.deleteById(id);
+        infoMsg = InfoMsg.SUPPRESSION_SUCCES;
         // we assume that the user was only able to access this function because it was authorized
         return readAll(true);
     }
