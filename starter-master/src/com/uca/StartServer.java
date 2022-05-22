@@ -86,7 +86,7 @@ public class StartServer
         // signup page
         get("/hidden/signup", (req, res) -> SignUpGUI.display());
 
-        //===============CR** teachers===============
+        //===============CR*D teachers===============
         // create
         post("/hidden/teachers", (req, res) -> {
             HashMap<String, String> params = getParamFromReqBody(req.body());
