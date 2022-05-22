@@ -169,5 +169,4 @@ public class TeacherDAO extends _Generic<TeacherEntity>
         }
         return false;
     }
-    //TODO use variables in DAOs and stuff to make code more readable
 }
