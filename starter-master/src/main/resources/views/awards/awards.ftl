@@ -9,13 +9,14 @@
     <#include "award-create-form.ftl">
 </#if>
 
+<h2>
+    Attributions
+    <#if isByStudent>
+        de ${awards[0].getStudent().getFirstName()} ${awards[0].getStudent().getLastName()}
+    </#if>
+</h2>
+
 <#if awards?has_content>
-    <h2>
-        Attributions
-        <#if isByStudent>
-            de ${awards[0].getStudent().getFirstName()} ${awards[0].getStudent().getLastName()}
-        </#if>
-    </h2>
     <table>
         <tr>
             <th>ID</th>
