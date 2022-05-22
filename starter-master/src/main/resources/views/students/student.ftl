@@ -11,7 +11,7 @@
 <#if student?has_content>
     <h2>El&egrave;ve num&eacute;ro : ${student.getId()}</h2>
     <p>${student.getFirstName()} ${student.getLastName()}</p>
-    <form action="/hidden/student/delete/${student.getId()}" method="POST">
+    <form action="/hidden/students/delete/${student.getId()}" method="POST">
         <button type="submit">Supprimer</button>
     </form>
 </#if>
