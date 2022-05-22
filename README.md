@@ -1,4 +1,4 @@
-# TP Web-Serveur
+# Web server: lab
 
 The back-end of a colored sticker dot management app.
 
@@ -21,14 +21,13 @@ settings - more research and tuning would be required in order to clear this up.
 
 `./gradlew.bat run`
 
-## Project instructions
+## Project instructions (in French)
 
 Right [here](https://unicorn.artheriom.fr/#/techno-ws-l2)
 or [here in pdf](https://github.com/draialexis/Y2_webserver/files/8473212/TP_Version_Imprimable_au_07_03_22.pdf)
 
-## Report, annex (URIs + Figures)
+## Report, annex (in French)
 
-[report.pdf](https://github.com/draialexis/Y2_webserver/files/8747847/REPORT.pdf)
+[report (pdf)](https://github.com/draialexis/Y2_webserver/files/8747847/REPORT.pdf)
 
-[annex.pdf](https://github.com/draialexis/Y2_webserver/files/8747849/ANNEX.pdf)
-
+[URIs + figures (pdf)](https://github.com/draialexis/Y2_webserver/files/8747849/ANNEX.pdf)
