@@ -3,6 +3,7 @@ package com.uca.core;
 import com.uca.dao.TeacherDAO;
 import com.uca.entity.TeacherEntity;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static com.uca.util.IDUtil.requireValidId;
@@ -32,5 +33,17 @@ public class TeacherCore
     {
         requireValidId(id);
         return new TeacherDAO().readById(id);
+    }
+
+    public static void deleteById(long id)
+    {
+        requireValidId(id);
+        new TeacherDAO().deleteById(id);
+    }
+
+    public static boolean isAdmin(long id) throws IOException
+    {
+        requireValidId(id);
+        return new TeacherDAO().isAdmin(id);
     }
 }

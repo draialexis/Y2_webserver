@@ -1,8 +1,10 @@
 package com.uca.dao;
 
 import com.uca.entity.TeacherEntity;
+import com.uca.util.PropertiesReader;
 
 import javax.naming.OperationNotSupportedException;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -121,23 +123,51 @@ public class TeacherDAO extends _Generic<TeacherEntity>
         throw new OperationNotSupportedException("update teacher: not in this project's scope");
     }
 
-    /**
-     * NOT SUPPORTED
-     */
     @Override
-    public void delete(TeacherEntity obj) throws OperationNotSupportedException
+    public void delete(TeacherEntity obj)
     {
         requireNonNull(obj);
         this.deleteById(obj.getId());
     }
 
-    /**
-     * NOT SUPPORTED
-     */
     @Override
-    public void deleteById(long id) throws OperationNotSupportedException
+    public void deleteById(long id)
     {
-        throw new OperationNotSupportedException("delete teacher: not in this project's scope");
+        requireValidId(id);
+        try
+        {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "DELETE FROM Teacher WHERE id_teacher = ? ;");
+            statement.setLong(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
 
+    public boolean isAdmin(long id) throws IOException
+    {
+        try
+        {
+            PreparedStatement statement = this.connect.prepareStatement(
+                    "SELECT * FROM Teacher WHERE id_teacher = ?;");
+            statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next())
+            {
+                TeacherEntity teacher = this.getFullEntity(resultSet);
+                return teacher != null
+                       && (
+                               teacher.getUserName().equals(new PropertiesReader().getProperty("admin1"))
+                               || teacher.getUserName().equals(new PropertiesReader().getProperty("admin2"))
+                       );
+            }
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    //TODO use variables in DAOs and stuff to make code more readable
 }

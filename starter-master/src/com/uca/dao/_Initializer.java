@@ -62,6 +62,8 @@ public class _Initializer
 
             // thanks to https://stackoverflow.com/questions/5307164/execute-insert-if-table-is-empty/5307178#5307178
             // in order to avoid duplicate inserts and SQLExceptions
+
+            String admin1 = new PropertiesReader().getProperty("admin1");
             statement = connection.prepareStatement(
                     "INSERT INTO Teacher (firstname, lastname, username, userpwd, usersalt)" +
                     "SELECT ?, ?, ?, ?, ? " +
@@ -69,12 +71,13 @@ public class _Initializer
                     "WHERE NOT EXISTS (SELECT * FROM Teacher WHERE username = ?);");
             statement.setString(1, "Robert");
             statement.setString(2, "Framboisier");
-            statement.setString(3, "rob_fra");
+            statement.setString(3, admin1);
             statement.setString(4, "jOfL5U6hBj/lhxrm8/XlOs+K0DbG1M7tC/ehW1Kzz4w=");
             statement.setString(5, "WNxq1r6Q2ZyA8AKQSYXJlg5XANMu9Kdp");
-            statement.setString(6, "rob_fra");
+            statement.setString(6, admin1);
             statement.executeUpdate();
 
+            String admin2 = new PropertiesReader().getProperty("admin2");
             statement = connection.prepareStatement(
                     "INSERT INTO Teacher (firstname, lastname, username, userpwd, usersalt)" +
                     "SELECT ?, ?, ?, ?, ? " +
@@ -82,10 +85,10 @@ public class _Initializer
                     "WHERE NOT EXISTS (SELECT * FROM Teacher WHERE username = ?);");
             statement.setString(1, "Charlotte");
             statement.setString(2, "Myrtille");
-            statement.setString(3, "cha_myr");
+            statement.setString(3, admin2);
             statement.setString(4, "R8ld7acSBTxT23oR7IHB+hR/blrP6SD7/8Ja6gh7aEg=");
             statement.setString(5, "tBtlrrVWRfFpGntfYuWcX3KwxrtRuq6h");
-            statement.setString(6, "cha_myr");
+            statement.setString(6, admin2);
             statement.executeUpdate();
 
             System.out.println("~~~~~~~~~~" +

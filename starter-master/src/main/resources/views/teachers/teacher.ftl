@@ -6,9 +6,16 @@
 <#include "../bits/navbar.ftl">
 <#include "../bits/status.ftl">
 
+
 <#if teacher?has_content>
+    <#assign uname = teacher.getUserName()>
     <h2>Enseignant num&eacute;ro : ${teacher.getId()}</h2>
-    <p>${teacher.getFirstName()} ${teacher.getLastName()} (${teacher.getUserName()})</p>
+    <p>${teacher.getFirstName()} ${teacher.getLastName()} (${uname})</p>
+    <#if uname != admin1 && uname != admin2>
+        <form action="/hidden/teachers/delete/${teacher.getId()}" method="POST">
+            <button type="submit">Supprimer</button>
+        </form>
+    </#if>
 </#if>
 
 </body>

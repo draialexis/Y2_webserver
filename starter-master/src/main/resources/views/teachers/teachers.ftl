@@ -15,13 +15,23 @@
             <th>nom</th>
             <th>pr&eacute;nom</th>
             <th>nom d'utilisateur</th>
+            <th>actions</th>
         </tr>
         <#list teachers as teacher>
+            <#assign uname = teacher.getUserName()>
+
             <tr>
                 <td><a href="/hidden/teachers/${teacher.getId()}">${teacher.getId()}</a></td>
                 <td>${teacher.getLastName()}</td>
                 <td>${teacher.getFirstName()}</td>
-                <td>${teacher.getUserName()}</td>
+                <td>${uname}</td>
+                <td>
+                    <#if uname != admin1 && uname != admin2>
+                        <form action="/hidden/teachers/delete/${teacher.getId()}" method="POST">
+                            <button type="submit">Supprimer</button>
+                        </form>
+                    </#if>
+                </td>
             </tr>
         </#list>
     </table>

@@ -104,6 +104,14 @@ public class StartServer
         get("/hidden/teachers/:id_teacher",
             (req, res) -> TeacherGUI.readById(Long.parseLong(req.params(":id_teacher"))));
 
+        // TODO remove and replace with DELETE below
+        post("/hidden/teachers/delete/:id_teacher",
+             (req, res) -> TeacherGUI.deleteById(Long.parseLong(req.params(":id_teacher"))));
+
+        // delete
+        delete("/hidden/teachers/:id_teacher",
+               (req, res) -> TeacherGUI.deleteById(Long.parseLong(req.params(":id_teacher"))));
+
         //===============CRUD students===============
         // create
         post("/hidden/students", (req, res) -> {

@@ -3,6 +3,7 @@ package com.uca.gui;
 import com.uca.core.TeacherCore;
 import com.uca.entity.TeacherEntity;
 import com.uca.util.Encryptor;
+import com.uca.util.PropertiesReader;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -85,6 +86,8 @@ public class TeacherGUI extends _BasicGUI
             throw new NoSuchElementException(InfoMsg.PAS_D_ENSEIGNANTS_CONTACTEZ_ADMIN.name());
         }
         input.put("teachers", teachers);
+        input.put("admin1", new PropertiesReader().getProperty("admin1"));
+        input.put("admin2", new PropertiesReader().getProperty("admin2"));
         return render(template, input, new StringWriter());
     }
 
@@ -100,6 +103,23 @@ public class TeacherGUI extends _BasicGUI
             throw new NoSuchElementException(InfoMsg.RESSOURCE_N_EXISTE_PAS.name());
         }
         input.put("teacher", teacher);
+        input.put("admin1", new PropertiesReader().getProperty("admin1"));
+        input.put("admin2", new PropertiesReader().getProperty("admin2"));
         return render(template, input, new StringWriter());
+    }
+
+    public static String deleteById(long id) throws TemplateException, IOException
+    {
+        requireValidId(id);
+        if (TeacherCore.isAdmin(id))
+        {
+            infoMsg = InfoMsg.IMPOSSIBLE_DE_SUPPRIMER_ADMIN;
+        }
+        else
+        {
+            TeacherCore.deleteById(id);
+            infoMsg = InfoMsg.SUPPRESSION_SUCCES;
+        }
+        return readAll();
     }
 }
